@@ -7,7 +7,7 @@
     }
 </style>
 
-<div class="container">
+<div class="content-wrapper">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">單位名</a>

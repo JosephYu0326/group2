@@ -1,7 +1,7 @@
 <?php
-require __DIR__ .'/parts/connect_db.php';
+require __DIR__ . '/parts/connect_db.php';
 
-header('Content-Type: application/json');
+header('Content-Type: application/json'); //用json 傳遞參數資料
 
 
 $output = [
@@ -20,4 +20,27 @@ if(empty($_POST['museum_name'])){
 
 $output['postData'] = $_POST;
 
-$sql;
+$sql = "INSERT INTO `museum_museum`(`Museum_name`,`Museum_location_id`,`Museum_kind_id`,`Museum_features`,`Museum_introduce`,`Museum_booking_notice`,`Museum_more_information`) Values (?, ?, ?, ?, ?, ?, ?)";
+
+$stmt = $pdo->prepare($sql);
+
+$stmt->execute([
+    $_POST['museum_name'] ?? '',
+    $_POST['museum_location_id'] ?? '',
+    $_POST['Museum_kind_id'] ?? '',
+    $_POST['Museum_features'] ?? '',
+    $_POST['Museum_introduce'] ?? '',
+    $_POST['Museum_booking_notice'] ?? '',
+    $_POST['Museum_more_information'] ?? '',
+]);
+
+$output['insertId'] = $pdo->lastInsertId(); 
+$output['rowCount'] = $stmt->rowCount(); 
+if($stmt->rowCount()){
+    $output['error'] = '';
+    $output['success'] = true;
+}else{
+    $output['error'] = '資料沒有新增成功';
+}
+
+echo json_encode($output, JSON_UNESCAPED_UNICODE);
