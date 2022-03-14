@@ -94,23 +94,21 @@ $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
                         </div>
 
                         <div class="mb-3">
-                            <label for="address" class="form-label">商品庫存量</label>
+                            <label for="quantity" class="form-label">商品庫存量</label>
                             <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
                             
                             <div class="form-text"></div>
                         </div>
 
                         <div class="mb-3">
-                            <label for="address" class="form-label">商品類別</label>
-                            <textarea name="address" id="address" cols="30" rows="3" class="form-control"></textarea>
-
+                            <label for="tag" class="form-label">商品類別</label>
+                            <input type="text" class="form-control" id="tag" name="tag" required>
                             <div class="form-text"></div>
                         </div>
 
                         <div class="mb-3">
-                            <label for="address" class="form-label">商品院別</label>
-                            <textarea name="address" id="address" cols="30" rows="3" class="form-control"></textarea>
-
+                            <label for="location" class="form-label">商品院別</label>
+                            <input type="text" class="form-control" id="location" name="location" required>
                             <div class="form-text"></div>
                         </div>
 
