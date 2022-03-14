@@ -2,6 +2,7 @@
 require __DIR__ . '/parts/connect_db.php';
 $title = '新增商品';
 $pageName = 'products_add';
+
 /*
 $perPage = 5; // 每一頁有幾筆
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1; //用戶要看的頁碼
@@ -9,8 +10,10 @@ if ($page < 1) {
     header('Location: ab_list.php?page=1');
     exit;
 }
+*/
 
-$t_sql = "SELECT COUNT(1) FROM address_book";
+/*
+$t_sql = "SELECT * FROM products_sale";
 
 // 取得總筆數
 $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
@@ -25,10 +28,13 @@ if ($totalRows) {
         exit;
     }
 }
+*/
 
-$sql = sprintf("SELECT * FROM address_book ORDER BY sid DESC LIMIT %s, %s", ($page - 1) * $perPage, $perPage);
+/*
+$sql = sprintf("SELECT * FROM products_sale ORDER BY sid DESC LIMIT %s, %s", ($page - 1) * $perPage, $perPage);
 $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
 */
+
 ?>
 
 <?php include __DIR__ . '/parts/html_head.php'; ?>
@@ -49,66 +55,66 @@ $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
                     <form name="form_1" method="post" novalidate onsubmit="checkForm(); return false;">
 
                         <div class="mb-3">
-                            <label for="name" class="form-label">品名</label>
-                            <input type="text" class="form-control" id="name" name="name" required>
+                            <label for="product_name" class="form-label">商品名稱</label>
+                            <input type="text" class="form-control" id="product_name" name="product_name" required>
                             <div class="form-text"></div>
                         </div>
 
                         <div class="mb-3">
-                            <label for="intro" class="form-label">簡介</label>
-                            <input type="text" class="form-control" id="intro" name="intro">
+                            <label for="product_intro" class="form-label">商品簡介</label>
+                            <input type="text" class="form-control" id="product_intro" name="product_intro">
                             <div class="form-text"></div>
                         </div>
 
                         <div class="mb-3">
-                            <label for="main" class="form-label">商品介紹</label>
-                            <textarea class="form-control" id="main" name="main"></textarea>
+                            <label for="product_main" class="form-label">商品完整介紹</label>
+                            <textarea class="form-control" id="product_main" name="product_main"></textarea>
                             <div class="form-text"></div>
                         </div>
 
                         <div class="mb-3">
-                            <label for="more_info" class="form-label">商品相關介紹</label>
-                            <textarea class="form-control" id="more_info" name="more_info"></textarea>
+                            <label for="product_more_info" class="form-label">商品相關故事</label>
+                            <textarea class="form-control" id="product_more_info" name="product_more_info"></textarea>
                             <div class="form-text"></div>
                         </div>
 
                         <div class="mb-3">
-                            <label for="size" class="form-label">商品規格</label>
-                            <textarea name="size" id="size" cols="30" rows="3" class="form-control"></textarea>
+                            <label for="porduct_size" class="form-label">商品規格</label>
+                            <textarea name="product_size" id="product_size" cols="30" rows="3" class="form-control"></textarea>
 
                             <div class="form-text"></div>
                         </div>
 
-                        <label for="orign_price" class="form-label">商品原價</label>
+                        <label for="product_orign_price" class="form-label">建議售價</label>
                         <div class="input-group mb-3">
                             <span class="input-group-text">$</span>
-                            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" id="orign_price" name="orign_price">
+                            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" id="product_orign_price" name="product_orign_price">
                             <span class="input-group-text">.00</span>
                         </div>
 
-                        <label for="price" class="form-label">商品售價</label>
+                        <label for="porduct_price" class="form-label">優惠售價</label>
                         <div class="input-group mb-3">
                             <span class="input-group-text">$</span>
-                            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" id="price" name="price">
+                            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" id="product_price" name="product_price">
                             <span class="input-group-text">.00</span>
                         </div>
 
                         <div class="mb-3">
-                            <label for="quantity" class="form-label">商品庫存量</label>
-                            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                            <label for="product_store_quantity" class="form-label">商品庫存量</label>
+                            <input type="text" class="form-control" aria-label="Amount" id="product_store_quantity" name="product_store_quantity">
                             
                             <div class="form-text"></div>
                         </div>
 
                         <div class="mb-3">
-                            <label for="tag" class="form-label">商品類別</label>
-                            <input type="text" class="form-control" id="tag" name="tag" required>
+                            <label for="product_category" class="form-label">商品類別</label>
+                            <input type="text" class="form-control" id="product_category" name="product_category" required>
                             <div class="form-text"></div>
                         </div>
 
                         <div class="mb-3">
-                            <label for="location" class="form-label">商品院別</label>
-                            <input type="text" class="form-control" id="location" name="location" required>
+                            <label for="product_location" class="form-label">商品地點</label>
+                            <input type="text" class="form-control" id="product_location" name="product_location" required>
                             <div class="form-text"></div>
                         </div>
 
@@ -122,16 +128,16 @@ $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
 </div>
 <?php include __DIR__ . '/parts/scripts.php'; ?>
 <script>
-    const mobile = document.form_1.mobile; // DOM element
+    /*const mobile = document.form_1.mobile; // DOM element
     const mobile_msg = mobile.closest('.mb-3').querySelector('.form-text');
 
     const name = document.form_1.name;
-    const name_msg = name.closest('.mb-3').querySelector('.form-text');
+    const name_msg = name.closest('.mb-3').querySelector('.form-text');*/
 
     function checkForm() {
         let isPass = true; // 有沒有通過檢查
 
-        name_msg.innerText = ''; // 清空訊息
+        /*name_msg.innerText = ''; // 清空訊息
         mobile_msg.innerText = ''; // 清空訊息
 
         // TODO: 表單資料送出之前, 要做格式檢查
@@ -150,11 +156,12 @@ $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
                 isPass = false;
             }
         }
+        */
 
         if (isPass) {
             const fd = new FormData(document.form_1);
 
-            fetch('ab_add_api.php', {
+            fetch('products_add_api.php', {
                     method: 'POST',
                     body: fd
                 }).then(r => r.json())

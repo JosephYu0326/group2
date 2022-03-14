@@ -3,7 +3,7 @@ require __DIR__ . '/parts/connect_db.php';
 
 $sid = isset($_GET['sid']) ? intval($_GET['sid']) : 0;
 
-$sql = "DELETE FROM `address_book` WHERE sid=$sid";
+$sql = "DELETE FROM `products_sale` WHERE product_id=$sid";
 
 $stmt = $pdo->query($sql);
 
@@ -13,5 +13,5 @@ if (!empty($_SERVER['HTTP_REFERER'])) {
     // 從哪裡來回哪裡去
     header('Location: ' . $_SERVER['HTTP_REFERER']);
 } else {
-    header('Location:ab_list.php');
+    header('Location:products_list.php');
 }
