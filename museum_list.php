@@ -85,7 +85,7 @@ if ($totalRows) {
                                 <?php foreach ($rows as $r) : ?>
                                     <tr>
                                         <td>
-                                            <a href="#">
+                                            <a href="javascript: del_it(<?= $r['Museum_id']?>)">
                                                 <i class="fas fa-trash-alt"></i>
                                             </a>
                                         </td>
@@ -166,6 +166,11 @@ if ($totalRows) {
                                                 </div>
                                             </div>
                                         </td>
+                                        <td>
+                                            <a href="edit_museum.php?Museum_id=<?= $r['Museum_id'] ?>">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                        </td>
 
                                     </tr>
                                 <?php endforeach ?>
@@ -179,5 +184,11 @@ if ($totalRows) {
 </div>
 
 <?php include __DIR__ . '/parts/scripts.php'; ?>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Readmore.js/2.0.2/readmore.min.js" integrity="sha512-llWtDR3k09pa9nOBfutQnrS2kIEG7M6Zm7RIjVVLNab1wRs8NUmA0OjAE38jKzKeCg+A3rdq8AVW41ZTsfhu5Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    function del_it(Museum_id){
+        if(confirm(`確定要刪除編號為${Museum_id}的資料嗎?`)){
+            location.href = 'museum_delete.php?Museum_id=' + Museum_id;
+        }
+    }
+</script>
 <?php include __DIR__ . '/parts/html-foot.php'; ?>

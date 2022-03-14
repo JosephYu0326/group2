@@ -20,7 +20,7 @@
                             <a class="nav-link <?= $pageName=='home' ? 'active' : '' ?>" aria-current="page" href="home_.php">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link <?= $pageName=='ab-list' ? 'active' : '' ?>" href="ab-list.php">列表</a>
+                            <a class="nav-link <?= $pageName=='museum' ? 'active' : '' ?>" href="museum_list.php">列表</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link <?= $pageName=='Add Museum' ? 'active' : '' ?>" href="add_museum.php">Add Museum</a>

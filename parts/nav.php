@@ -1,4 +1,4 @@
-<aside class="main-sidebar sidebar-dark-primary">
+<aside class="main-sidebar sidebar-dark-primary position-fixed">
 
     <a href="#" class="brand-link ">
         後台主頁
