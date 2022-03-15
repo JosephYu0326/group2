@@ -39,6 +39,7 @@ $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
 
 <?php include __DIR__ . '/parts/html_head.php'; ?>
 <?php include __DIR__ . '/parts/navbar.php'; ?>
+<?php include __DIR__ . '/parts/aside.php'; ?>
 
 <style>
     form .mb-3 .form-text {
@@ -46,7 +47,7 @@ $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
     }
 </style>
 
-<div class="container">
+<div class="content-wrapper">
     <div class="row">
         <div class="col-lg-6">
             <div class="card">
