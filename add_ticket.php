@@ -2,6 +2,16 @@
 $title = 'Add Ticket';
 $pageName = 'Add Ticket';
 require_once 'parts/connect_db.php';
+
+$sql = "select Museum_id,Museum_name from museum_museum";
+
+try{
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+    $results = $stmt->fetchAll();
+} catch(Exception $ex){
+    echo ($ex->getMessage());
+}
 ?>
 
 
@@ -23,7 +33,13 @@ require_once 'parts/connect_db.php';
                                 <div class="col-lg-6 mt-3 ">
                                     <div class="form-group">
                                         <label for="museum_name" class="form-label">館名</label>
-                                        <input type="text" class="form-control" id="museum_name" name="Museum_id[]" required>
+                                        <select name="Museum_id[]" id="Museum_id" class="form-select">
+                                        <option selected>-- select Museum --</option>
+                                        <?php foreach ($results as $output){ ?>
+                                        <option value="<?= $output["Museum_id"] ?>"><?= $output["Museum_name"] ?>
+                                        </option>
+                                        <?php } ?>
+                                        </select>
                                         <div class="form-text"></div>
                                     </div>
                                 </div>
@@ -72,7 +88,13 @@ require_once 'parts/connect_db.php';
                                 <div class="col-lg-6 mt-3 ">\
                                     <div class="form-group">\
                                         <label for="museum_name" class="form-label">館名</label>\
-                                        <input type="text" class="form-control" id="museum_name" name="Museum_id[]" required>\
+                                        <select name="Museum_id[]" id="Museum_id" class="form-select">\
+                                        <option selected>-- select Museum --</option>\
+                                        <?php foreach ($results as $output){ ?>\
+                                        <option value="<?= $output["Museum_id"] ?>"><?= $output["Museum_name"] ?>\
+                                        </option>\
+                                        <?php } ?>\
+                                        </select>\
                                         <div class="form-text"></div>\
                                     </div>\
                                 </div>\
