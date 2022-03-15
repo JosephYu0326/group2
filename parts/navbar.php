@@ -25,6 +25,9 @@
                         <li class="nav-item">
                             <a class="nav-link <?= $pageName=='Add Museum' ? 'active' : '' ?>" href="add_museum.php">Add Museum</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link <?= $pageName=='Add Ticket' ? 'active' : '' ?>" href="add_ticket.php">Add Ticket</a>
+                        </li>
                     </ul>
  
                 </div>
