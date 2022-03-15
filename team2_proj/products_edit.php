@@ -28,7 +28,7 @@ if (empty($row)) {
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">修改產品資訊</h5>
-                    <form name="form_1" method="post" novalidate onsubmit="checkForm(); return false;">
+                    <form name="form_products" method="post" novalidate onsubmit="checkForm(); return false;">
                         <input type="hidden" name="product_id" value="<?= $row['product_id'] ?>">
                         <div class="mb-3">
                             <label for="product_name" class="form-label">商品名稱</label>
@@ -128,7 +128,7 @@ if (empty($row)) {
         */
 
         if (isPass) {
-            const fd = new FormData(document.form_1);
+            const fd = new FormData(document.form_products);
 
             fetch('products_edit_api.php', {
                     method: 'POST',

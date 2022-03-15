@@ -54,7 +54,7 @@ $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">新增商品</h5><br>
-                    <form name="form_1" method="post" novalidate onsubmit="checkForm(); return false;">
+                    <form name="form_products" method="post" novalidate onsubmit="checkForm(); return false;">
 
                         <div class="mb-3">
                             <label for="product_name" class="form-label">商品名稱</label>
@@ -161,7 +161,7 @@ $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
         */
 
         if (isPass) {
-            const fd = new FormData(document.form_1);
+            const fd = new FormData(document.products);
 
             fetch('products_add_api.php', {
                     method: 'POST',
