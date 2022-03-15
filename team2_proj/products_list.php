@@ -37,8 +37,9 @@ $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
 
 <?php include __DIR__ . '/parts/html_head.php'; ?>
 <?php include __DIR__ . '/parts/navbar.php'; ?>
+<?php include __DIR__ . '/parts/aside.php'; ?>
 
-<div class="container">
+<div class="content-wrapper">
     <div class="row">
         <div class="col">
             <nav aria-label="Page navigation example">
