@@ -53,7 +53,7 @@ $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
         <div class="col-lg-6">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">新增商品</h5>
+                    <h5 class="card-title">新增商品</h5><br>
                     <form name="form_1" method="post" novalidate onsubmit="checkForm(); return false;">
 
                         <div class="mb-3">
