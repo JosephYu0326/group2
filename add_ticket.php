@@ -23,21 +23,21 @@ require_once 'parts/connect_db.php';
                                 <div class="col-lg-6 mt-3 ">
                                     <div class="form-group">
                                         <label for="museum_name" class="form-label">館名</label>
-                                        <input type="text" class="form-control" id="museum_name" name="Museum_id" required>
+                                        <input type="text" class="form-control" id="museum_name" name="Museum_id[]" required>
                                         <div class="form-text"></div>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 mt-3">
                                     <div class="form-group">
                                         <label for="Museum_price_kind" class="form-label">票種</label>
-                                        <input type="text" class="form-control" id="Museum_price_kind" name="Museum_price_kind" required>
+                                        <input type="text" class="form-control" id="Museum_price_kind" name="Museum_price_kind[]" required>
                                         <div class="form-text"></div>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 mt-3">
                                     <div class="form-group">
                                         <label for="Museum_ticket_price" class="form-label">票價</label>
-                                        <input type="text" class="form-control" id="Museum_ticket_price" name="Museum_ticket_price" required>
+                                        <input type="text" class="form-control" id="Museum_ticket_price" name="Museum_ticket_price[]" required>
                                         <div class="form-text"></div>
                                     </div>
                                 </div>
@@ -72,21 +72,21 @@ require_once 'parts/connect_db.php';
                                 <div class="col-lg-6 mt-3 ">\
                                     <div class="form-group">\
                                         <label for="museum_name" class="form-label">館名</label>\
-                                        <input type="text" class="form-control" id="museum_name" name="Museum_id" required>\
+                                        <input type="text" class="form-control" id="museum_name" name="Museum_id[]" required>\
                                         <div class="form-text"></div>\
                                     </div>\
                                 </div>\
                                 <div class="col-lg-6 mt-3">\
                                     <div class="form-group">\
                                         <label for="Museum_price_kind" class="form-label">票種</label>\
-                                        <input type="text" class="form-control" id="Museum_price_kind" name="Museum_price_kind" required>\
+                                        <input type="text" class="form-control" id="Museum_price_kind" name="Museum_price_kind[]" required>\
                                         <div class="form-text"></div>\
                                     </div>\
                                 </div>\
                                 <div class="col-lg-6 mt-3">\
                                     <div class="form-group">\
                                         <label for="Museum_ticket_price" class="form-label">票價</label>\
-                                        <input type="text" class="form-control" id="Museum_ticket_price" name="Museum_ticket_price" required>\
+                                        <input type="text" class="form-control" id="Museum_ticket_price" name="Museum_ticket_price[]" required>\
                                         <div class="form-text"></div>\
                                     </div>\
                                 </div>\
@@ -106,10 +106,10 @@ require_once 'parts/connect_db.php';
 
     function checkForm(){
         let isPass = true;
-        if( museum_name.value.length<2){
-            isPass = false;
-            name_msg.innerText= '請填寫正確的姓名'
-        }
+        // if( museum_name.value.length<2){
+        //     isPass = false;
+        //     name_msg.innerText= '請填寫正確的姓名'
+        // }
         // if(Museum_features.value.length>50){
         //     isPass = false;
         //     features_msg.innerText='字數不得超過50字'

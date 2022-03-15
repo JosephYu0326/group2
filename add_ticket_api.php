@@ -18,29 +18,37 @@ if(empty($_POST['Museum_id'])){
     exit;
 }
 
-$output['postData'] = $_POST;
-$data = [
-    ':id' => $_POST['Museum_id'],
-    ':kind'=>$_POST['Museum_price_kind'],
-    ':price' =>$_POST['Museum_ticket_price']
-];
-
-$sql = "INSERT INTO `museum_price`(`Museum_id`,`Museum_price_kind`,`Museum_ticket_price`) Values (:id, :kind, :price)";
-
-$stmt = $pdo->prepare($sql);
-
-foreach($data as $row){
-    $stmt->execute(array($data));
+for($i=0; $i<count($_POST['Museum_id']);$i++){
+    
+    $output['postData'] =  [
+        [$_POST['Museum_id'][$i],$_POST['Museum_price_kind'][$i],$_POST['Museum_ticket_price'][$i]]
+    ];
+        
+    $sql = "INSERT INTO `museum_price`(`Museum_id`,`Museum_price_kind`,`Museum_ticket_price`) Values (?, ?, ?)";
+    $stmt = $pdo->prepare($sql);
+    // try{
+        // $pdo->beginTransaction();
+        foreach($output['postData'] as $row)
+        {
+            $stmt->execute($row);
+        }
+        // $pdo->commit();
+    // }catch(Exception $e){
+    //     $pdo->rollBack();
+    //     throw $e;
+    // }
+    $output['insertId'] = $pdo->lastInsertId(); 
+    $output['rowCount'] = $stmt->rowCount(); 
+    
+    if($stmt->rowCount()){
+        $output['error'] = '';
+        $output['success'] = true;
+    }else{
+        $output['error'] = '資料沒有新增成功';
+    }
 }
-
-
-$output['insertId'] = $pdo->lastInsertId(); 
-$output['rowCount'] = $stmt->rowCount(); 
-if($stmt->rowCount()){
-    $output['error'] = '';
-    $output['success'] = true;
-}else{
-    $output['error'] = '資料沒有新增成功';
-}
-
 echo json_encode($output, JSON_UNESCAPED_UNICODE);
+
+
+
+
