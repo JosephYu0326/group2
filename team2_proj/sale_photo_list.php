@@ -1,17 +1,17 @@
 <?php
 require __DIR__ . '/parts/connect_db.php';
-$title = '商品清單';
-$pageName = 'products_list';
+$title = '商品照庫';
+$pageName = 'sale_photo_list';
 
 $perPage = 5; // 每一頁有幾筆
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1; //用戶要看的頁碼
 if ($page < 1) {
-    header('Location: products_list.php?page=1');
+    header('Location: sale_photo_list.php?page=1');
     exit;
 }
 
 
-$t_sql = "SELECT * FROM products_sale";
+$t_sql = "SELECT * FROM products_sale_photo";
 
 // 取得總筆數
 $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
@@ -23,13 +23,13 @@ if ($totalRows) {
     // 總頁數
     $totalPages = ceil($totalRows / $perPage);
     if ($page > $totalPages) {
-        header("Location: products_list.php?page=$totalPages");
+        header("Location: sale_photo_list.php?page=$totalPages");
         exit;
     }
 }
 
 
-$sql = sprintf("SELECT * FROM products_sale ORDER BY product_id DESC LIMIT %s, %s", ($page - 1) * $perPage, $perPage);
+$sql = sprintf("SELECT * FROM products_sale_photo ORDER BY sale_photo_id DESC LIMIT %s, %s", ($page - 1) * $perPage, $perPage);
 $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
 
 
@@ -79,19 +79,11 @@ $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
                             <i class="fas fa-trash-alt"></i>
                         </th>
                         <th scope="col">#</th>
-                        <th scope="col">商品名稱</th>
-                        <th scope="col">商品簡介</th>
-                        <th scope="col">商品完整介紹</th>
-                        <th scope="col">商品相關故事</th>
-                        <th scope="col">商品規格</th>
-                        <th scope="col">建議售價</th>
-                        <th scope="col">優惠售價</th>
-                        <th scope="col">庫存量</th>
-                        <th scope="col">商品類別</th>
-                        <th scope="col">商品地點</th>
-                        <th scope="col">
+                        <th scope="col">商品照名稱</th>
+                        <th scope="col">商品照位址</th>
+                        <!-- <th>
                             <i class="fas fa-pen-nib"></i>
-                        </th>
+                        </th> -->
                     </tr>
                 </thead>
                 <tbody>
@@ -103,28 +95,18 @@ $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
                                     <i class="fas fa-trash-alt"></i>
                                 </a>
                                */ ?>
-                                <a href="javascript: del_it(<?= $r['product_id'] ?>)">
+                                <a href="javascript: del_it(<?= $r['sale_photo_id'] ?>)">
                                     <i class="fas fa-trash-alt"></i>
                                 </a>
                             </td>
-                            <td><?= $r['product_id'] ?></td>
-                            <td><?= $r['product_name'] ?></td>
-                            <td><?= $r['product_intro'] ?></td>
-                            <td><?= $r['product_main'] ?></td>
-                            <td><?= $r['product_more_info'] ?></td>
-                            <td><?= $r['product_size'] ?></td>
-                            <td><?= $r['product_orign_price'] ?></td>
-                            <td><?= $r['product_price'] ?></td>
-                            <td><?= $r['product_store_quantity'] ?></td>
-                            <td><?= $r['product_category'] ?></td>
-                            <td><?= $r['product_location'] ?></td>
-                            <!-- <td><?= htmlentities($r['address']) ?></td>
-                             <td><?= strip_tags($r['address']) ?></td> -->
-                            <td>
+                            <td><?= $r['sale_photo_id'] ?></td>
+                            <td><?= $r['sale_photo_name'] ?></td>
+                            <td><?= $r['sale_photo_url'] ?></td>
+                            <!-- <td>
                                 <a href="products_edit.php?sid=<?= $r['product_id'] ?>">
                                     <i class="fas fa-pen-nib"></i>
                                 </a>
-                            </td>
+                            </td> -->
                         </tr>
                     <?php endforeach  ?>
                 </tbody>

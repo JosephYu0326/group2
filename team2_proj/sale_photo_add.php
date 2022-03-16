@@ -52,21 +52,26 @@ $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
         <div class="col-lg-6">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">新增商品圖片</h5><br>
-                    <form name="form_sale_photo" method="post" novalidate onsubmit="checkForm(); return false;">
+                    <h5 class="card-title">新增商品圖片</h5><br><br>
+                    <form name="sale_photo_add_form" method="post" novalidate onsubmit="checkForm(); return false;">
 
                         <div class="mb-3">
                             <label for="sale_photo_name" class="form-label">圖片名稱</label>
                             <input type="text" class="form-control" id="sale_photo_name" name="sale_photo_name">
                             <br>
-                            <input type="text" class="form-control" id="product_intro" name="product_intro">
+                            <label for="sale_photo_url" class="form-label">圖片路徑</label>
+                            <input type="text" class="form-control" id="sale_photo_url" name="sale_photo_url">
                             <br>
-                            <img src="" alt="" id="sale_photo_url" width="200px">
+                            <img src="" alt="" id="sale_photo_previewimg" width="200px">
                             <button type="button" onclick="sale_photo.click()">上傳商品圖片</button>
                             <div class="form-text"></div>
                         </div>
                         <br>
                         <button type="submit" class="btn btn-primary">新增</button>
+                    </form>
+
+                    <form name="sale_photo_form" onsubmit="return false;" style="display: none">
+                        <input type="file" id="sale_photo" name="sale_photo" accept="image/jpeg,image/png">
                     </form>
 
                 </div>
@@ -76,11 +81,22 @@ $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
 </div>
 <?php include __DIR__ . '/parts/scripts.php'; ?>
 <script>
-    /*const mobile = document.form_1.mobile; // DOM element
-    const mobile_msg = mobile.closest('.mb-3').querySelector('.form-text');
+    function sendData() {
+            const fd = new FormData(document.sale_photo_form);
 
-    const name = document.form_1.name;
-    const name_msg = name.closest('.mb-3').querySelector('.form-text');*/
+            fetch('sale_photo_upload.php', {
+                method: 'POST',
+                body: fd
+            }).then(r => r.json())
+                .then(obj => {
+                    console.log(obj);
+                    if (obj.success && obj.filename) {
+                        sale_photo_previewimg.src = 'images/' + obj.filename;
+                        sale_photo_url.value = obj.filename;
+                    }
+                });
+        }
+        sale_photo.onchange = sendData;
 
     function checkForm() {
         let isPass = true; // 有沒有通過檢查
@@ -107,7 +123,7 @@ $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
         */
 
         if (isPass) {
-            const fd = new FormData(document.form_sale_photo);
+            const fd = new FormData(document.sale_photo_add_form);
 
             fetch('sale_photo_add_api.php', {
                     method: 'POST',
@@ -124,5 +140,6 @@ $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
                 })
         }
     }
+
 </script>
 <?php include __DIR__ . '/parts/html_foot.php'; ?>
