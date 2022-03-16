@@ -21,7 +21,7 @@
                         <a class="nav-link <?= $pageName == 'products_list' ? 'active' : '' ?>" href="products_list.php">商品庫列表</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link <?= $pageName == 'sale_photo_list' ? 'active' : '' ?>" href="">商品照片表</a>
+                        <a class="nav-link <?= $pageName == 'sale_photo_list' ? 'active' : '' ?>" href="sale_photo_list.php">商品照庫</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link <?= $pageName == 'products_add' ? 'active' : '' ?>" href="products_add.php">新增商品資料</a>

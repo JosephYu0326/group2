@@ -15,6 +15,8 @@ if (empty($row)) {
 
 <?php include __DIR__ . '/parts/html_head.php'; ?>
 <?php include __DIR__ . '/parts/navbar.php'; ?>
+<?php include __DIR__ . '/parts/aside.php'; ?>
+
 
 <style>
     form .mb-3 .form-text {
@@ -22,7 +24,7 @@ if (empty($row)) {
     }
 </style>
 
-<div class="container">
+<div class="content-wrapper">
     <div class="row">
         <div class="col-lg-6">
             <div class="card">
@@ -37,7 +39,7 @@ if (empty($row)) {
                         </div>
                         <div class="mb-3">
                             <label for="product_intro" class="form-label">商品簡介</label>
-                            <input type="text" class="form-control" id="product_intro" name="product_intro" value="<?= htmlentities($row['product_intro']) ?>">
+                            <input type="text" class="form-control" id="product_intro" name="product_intro" required value="<?= htmlentities($row['product_intro']) ?>">
                             <div class="form-text"></div>
                         </div>
                         <div class="mb-3">

@@ -59,10 +59,10 @@ $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
                             <label for="sale_photo_name" class="form-label">圖片名稱</label>
                             <input type="text" class="form-control" id="sale_photo_name" name="sale_photo_name">
                             <br>
-                            <label for="sale_photo_url" class="form-label">圖片路徑</label>
+                            <label for="sale_photo_url" class="form-label">圖片檔名</label>
                             <input type="text" class="form-control" id="sale_photo_url" name="sale_photo_url">
                             <br>
-                            <img src="" alt="" id="sale_photo_previewimg" width="200px">
+                            <img src="" alt="" id="sale_photo_preview" width="200px">
                             <button type="button" onclick="sale_photo.click()">上傳商品圖片</button>
                             <div class="form-text"></div>
                         </div>
@@ -91,7 +91,7 @@ $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
                 .then(obj => {
                     console.log(obj);
                     if (obj.success && obj.filename) {
-                        sale_photo_previewimg.src = 'images/' + obj.filename;
+                        sale_photo_preview.src = 'images/' + obj.filename;
                         sale_photo_url.value = obj.filename;
                     }
                 });
@@ -133,7 +133,7 @@ $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
                     console.log(obj);
                     if (obj.success) {
                         alert('新增成功');
-                        // location.href = 'ab_list.php';
+                        location.href = 'sale_photo_list.php';
                     } else {
                         alert('新增失敗');
                     }

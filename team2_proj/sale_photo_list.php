@@ -39,7 +39,13 @@ $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
 <?php include __DIR__ . '/parts/navbar.php'; ?>
 <?php include __DIR__ . '/parts/aside.php'; ?>
 
-<div class="content-wrapper">
+<style>
+    .myimg {
+        width: 35%;
+    }
+</style>
+
+<div class="content-wrapper col-9">
     <div class="row">
         <div class="col">
             <nav aria-label="Page navigation example">
@@ -80,10 +86,10 @@ $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
                         </th>
                         <th scope="col">#</th>
                         <th scope="col">商品照名稱</th>
-                        <th scope="col">商品照位址</th>
-                        <!-- <th>
+                        <th scope="col">商品照預覽</th>
+                        <th>
                             <i class="fas fa-pen-nib"></i>
-                        </th> -->
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -101,12 +107,12 @@ $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
                             </td>
                             <td><?= $r['sale_photo_id'] ?></td>
                             <td><?= $r['sale_photo_name'] ?></td>
-                            <td><?= $r['sale_photo_url'] ?></td>
-                            <!-- <td>
-                                <a href="products_edit.php?sid=<?= $r['product_id'] ?>">
+                            <td><img class="myimg" src="images/<?= $r['sale_photo_url'] ?>" class=""></td>
+                            <td>
+                                <a href="sale_photo_edit.php?sid=<?= $r['sale_photo_id'] ?>">
                                     <i class="fas fa-pen-nib"></i>
                                 </a>
-                            </td> -->
+                            </td>
                         </tr>
                     <?php endforeach  ?>
                 </tbody>
