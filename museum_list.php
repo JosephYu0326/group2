@@ -74,6 +74,7 @@ if ($totalRows) {
                                     <th scope="col">類別</th>
                                     <th scope="col">特色</th>
                                     <th scope="col">介紹</th>
+                                    <th scope="col">票價查詢</th>
                                     <th scope="col">購票須知</th>
                                     <th scope="col">更多資訊</th>
                                     <th scope="col">
@@ -129,6 +130,9 @@ if ($totalRows) {
                                                     </div>
                                                 </div>
                                             </div>
+                                        </td>
+                                        <td>
+                                            <button type="button" class=" btn btn-dark" onclick="location.href='museum_ticket_list.php?Museum_id=<?= $r['Museum_id'] ?>'">查詢<?= $r['Museum_name'] ?>票價</button>
                                         </td>
                                         <td><button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#myModal-<?= $r['Museum_booking_notice'] ?>"><?= $r['Museum_name'] ?>購票須知</button>
                                             <div class="modal fade" id="myModal-<?= $r['Museum_booking_notice'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

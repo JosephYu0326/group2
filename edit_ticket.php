@@ -1,12 +1,14 @@
 <?php
-$title = 'Add Ticket';
-$pageName = 'Add Ticket';
+$title = 'Edit Ticket';
+$pageName = 'Edit Ticket';
 require_once 'parts/connect_db.php';
 $sid = isset($_GET['Museum_id']) ? intval($_GET['Museum_id']) : 0;
+$ticket_id = isset($_GET['Museum_ticket_id']) ? intval($_GET['Museum_ticket_id']) : 0;
 
 
 $sql = "select Museum_id,Museum_name from museum_museum";
 $sql1 = "SELECT Museum_id,Museum_name from museum_museum where Museum_id=$sid";
+$sql2 = "SELECT * from museum_price where Museum_ticket_id=$ticket_id";
 
 try{
     $stmt = $pdo->prepare($sql);
@@ -16,6 +18,7 @@ try{
     echo ($ex->getMessage());
 }
 $row = $pdo->query($sql1)->fetchAll();
+$row1= $pdo->query($sql2)->fetch();
 ?>
 
 
@@ -29,7 +32,7 @@ $row = $pdo->query($sql1)->fetchAll();
             <div class="col-xs-12">
                 <div class="box">
                     <div class="box-header">
-                        <h3 class="box-title mt-3">新增票券<a href="javascript:void(0)" class="float-end btn btn-dark me-3 add-more-form">增加票種</a></h3>
+                        <h3 class="box-title mt-3">修改票券</h3>
                     </div>
                     <div class="box-body">
                         <form name="form1" method="post" novalidate onsubmit="checkForm(); return false;">
@@ -37,7 +40,7 @@ $row = $pdo->query($sql1)->fetchAll();
                                 <div class="col-lg-6 mt-3 ">
                                     <div class="form-group">
                                         <label for="museum_name" class="form-label">館名</label>
-                                        <select name="Museum_id[]" id="Museum_id" class="form-select">
+                                        <select name="Museum_id" id="Museum_id" class="form-select">
                                         <?php foreach($row as $output) {?>
                                         <option selected value="<?= $output["Museum_id"] ?>"><?= $output["Museum_name"] ?></option>
                                         <?php } ?>
@@ -53,20 +56,22 @@ $row = $pdo->query($sql1)->fetchAll();
                                 <div class="col-lg-6 mt-3">
                                     <div class="form-group">
                                         <label for="Museum_price_kind" class="form-label">票種</label>
-                                        <input type="text" class="form-control" id="Museum_price_kind" name="Museum_price_kind[]" required>
+                                        <input type="text" class="form-control" id="Museum_price_kind" name="Museum_price_kind" required value="<?= htmlentities($row1['Museum_price_kind']) ?>">
                                         <div class="form-text"></div>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 mt-3">
                                     <div class="form-group">
                                         <label for="Museum_ticket_price" class="form-label">票價</label>
-                                        <input type="text" class="form-control" id="Museum_ticket_price" name="Museum_ticket_price[]" required>
+                                        <input type="text" class="form-control" id="Museum_ticket_price" name="Museum_ticket_price" required value="<?= htmlentities($row1['Museum_ticket_price']) ?>">
                                         <div class="form-text"></div>
                                     </div>
                                 </div>
+                            </div>
                                 <div class="col-lg-6 mt-3">
                                     <div class="form-group">
-                                        <button type="button" class="remove-btn btn btn-danger mb-3">移除</button>
+                                        <input type="hidden" class="form-control" id="Museum_ticket_price" name="Museum_ticket_id" required value="<?= htmlentities($row1['Museum_ticket_id']) ?>">
+                                        <div class="form-text"></div>
                                     </div>
                                 </div>
                             </div>
@@ -74,7 +79,7 @@ $row = $pdo->query($sql1)->fetchAll();
 
                             </div>
                             <div class="col-lg-6 mt-3">
-                                <button type="submit" class="btn btn-dark mb-3">新增</button>
+                                <button type="submit" class="btn btn-dark mb-3">修改</button>
 
                             </div>
                         </form>
@@ -86,54 +91,8 @@ $row = $pdo->query($sql1)->fetchAll();
 </div>
 <?php include __DIR__ . '/parts/scripts.php'; ?>
 <script>
-    $(document).ready(function() {
-        $(document).on('click', '.remove-btn', function() {
-            $(this).closest('.main-form').remove();
-        })
-        $(document).on('click', '.add-more-form', function() {
-            $('.paste-new-forms').append('<div class="main-form">\
-                                <div class="col-lg-6 mt-3 ">\
-                                    <div class="form-group">\
-                                        <label for="museum_name" class="form-label">館名</label>\
-                                        <select name="Museum_id[]" id="Museum_id" class="form-select">\
-                                        <?php foreach($row as $output) {?>\
-                                        <option selected value="<?= $output["Museum_id"] ?>"><?= $output["Museum_name"] ?></option>\
-                                        <?php } ?>\
-                                        <option >-- select Museum --</option>\
-                                        <?php foreach ($results as $output){ ?>\
-                                        <option value="<?= $output["Museum_id"] ?>"><?= $output["Museum_name"] ?>\
-                                        </option>\
-                                        <?php } ?>\
-                                        </select>\
-                                        <div class="form-text"></div>\
-                                    </div>\
-                                </div>\
-                                <div class="col-lg-6 mt-3">\
-                                    <div class="form-group">\
-                                        <label for="Museum_price_kind" class="form-label">票種</label>\
-                                        <input type="text" class="form-control" id="Museum_price_kind" name="Museum_price_kind[]" required>\
-                                        <div class="form-text"></div>\
-                                    </div>\
-                                </div>\
-                                <div class="col-lg-6 mt-3">\
-                                    <div class="form-group">\
-                                        <label for="Museum_ticket_price" class="form-label">票價</label>\
-                                        <input type="text" class="form-control" id="Museum_ticket_price" name="Museum_ticket_price[]" required>\
-                                        <div class="form-text"></div>\
-                                    </div>\
-                                </div>\
-                                <div class="col-lg-6 mt-3">\
-                                    <div class="form-group">\
-                                        <button type="button" class="remove-btn btn btn-danger mb-3">移除</button>\
-                                    </div>\
-                                </div>\
-                            </div>');
-        });
-    })
-</script>
-<script>
-    const name = document.form1.museum_name;
-    const name_msg = museum_name.closest('.mt-3').querySelector('.form-text');
+    // const name = document.form1.museum_name;
+    // const name_msg = museum_name.closest('.mt-3').querySelector('.form-text');
     // const features_msg = Museum_features.closest('.mb-3').querySelector('.form-text');
 
     function checkForm(){
@@ -155,17 +114,17 @@ $row = $pdo->query($sql1)->fetchAll();
             const fd = new FormData(document.form1);
 
             
-            fetch('add_ticket_api.php',{
+            fetch('edit_ticket_api.php',{
                 method:'POST',
                 body: fd
             }).then(r => r.json())
             .then(obj=>{
                 console.log(obj);
                 if(obj.success){
-                    alert('新增成功');
+                    alert('修改成功');
                     location.href='museum_ticket_list.php?Museum_id=<?=$sid?>';
                 }else{
-                    alert('新增失敗');
+                    alert('修改失敗');
                 }
             })
          
