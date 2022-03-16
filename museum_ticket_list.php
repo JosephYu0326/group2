@@ -55,6 +55,7 @@ $row2 = $pdo->query($sql2)->fetchAll();
                                 <?php foreach ($rows as $r) : ?>
                                     <tr>
                                         <td>
+                                        <a href="javascript: del_it(<?= $r['Museum_ticket_id']?>)">
                                             <i class="fas fa-trash-alt"></i>
                                         </td>
                                         <td>
@@ -92,6 +93,12 @@ $row2 = $pdo->query($sql2)->fetchAll();
             tableLine.rows[i].cells[1].innerHTML = (i + 1);
         }
     }
+    function del_it(Museum_ticket_id){
+        if(confirm(`確定要刪除票號為${Museum_ticket_id}的資料嗎?`)){
+            location.href = 'ticket_delete.php?Museum_ticket_id=' + Museum_ticket_id;
+        }
+    }
+
 </script>
 
 <?php include __DIR__ . '/parts/html-foot.php'; ?>
