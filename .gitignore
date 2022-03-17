@@ -2,3 +2,4 @@ parts/connect_db.php
 vendor/
 composer.json
 composer.lock
+imgs/

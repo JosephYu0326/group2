@@ -21,6 +21,7 @@ if(empty($_POST['museum_name'])){
 $output['postData'] = $_POST;
 
 $sql = "INSERT INTO `museum_museum`(`Museum_name`,`Museum_location_id`,`Museum_kind_id`,`Museum_features`,`Museum_introduce`,`Museum_booking_notice`,`Museum_more_information`) Values (?, ?, ?, ?, ?, ?, ?)";
+$sql2 = "INSERT INTO `museum_images`(`Museum_id`,`image_url`) Values(last_insert_id(),?)";
 
 $stmt = $pdo->prepare($sql);
 
@@ -32,6 +33,12 @@ $stmt->execute([
     $_POST['Museum_introduce'] ?? '',
     $_POST['Museum_booking_notice'] ?? '',
     $_POST['Museum_more_information'] ?? '',
+]);
+
+$stmt2 = $pdo->prepare($sql2);
+$stmt2->execute([
+    $_POST['pic'] ?? '',
+
 ]);
 
 $output['insertId'] = $pdo->lastInsertId(); 

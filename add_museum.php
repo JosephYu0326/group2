@@ -62,7 +62,7 @@ try {
 <?php include __DIR__ . '/parts/navbar.php'; ?>
 <?php include __DIR__ . '/parts/nav.php'; ?>
 <style>
-        form .mb-3 .form-text{
+    form .mb-3 .form-text {
         color: red;
     }
 </style>
@@ -127,7 +127,16 @@ try {
                             <textarea class="form-control" name="Museum_more_information" id="Museum_more_information" cols="30" rows="30"></textarea>
                             <div class="form-text"></div>
                         </div>
-                        <button type="submit"  class="btn btn-primary">新增</button>
+                        <div class="mb-3">
+                            <input type="hidden" id="pic" name="pic">
+                            <img src="" alt="" id="myimg" style="width: 100%;">
+                            <button type="button" onclick="avatar.click()">上傳照片</button>
+                        </div>
+                        <button type="submit" class="btn btn-primary">新增</button>
+                    </form>
+
+                    <form name="image_form" onsubmit="return false;" style="display: none;">
+                        <input type="file" id="avatar" name="avatar" accept="image/*">
                     </form>
 
                 </div>
@@ -138,47 +147,63 @@ try {
 
 <?php include __DIR__ . '/parts/scripts.php'; ?>
 <script>
-
     const name = document.form1.museum_name;
     const name_msg = museum_name.closest('.mb-3').querySelector('.form-text');
     const features_msg = Museum_features.closest('.mb-3').querySelector('.form-text');
 
-    function checkForm(){
+    function checkForm() {
         let isPass = true;
-        if(museum_name.value.length<2){
+        if (museum_name.value.length < 2) {
             isPass = false;
-            name_msg.innerText= '請填寫正確的姓名'
+            name_msg.innerText = '請填寫正確的姓名'
         }
-        if(Museum_features.value.length>50){
+        if (Museum_features.value.length > 50) {
             isPass = false;
-            features_msg.innerText='字數不得超過50字'
+            features_msg.innerText = '字數不得超過50字'
         }
 
         //TODO: 表單資料送出之前，要做格式檢查
 
 
-        if(isPass){
-            
+        if (isPass) {
+
             const fd = new FormData(document.form1);
 
-            
-            fetch('add_museum_api.php',{
-                method:'POST',
-                body: fd
-            }).then(r => r.json())
-            .then(obj=>{
-                console.log(obj);
-                if(obj.success){
-                    alert('新增成功');
-                    // location.href='ab-list.php';
-                }else{
-                    alert('新增失敗');
-                }
-            })
-         
+
+            fetch('add_museum_api.php', {
+                    method: 'POST',
+                    body: fd
+                }).then(r => r.json())
+                .then(obj => {
+                    console.log(obj);
+                    if (obj.success) {
+                        alert('新增成功');
+                        location.href='museum_list.php';
+                    } else {
+                        alert('新增失敗');
+                    }
+                })
+
         }
     }
+</script>
+<script>
+    const avatar = document.querySelector('#avatar');
+    function sendData(){
+        const fd2 = new FormData(document.image_form);
 
+        fetch('upload.php',{
+            method:'POST',
+            body: fd2
+        }).then(r=>r.json())
+        .then(obj=>{
+            if(obj.success && obj.filename){
+                myimg.src = './imgs/' + obj.filename;
+                pic.value = obj.filename;
+            }
+        })
+    }
+    avatar.onchange = sendData;
 </script>
 
 <?php include __DIR__ . '/parts/html-foot.php'; ?>
