@@ -70,22 +70,22 @@ if(empty($row)){
                         </div>
                         <div class="mb-3">
                             <label for="Museum_features" class="form-label">特色</label>
-                            <textarea class="form-control" name="Museum_features" id="Museum_features" cols="30" rows="3"><?= $row['Museum_features'] ?></textarea>
+                            <textarea class="form-control" name="Museum_features" id="Museum_features" cols="30" rows="30"><?= $row['Museum_features'] ?></textarea>
                             <div class="form-text"></div>
                         </div>
                         <div class="mb-3">
                             <label for="Museum_introduce" class="form-label">詳細介紹</label>
-                            <textarea class="form-control" name="Museum_introduce" id="Museum_introduce" cols="30" rows="3"><?= $row['Museum_introduce'] ?></textarea>
+                            <textarea class="form-control" name="Museum_introduce" id="Museum_introduce" cols="30" rows="30"><?= $row['Museum_introduce'] ?></textarea>
                             <div class="form-text"></div>
                         </div>
                         <div class="mb-3">
                             <label for="Museum_booking_notice" class="form-label">購票須知</label>
-                            <textarea class="form-control" name="Museum_booking_notice" id="Museum_booking_notice" cols="30" rows="3"><?= $row['Museum_booking_notice'] ?></textarea>
+                            <textarea class="form-control" name="Museum_booking_notice" id="Museum_booking_notice" cols="30" rows="30"><?= $row['Museum_booking_notice'] ?></textarea>
                             <div class="form-text"></div>
                         </div>
                         <div class="mb-3">
                             <label for="Museum_more_information" class="form-label">更多資訊</label>
-                            <textarea class="form-control" name="Museum_more_information" id="Museum_more_information" cols="30" rows="3"><?= $row['Museum_more_information'] ?></textarea>
+                            <textarea class="form-control" name="Museum_more_information" id="Museum_more_information" cols="30" rows="30"><?= $row['Museum_more_information'] ?></textarea>
                             <div class="form-text"></div>
                         </div>
                         <button type="submit"  class="btn btn-primary">修改</button>
