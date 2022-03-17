@@ -59,9 +59,8 @@ $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
                             <label for="sale_photo_name" class="form-label">圖片名稱</label>
                             <input type="text" class="form-control" id="sale_photo_name" name="sale_photo_name">
                             <br>
-                            <label for="sale_photo_url" class="form-label">圖片檔名</label>
-                            <input type="text" class="form-control" id="sale_photo_url" name="sale_photo_url">
-                            <br>
+                            <!-- <label for="sale_photo_url" class="form-label">圖片檔名</label> -->
+                            <input type="text" class="form-control" style="display:none" id="sale_photo_url" name="sale_photo_url">
                             <img src="" alt="" id="sale_photo_preview" width="200px">
                             <button type="button" onclick="sale_photo.click()">上傳商品圖片</button>
                             <div class="form-text"></div>
@@ -82,21 +81,21 @@ $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
 <?php include __DIR__ . '/parts/scripts.php'; ?>
 <script>
     function sendData() {
-            const fd = new FormData(document.sale_photo_form);
+        const fd = new FormData(document.sale_photo_form);
 
-            fetch('sale_photo_upload.php', {
+        fetch('sale_photo_upload.php', {
                 method: 'POST',
                 body: fd
             }).then(r => r.json())
-                .then(obj => {
-                    console.log(obj);
-                    if (obj.success && obj.filename) {
-                        sale_photo_preview.src = 'images/' + obj.filename;
-                        sale_photo_url.value = obj.filename;
-                    }
-                });
-        }
-        sale_photo.onchange = sendData;
+            .then(obj => {
+                console.log(obj);
+                if (obj.success && obj.filename) {
+                    sale_photo_preview.src = 'images/' + obj.filename;
+                    sale_photo_url.value = obj.filename;
+                }
+            });
+    }
+    sale_photo.onchange = sendData;
 
     function checkForm() {
         let isPass = true; // 有沒有通過檢查
@@ -140,6 +139,5 @@ $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
                 })
         }
     }
-
 </script>
 <?php include __DIR__ . '/parts/html_foot.php'; ?>

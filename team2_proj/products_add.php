@@ -161,7 +161,7 @@ $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
         */
 
         if (isPass) {
-            const fd = new FormData(document.products);
+            const fd = new FormData(document.form_products);
 
             fetch('products_add_api.php', {
                     method: 'POST',
