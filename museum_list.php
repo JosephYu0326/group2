@@ -95,8 +95,8 @@ if ($totalRows) {
                                         <td><?= $r['Museum_direction'] ?></td>
                                         <td><?= $r['Museum_city'] ?></td>
                                         <td><?= $r['Museum_kind'] ?></td>
-                                        <td><button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#myModal-<?= $r['Museum_features'] ?>"><?= $r['Museum_name'] ?>特色</button>
-                                            <div class="modal fade" id="myModal-<?= $r['Museum_features'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <td><button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#myModal-<?= strip_tags($r['Museum_features']) ?>"><?= $r['Museum_name'] ?>特色</button>
+                                            <div class="modal fade" id="myModal-<?= strip_tags($r['Museum_features']) ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
@@ -113,8 +113,8 @@ if ($totalRows) {
                                                 </div>
                                             </div>
                                         </td>
-                                        <td><button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#myModal-<?= $r['Museum_introduce'] ?>"><?= $r['Museum_name'] ?>介紹</button>
-                                            <div class="modal fade" id="myModal-<?= $r['Museum_introduce'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <td><button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#myModal-<?= strip_tags($r['Museum_introduce']) ?>"><?= $r['Museum_name'] ?>介紹</button>
+                                            <div class="modal fade" id="myModal-<?= strip_tags($r['Museum_introduce']) ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
@@ -134,8 +134,8 @@ if ($totalRows) {
                                         <td>
                                             <button type="button" class=" btn btn-dark" onclick="location.href='museum_ticket_list.php?Museum_id=<?= $r['Museum_id'] ?>'">查詢<?= $r['Museum_name'] ?>票價</button>
                                         </td>
-                                        <td><button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#myModal-<?= $r['Museum_booking_notice'] ?>"><?= $r['Museum_name'] ?>購票須知</button>
-                                            <div class="modal fade" id="myModal-<?= $r['Museum_booking_notice'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <td><button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#myModal-<?= strip_tags($r['Museum_booking_notice']) ?>"><?= $r['Museum_name'] ?>購票須知</button>
+                                            <div class="modal fade" id="myModal-<?=strip_tags($r['Museum_booking_notice']) ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
@@ -152,8 +152,8 @@ if ($totalRows) {
                                                 </div>
                                             </div>
                                         </td>
-                                        <td><button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#myModal-<?= $r['Museum_more_information'] ?>"><?= $r['Museum_name'] ?>更多資訊</button>
-                                            <div class="modal fade" id="myModal-<?= $r['Museum_more_information'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <td><button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#myModal-<?= strip_tags($r['Museum_more_information']) ?>"><?= $r['Museum_name'] ?>更多資訊</button>
+                                            <div class="modal fade" id="myModal-<?= strip_tags($r['Museum_more_information']) ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
