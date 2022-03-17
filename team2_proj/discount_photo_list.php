@@ -1,17 +1,17 @@
 <?php
 require __DIR__ . '/parts/connect_db.php';
-$title = '商品照庫';
-$pageName = 'sale_photo_list';
+$title = '折扣照庫';
+$pageName = 'discount_photo_list';
 
 $perPage = 5; // 每一頁有幾筆
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1; //用戶要看的頁碼
 if ($page < 1) {
-    header('Location: sale_photo_list.php?page=1');
+    header('Location: discount_photo_list.php?page=1');
     exit;
 }
 
 
-$t_sql = "SELECT * FROM products_sale_photo";
+$t_sql = "SELECT * FROM products_discount_photos";
 
 // 取得總筆數
 $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
@@ -23,13 +23,13 @@ if ($totalRows) {
     // 總頁數
     $totalPages = ceil($totalRows / $perPage);
     if ($page > $totalPages) {
-        header("Location: sale_photo_list.php?page=$totalPages");
+        header("Location: discount_photo_list.php?page=$totalPages");
         exit;
     }
 }
 
 
-$sql = sprintf("SELECT * FROM products_sale_photo ORDER BY sale_photo_id DESC LIMIT %s, %s", ($page - 1) * $perPage, $perPage);
+$sql = sprintf("SELECT * FROM products_discount_photos ORDER BY discount_photo_id DESC LIMIT %s, %s", ($page - 1) * $perPage, $perPage);
 $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
 
 
@@ -85,8 +85,8 @@ $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
                             <i class="fas fa-trash-alt"></i>
                         </th>
                         <th scope="col">#</th>
-                        <th scope="col">商品照名稱</th>
-                        <th scope="col">商品照預覽</th>
+                        <th scope="col">優惠照名稱</th>
+                        <th scope="col">優惠照預覽</th>
                         <th>
                             <i class="fas fa-pen-nib"></i>
                         </th>
@@ -101,15 +101,15 @@ $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
                                     <i class="fas fa-trash-alt"></i>
                                 </a>
                                */ ?>
-                                <a href="javascript: del_it(<?= $r['sale_photo_id'] ?>)">
+                                <a href="javascript: del_it(<?= $r['discount_photo_id'] ?>)">
                                     <i class="fas fa-trash-alt"></i>
                                 </a>
                             </td>
-                            <td><?= $r['sale_photo_id'] ?></td>
-                            <td><?= $r['sale_photo_name'] ?></td>
-                            <td><img class="myimg" src="images/<?= $r['sale_photo_url'] ?>" class=""></td>
+                            <td><?= $r['discount_photo_id'] ?></td>
+                            <td><?= $r['discount_photo_name'] ?></td>
+                            <td><img class="myimg" src="discount_imgs/<?= $r['discount_photos_url'] ?>" class=""></td>
                             <td>
-                                <a href="sale_photo_edit.php?sid=<?= $r['sale_photo_id'] ?>">
+                                <a href="discount_photo_edit.php?sid=<?= $r['discount_photo_id'] ?>">
                                     <i class="fas fa-pen-nib"></i>
                                 </a>
                             </td>
@@ -126,7 +126,7 @@ $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
     function del_it(sid) {
 
         if (confirm(`確定要刪除編號為 ${sid}的資料嗎?`)) {
-            location.href = 'sale_photo_delete.php?sid=' + sid;
+            location.href = 'discount_photo_delete.php?sid=' + sid;
         }
     }
 </script>

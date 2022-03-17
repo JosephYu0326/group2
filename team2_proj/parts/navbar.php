@@ -21,16 +21,19 @@
                         <a class="nav-link <?= $pageName == 'products_list' ? 'active' : '' ?>" href="products_list.php">商品庫列表</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link <?= $pageName == 'sale_photo_list' ? 'active' : '' ?>" href="sale_photo_list.php">商品照庫</a>
+                        <a class="nav-link <?= $pageName == 'sale_photo_list' ? 'active' : '' ?>" href="sale_photo_list.php">商品圖庫</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link <?= $pageName == 'discount_photo_list' ? 'active' : '' ?>" href="discount_photo_list.php">全站優惠圖庫</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link <?= $pageName == 'products_add' ? 'active' : '' ?>" href="products_add.php">新增商品資料</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link <?= $pageName == 'sale_photo_add' ? 'active' : '' ?>" href="sale_photo_add.php">新增商品圖片</a>
+                        <a class="nav-link <?= $pageName == 'sale_photo_add' ? 'active' : '' ?>" href="sale_photo_add.php">新增商品圖</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link <?= $pageName == '' ? 'active' : '' ?>" href="">新增全站折扣圖片</a>
+                        <a class="nav-link <?= $pageName == '' ? 'active' : '' ?>" href="discount_photo_add.php">新增全站優惠圖</a>
                     </li>
                 </ul>
 
