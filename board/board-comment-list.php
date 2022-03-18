@@ -2,7 +2,6 @@
 require __DIR__ . '/parts/connect_db.php';
 // require __DIR__ . '/board-article-list.php';
 $title = '留言列表';
-$Apages = $_SESSION['Apages'];
 
 $queryNum = isset($_GET['query']) ? intval($_GET['query']):0;
 $board_aidNum = isset($_GET['board_aidNum']) ? intval($_GET['board_aidNum']):-1;
@@ -46,11 +45,13 @@ if ($totalRows) {
 
 }
 $eachpage = 10; // 一次有幾頁
+$k = 0;
 ?>
 
 <?php include __DIR__ . '/parts/html-head.php'; ?>
 <?php include __DIR__ . '/parts/html-navbar.php'; ?>
 <div class="content-wrapper">
+    <div class="container">
     <div class="row">
         <div class="col">
             <nav aria-label="Page navigation example">
@@ -99,8 +100,8 @@ $eachpage = 10; // 一次有幾頁
             <table class="table table-striped table-bordered">
                 <thead>
                     <tr>
-                        <th scope="col"><i class="fas fa-trash-alt"></i></th>
-                        <th scope="col">#</th>
+                        <th scope="col">Index</th>
+                        <th scope="col">Board_cid</th>
                         <th scope="col">Content</th>
                         <th scope="col">UserId</th>
                         <th scope="col">BoardArticleId</th>
@@ -108,19 +109,14 @@ $eachpage = 10; // 一次有幾頁
                         <th scope="col">CreateTime</th>
                         <th scope="col">UpdateTime</th>
                         <th scope="col"><i class="fas fa-edit"></i></th>
+                        <th scope="col"><i class="fas fa-trash-alt"></i></th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach ($rows as $r) : ?>
+                        <?php $k=$k+1?>
                         <tr>
-                            <td>
-                                <?php /*
-                                <a href="ab-delete.php?sid=<?= $r['sid'] ?>" onclick="return confirm(`確定要刪除編號為<?= $r['sid'] ?>的資料嗎？`)">
-                                */ ?>
-                                <a href="javascript: del_it(<?= $r['board_cid']?>)">
-                                    <i class="fas fa-trash-alt"></i>
-                                </a>
-                            </td>
+                            <td><?= $k?></td>
                             <td><?= $r['board_cid'] ?></td>
                             <td><?= strip_tags($r['content']) ?></td>
                             <td><?= $r['user_id'] ?></td>
@@ -137,12 +133,18 @@ $eachpage = 10; // 一次有幾頁
                                     <i class="fas fa-edit"></i>
                                 </a>
                             </td>
+                            <td>
+                                <a href="javascript: del_it(<?= $r['board_cid']?>)">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
+                            </td>
                         </tr>
                     <?php endforeach ?>
                 </tbody>
 
             </table>
         </div>
+    </div>
     </div>
 </div>
 <?php include __DIR__ . '/parts/html-scripts.php'; ?>

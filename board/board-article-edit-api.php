@@ -9,6 +9,7 @@ $output = [
     'code' => 0,
     'postData' => [],
     'rowCount' => 0,
+    // 'InsertId' => 0,
 ];
 
 $output['postData'] = $_POST;  // 讓前端做資料查看,資料是否一致
@@ -37,8 +38,31 @@ $stmt->execute([
     $_POST['board_aid'],
 ]);
 
+
+$aid = intval($_POST['board_aid']);
+
+$sql = "DELETE FROM `board_photos` WHERE board_article_id = $aid";
+
+// echo $sql; exit; // test
+$stmt = $pdo->query($sql);
+
+
+$sql2 = "INSERT INTO `board_photos`(`img`,`board_article_id`)
+VALUES (?,?)";
+
+
+$stmt2 = $pdo -> prepare($sql2);
+
+$stmt2->execute([
+    $_POST['pic_name'] ?? '',
+    $_POST['board_aid'],
+]);
+
+
+
 $output['rowCount'] = $stmt->rowCount(); // 修改資料的筆數
-if($stmt->rowCount()){
+$output['rowCount'] = $stmt2->rowCount(); // 修改資料的筆數
+if($stmt->rowCount() or $stmt2->rowCount()){
     $output['error'] = '';
     $output['success'] = true;
 } else {

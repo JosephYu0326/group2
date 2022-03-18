@@ -40,10 +40,6 @@ $stmt->execute([
     $_POST['content'],
 ]);
 
-$ext = isset($exts[ $_FILES['avatar']['type']]) ? intval(($exts[ $_FILES['avatar']['type']])):'';
-$output['filename'] = sha1(uniqid().$_FILES['avatar']['name']). $ext;
-
-
 
 $output['insertId'] = $pdo->lastInsertId(); // 取得最新加入的資料的primary key
 
@@ -54,22 +50,12 @@ VALUES (?,?)";
 $stmt2 = $pdo -> prepare($sql2);
 
 $stmt2->execute([
-    $output['filename'] ?? '',
+    $_POST['pic_name'] ?? '',
     $output['insertId']
 ]);
 
 
-$imgname = $output['filename'];
-
-
-
 $output['rowCount'] = $stmt->rowCount(); // 新增資料的筆數
-
-
-move_uploaded_file(
-        $_FILES['avatar']['tmp_name'],
-        __DIR__. '/image/'. $output['filename']
-);
 
 
 if($stmt->rowCount()){

@@ -59,18 +59,21 @@ if(empty($row)){
                             <textarea type="text" class="form-control" id="content" name="content"><?= $row['content']?></textarea>
                             <div class="form-text"></div>
                         </div>
-                        <div class="myimg">
-                            <img src="" alt="">
-                        </div>
-                        <div><img class="myimg" src="/board/image/<?= $row2['img'] ?>" alt=""></div>
-                        <br>
+
+                        <input type="hidden" id="pic_name" name="pic_name">
+                        <img class="mb-2" src="<?= empty($row2['img']) ? '' : '/board/image/'. $row2['img'] ?>" alt="" id="editimg" style="width: 100%;">
+
                         <div class="d-flex justify-content-between align-items-center">
-                            <!-- <input type="file" id="img" name="img" accept="image/jpeg,image/png"> -->
+                            <button type="button" onclick="avatar.click()">上傳照片</button>
+
+                            <br>
+                            <br>
                             
                             <div class="artnum" name="board_aid">文章編號：<?= $row['board_aid'] ?></div>
                         </div>
                         <br>
-                        <a href="board-photos-delete.php?board_pid=<?= $row2['board_pid'] ?>" onclick="return confirm(`確定要刪除編號為<?= $row2['board_pid'] ?>的資料嗎？`)">
+                        
+                        <a href="javascript: remove_pic(<?= $row2['board_pid']?>)">
                             刪除圖片
                         </a>
                         
@@ -78,6 +81,9 @@ if(empty($row)){
                         <br>
 
                         <button type="submit" class="btn btn-primary">修改</button>
+                    </form>
+                    <form name="image_form" onsubmit="return false;" style="display: none;">
+                        <input type="file" id="avatar" name="avatar" accept="image/jpeg,image/png">
                     </form>
 
                 </div>
@@ -91,11 +97,18 @@ if(empty($row)){
 
 </div>
 <?php include __DIR__ . '/parts/html-scripts.php'; ?>
+<script src="./js/jquery-3.6.0.min.js"></script>
 <script>
-    // function del_it(board_pid){
-    // if(confirm(`確定要刪除編號為 ${board_pid} 的資料嗎?`)){      
-    //     location.href = 'board-photos-delete.php?board_pid=' + board_pid;
-    // }
+    function remove_pic(board_pid){
+        if(confirm(`確定要刪除編號為 ${board_pid} 的資料嗎?`)){
+            const url = 'board-photos-delete.php?board_pid=' + board_pid;
+            console.log(this);
+            $.get(url, function (data){
+                editimg.src = '';
+                pic_name.value = '';
+            });
+        }
+    }
 
     const title = document.form1.title; // DOM element
     const title_msg = title.closest('.mb-3').querySelector('.form-text');
@@ -144,6 +157,29 @@ if(empty($row)){
 
 
     }
+
+
+</script>
+
+<script>
+    const avatar = document.querySelector('#avatar');
+    function sendData(){
+        const fd2 = new FormData(document.image_form);
+
+        fetch('board-photos-add-api.php',{
+            method:'POST',
+            body:fd2
+        }).then(r=>r.json())
+        .then(obj=>{
+            console.log(obj);
+            if(obj.success && obj.filename){
+                editimg.src = './image/' + obj.filename;
+                pic_name.value = obj.filename;
+            }
+        })
+    }
+
+    avatar.onchange = sendData;
 
 
 </script>

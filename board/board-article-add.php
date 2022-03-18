@@ -35,13 +35,12 @@ $pageName = 'board-article-add';
                                 <textarea class="form-control" name="content" id="content" cols="30" rows="3"></textarea>
                                 <div class="form-text"></div>
                             </div>
-                            <input type="text" id="pic" name="pic">
-                            <img src="" alt="" id="myimg" style="width: 100%;">
+                            <input type="hidden" id="pic_name" name="pic_name">
+                            <img class="mb-2" src="" alt="" id="myimg" style="width: 100%;">
+                            <br>
 
                             <button type="button" onclick="avatar.click()">上傳照片</button>
 
-                            <!-- <input type="file" id="img" name="img" accept="image/jpeg,image/png"> -->
-                            
                             <br>
                             <br>
                             <button type="submit" class="btn btn-primary">新增</button>
@@ -124,7 +123,7 @@ $pageName = 'board-article-add';
             console.log(obj);
             if(obj.success && obj.filename){
                 myimg.src = './image/' + obj.filename;
-                pic.value = obj.filename;
+                pic_name.value = obj.filename;
             }
         })
     }

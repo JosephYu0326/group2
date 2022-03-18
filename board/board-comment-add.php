@@ -51,7 +51,7 @@ $row = $pdo->query($sql)->fetch();
 
                             <div class="mb-3">
                                 <label for="parentid" class="form-label">ParentId</label>
-                                <input type="text" class="form-control" id="parentid" name="parentid">
+                                <input type="text" class="form-control" id="parentid" name="parentid" value="0">
                                 <div class="form-text"></div>
                             </div>
 

@@ -29,7 +29,7 @@ if ($totalRows) {
     }
     if ($queryNum) {
         $sql = "SELECT * FROM board_articles
-        JOIN users ON users.id = board_articles.user_id
+        LEFT JOIN users ON users.id = board_articles.user_id
         LEFT JOIN board_photos ON board_articles.board_aid = board_photos.board_article_id
 
         WHERE board_aid = $board_aidNum";
@@ -37,7 +37,7 @@ if ($totalRows) {
     }
     else {
         $sql = sprintf("SELECT * FROM board_articles
-        JOIN users ON users.id = board_articles.user_id
+        LEFT JOIN users ON users.id = board_articles.user_id
         LEFT JOIN board_photos ON board_articles.board_aid = board_photos.board_article_id
         ORDER BY board_aid DESC LIMIT %s, %s", ($page - 1) * $perPage, $perPage);
         $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
@@ -47,7 +47,9 @@ if ($totalRows) {
 }
 
 $eachpage = 10; // 一次有幾頁
-$k=0;
+// $k=0;
+$indexNum = ($page-1)*5;
+$k = $indexNum;
 
 ?>
 
@@ -74,26 +76,19 @@ $k=0;
                     </li>
                 
                     <?php
-                        $pagestart = $page;
-                        $i = $pagestart;
-                        
-                        if($i<=10){
-                            $pagestart = 1;
-                            $pageend = 10;
+                        $i =  $page;
+
+                        if($i%$eachpage==0){ //取餘數
+                            $pagelevel = $i/$eachpage;
+                            $pagepoint_start = $i-$eachpage+1;
+                            $pagepoint_end = $i;
                         } else {
-                            if($i%$eachpage==0){
-                                $pagelevel = $i/$eachpage;
-                                $pagepoint_start = $i-$eachpage+1;
-                                $pagepoint_end = $i;
-                            } else {
-                                $pagelevel = floor($i/$eachpage);
-                                $pagepoint_start = $pagelevel*$eachpage+1;
-                                $pagepoint_end = ($pagelevel+1)*$eachpage;
-                            }
-                            $pagestart = $pagepoint_start;
-                            $pageend = $pagepoint_end;
-                            
+                            $pagelevel = floor($i/$eachpage);
+                            $pagepoint_start = $pagelevel*$eachpage+1;
+                            $pagepoint_end = ($pagelevel+1)*$eachpage;
                         }
+                        $pagestart = $pagepoint_start;
+                        $pageend = $pagepoint_end;
 
                         for($i=$pagestart;$i<=$pageend;$i++):
                             if($i>=1 and $i<=$AtotalPages):
@@ -116,7 +111,7 @@ $k=0;
                     <tr>
                         <th scope="col"><i class="fas fa-search"></i></th>
                         <th scope="col">Index</th>
-                        <th scope="col">Board_aid</th>
+                        <th scope="col">aid</th>
                         <th scope="col">Title</th>
                         <th scope="col">Content</th>
                         <th scope="col">Image</th>
@@ -131,7 +126,10 @@ $k=0;
                 </thead>
                 <tbody>
                     <?php foreach ($rows as $r) : ?>
-                        <?php $k=$k+1 ?>
+                        <?php 
+                            
+                            $k=$k+1;
+                        ?>
                         <tr>
                             <td>
                                 <a href="board-comment-query.php?board_aid=<?= $r['board_aid']?>">
