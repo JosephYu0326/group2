@@ -11,6 +11,18 @@ if (empty($row)) {
     header('Location: sale_photo_list.php');
     exit;
 }
+$stmt = $pdo->query("SELECT * FROM products_sale ORDER BY product_id DESC");
+$raw_data = $stmt->fetchAll();
+
+$reload_id = [];
+
+foreach ($raw_data as $r) {
+    if ($r['product_id'] != '') {
+        $reload_id[] = $r;
+    }
+}
+
+// echo json_encode($reload_id); exit;
 ?>
 
 <?php include __DIR__ . '/parts/html_head.php'; ?>
@@ -38,8 +50,14 @@ if (empty($row)) {
                             <div class="form-text"></div>
                         </div>
                         <div class="mb-3">
-                            <label for="sale_photo_url" class="form-label">*圖片檔名</label>
-                            <input type="text" class="form-control" id="sale_photo_url" name="sale_photo_url" required value="<?= htmlentities($row['sale_photo_url']) ?>">
+                            <input type="text" class="form-control" style="display: none" id="sale_photo_url" name="sale_photo_url" required value="<?= htmlentities($row['sale_photo_url']) ?>">
+                            <br>
+                            <label for="reload_id" class="form-label" id="reload_id" name="reload_id">*商品編號</label>
+                            <select name="reload_id" id="reload_id" require value="<?= htmlentities($row['product_sale_id']) ?>>">
+                                <?php foreach ($reload_id as $re) : ?>
+                                    <option value="<?= $re['product_id'] ?>"><?= $re['product_name'] ?></option>
+                                <?php endforeach; ?>
+                            </select>
                             <br>
                             <img src="" alt="" id="sale_photo_preview" width="200px">
                             <button type="button" onclick="sale_photo_update.click()">重新上傳圖片</button>
@@ -57,7 +75,19 @@ if (empty($row)) {
     </div>
 </div>
 <?php include __DIR__ . '/parts/scripts.php'; ?>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
 <script>
+    const pt_data = <?= json_encode($reload_id, JSON_UNESCAPED_UNICODE) ?>;
+    const reload_id = $("#reload_id");
+
+    let str = '';
+    for(let pt of pt_data){
+        str += `<option value="${pt.product_id}">${pt.name}</option>`
+    }
+    reload_id.html(str);
+    
+
     function sendData() {
         const fd = new FormData(document.sale_photo_update_form);
 
