@@ -13,6 +13,7 @@ $output = [
     'rowCount' => 0,
 ];
 
+
 if(empty($_POST['museum_name'])){
     echo json_encode($output, JSON_UNESCAPED_UNICODE);
     exit;
@@ -20,8 +21,19 @@ if(empty($_POST['museum_name'])){
 
 $output['postData'] = $_POST;
 
+$museum_name = $_POST["museum_name"];
+$sql3 = "select * from museum_museum where museum_name =?";
+$stmt3 = $pdo->prepare($sql3);
+$stmt3->execute([$museum_name]);
+$user = $stmt3->fetch();
+if ($user) {
+    $output['error'] = '館名重複';
+    echo json_encode($output, JSON_UNESCAPED_UNICODE);
+    exit;
+}
 $sql = "INSERT INTO `museum_museum`(`Museum_name`,`Museum_location_id`,`Museum_kind_id`,`Museum_features`,`Museum_introduce`,`Museum_booking_notice`,`Museum_more_information`) Values (?, ?, ?, ?, ?, ?, ?)";
 $sql2 = "INSERT INTO `museum_images`(`Museum_id`,`image_url`) Values(last_insert_id(),?)";
+
 
 $stmt = $pdo->prepare($sql);
 

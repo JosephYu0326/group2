@@ -2,48 +2,15 @@
 $title = 'Add Museum';
 $pageName = 'Add Museum';
 require_once 'parts/connect_db.php';
-// if (isset($_POST['insert'])) {
 
-//     $name = $_POST['museum_name'];
-//     $l_id = $_POST['museum_location_id'];
-//     $kind = $_POST['Museum_kind_id'];
-//     $feature = $_POST['Museum_features'];
-//     $introduce = $_POST['Museum_introduce'];
-//     $notice = $_POST['Museum_booking_notice'];
-//     $information = $_POST['Museum_more_information'];
-
-//     $sql = "INSERT INTO museum_museum(Museum_name,Museum_location_id,Museum_kind_id,Museum_features,Museum_introduce,Museum_booking_notice,Museum_more_information) Values (:mn, :ml, :mk, :mf, :mi, :mno, :minfo)";
-
-//     $query = $pdo->prepare($sql);
-
-//     $query->bindParam(':mn', $name, pdo::PARAM_STR);
-//     $query->bindParam(':ml', $l_id, pdo::PARAM_INT);
-//     $query->bindParam(':mk', $kind, pdo::PARAM_INT);
-//     $query->bindParam(':mf', $feature, pdo::PARAM_STR);
-//     $query->bindParam(':mi', $introduce, pdo::PARAM_STR);
-//     $query->bindParam(':mno', $notice, pdo::PARAM_STR);
-//     $query->bindParam(':minfo', $information, pdo::PARAM_STR);
-
-
-//     $query->execute();
-
-
-//     $lastInsertId = $pdo->lastInsertId();
-//     if ($lastInsertId) {
-
-//         echo "<script>alert('Record inserted successfully');</script>";
-//         echo "<script>window.location.href='home_.php'</script>";
-//     } else {
-//         echo "<script>alert('Something went wrong. Please try');</script>";
-//         echo "<script>window.location.href='home_.php'</script>";
-//     }
-// }
 $sql1 = "select museum_location_id, museum_direction,Museum_city
     from museum_location
     join museum_direction on museum_direction.museum_direction_id = museum_location.museum_direction_id
     join museum_city on museum_city.museum_city_id = museum_location.museum_city_id";
 
 $sql2 = "select museum_kind_id, museum_kind from museum_kind";
+
+
 
 try {
     $stmt = $pdo->prepare($sql1);
@@ -187,7 +154,9 @@ try {
                     if (obj.success) {
                         alert('新增成功');
                         location.href = 'museum_list.php';
-                    } else {
+                    }else if(obj.error){
+                        alert('館名重複'); 
+                    }else {
                         alert('新增失敗');
                     }
                 })
