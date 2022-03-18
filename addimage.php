@@ -33,12 +33,12 @@ $row = $pdo->query($sql1)->fetchAll();
                         <h3 class="box-title mt-3">上傳圖片</h3>
                     </div>
                     <div class="box-body">
-                        <form id="Form1" enctype="multipart/form-data">
+                        <form id="form1" method="post" novalidate onsubmit="checkForm(); return false;">
                             <div class="main-form">
                                 <div class="col-lg-6 mt-3 ">
                                     <div class="form-group">
                                         <label for="museum_name" class="form-label">館名</label>
-                                        <select name="Museum_id[]" id="Museum_id" class="form-select">
+                                        <select name="Museum_id" id="Museum_id" class="form-select">
                                             <?php foreach ($row as $output) { ?>
                                                 <option selected value="<?= $output["Museum_id"] ?>"><?= $output["Museum_name"] ?></option>
                                             <?php } ?>
@@ -52,13 +52,17 @@ $row = $pdo->query($sql1)->fetchAll();
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <div class="col-lg-6 mt-3 ">
-                                    <label for="file">上傳圖片</label>
-                                    <input type="file" class="form-control" id="file" name="image_url[]" multiple />
-                                </div>
+                            <div class="mb-3">
+                                <input type="hidden" id="pic" name="pic">
+                                <img src="" alt="" id="myimg" style="width: 100%;">
+                                <button class="btn btn-dark" type="button" onclick="avatar.click()">上傳照片</button>
                             </div>
-                            <input type="submit" name="submit" class="btn btn-success submitBtn" value="SUBMIT" />
+                            <div class="mb-3 d-grid gap-2">
+                                <button type="submit" class="btn btn-dark">新增</button>
+                            </div>
+                        </form>
+                        <form name="image_form" onsubmit="return false;" style="display: none;">
+                            <input type="file" id="avatar" name="avatar" accept="image/*">
                         </form>
                     </div>
                 </div>
@@ -69,50 +73,51 @@ $row = $pdo->query($sql1)->fetchAll();
 
 <?php include __DIR__ . '/parts/scripts.php'; ?>
 <script>
-    $(document).ready(function(){
-        $("#Form1").on('submit',function(e){
-            e.preventDefault();
-            $.ajax({
-                type:'POST',
-                url:'submit.php',
-                data: new FormData(this),
-                dataType:'json',
-                contentType: false,
-                cache: false,
-                processData: false,
-                beforeSend: function(){
-                    $('.submitBtn').attr("disabled","disabled");
-                    $("#Form1").css("opacity",".5");
-                },
-                success: function(response){
-                    $('.statusMsg').html('');
-                    if(response.status == 1){
-                        $('#Form1')[0].reset();
-                        $('.statusMsg').html('<p class="alert alert-success">'+response.message+'</p>');
-                    }else{
-                        $('.statusMsg').html('<p class="alert alert-danger">'+response.message+'</p>');
-                    }
-                    $("Form1").css("opacity", "");
-                    $(".submitBtn").removeAttr("disabled");
-                }
-            });
-        });
-        var match = ['image/jpeg', 'image/png', 'image/jpg'];
-        $("#file").change(function() {
-        for(i=0;i<this.files.length;i++){
-            var file = this.files[i];
-            var fileType = file.type;
-			
-            if(!((fileType == match[0]) || (fileType == match[1]) || (fileType == match[2]))){
-                alert('Sorry, only JPG, JPEG, & PNG files are allowed to upload.');
-                $("#file").val('');
-                return false;
-            }
-        }
-    });
-        
-    });
+    function checkForm() {
 
-    
+        let isPass = true;
+        //TODO: 表單資料送出之前，要做格式檢查
+
+
+        if (isPass) {
+
+            const fd = new FormData(document.form1);
+
+
+            fetch('addimage_api.php', {
+                    method: 'POST',
+                    body: fd
+                }).then(r => r.json())
+                .then(obj => {
+                    console.log(obj);
+                    if (obj.success) {
+                        alert('新增成功');
+                        location.href = 'museum_list.php';
+                    } else {
+                        alert('新增失敗');
+                    }
+                })
+
+        }
+    }
+</script>
+<script>
+    const avatar = document.querySelector('#avatar');
+
+    function sendData() {
+        const fd2 = new FormData(document.image_form);
+
+        fetch('upload.php', {
+                method: 'POST',
+                body: fd2
+            }).then(r => r.json())
+            .then(obj => {
+                if (obj.success && obj.filename) {
+                    myimg.src = './imgs/' + obj.filename;
+                    pic.value = obj.filename;
+                }
+            })
+    }
+    avatar.onchange = sendData;
 </script>
 <?php include __DIR__ . '/parts/html-foot.php'; ?>

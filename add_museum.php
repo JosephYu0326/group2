@@ -128,7 +128,7 @@ try {
 
     function checkForm() {
         let isPass = true;
-        if (museum_name.value.length < 2) {
+        if (museum_name.revalue.length < 2) {
             isPass = false;
             name_msg.innerText = '請填寫正確的姓名'
         }
