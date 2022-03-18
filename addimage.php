@@ -33,14 +33,14 @@ $row = $pdo->query($sql1)->fetchAll();
                         <h3 class="box-title mt-3">上傳圖片</h3>
                     </div>
                     <div class="box-body">
-                        <form id="form1" method="post" novalidate onsubmit="checkForm(); return false;">
+                        <form name="form1" method="post" novalidate onsubmit="checkForm(); return false;">
                             <div class="main-form">
                                 <div class="col-lg-6 mt-3 ">
                                     <div class="form-group">
                                         <label for="museum_name" class="form-label">館名</label>
                                         <select name="Museum_id" id="Museum_id" class="form-select">
-                                            <?php foreach ($row as $output) { ?>
-                                                <option selected value="<?= $output["Museum_id"] ?>"><?= $output["Museum_name"] ?></option>
+                                            <?php foreach ($row as $c) { ?>
+                                                <option selected value="<?= $c["Museum_id"] ?>"><?= $c["Museum_name"] ?></option>
                                             <?php } ?>
                                             <option>-- select Museum --</option>
                                             <?php foreach ($results as $output) { ?>
@@ -92,7 +92,7 @@ $row = $pdo->query($sql1)->fetchAll();
                     console.log(obj);
                     if (obj.success) {
                         alert('新增成功');
-                        location.href = 'museum_list.php';
+                        location.href = 'image_list.php?Museum_id=<?= $c["Museum_id"] ?>';
                     } else {
                         alert('新增失敗');
                     }
