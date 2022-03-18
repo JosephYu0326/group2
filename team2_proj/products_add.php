@@ -171,7 +171,7 @@ $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
                     console.log(obj);
                     if (obj.success) {
                         alert('新增成功');
-                        // location.href = 'ab_list.php';
+                        location.href = 'products_list.php';
                     } else {
                         alert('新增失敗');
                     }

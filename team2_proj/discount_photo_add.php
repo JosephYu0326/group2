@@ -59,8 +59,7 @@ $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
                             <label for="discount_photo_name" class="form-label">圖片名稱</label>
                             <input type="text" class="form-control" id="discount_photo_name" name="discount_photo_name">
                             <br>
-                            <label for="discount_photos_url" class="form-label">圖片檔名</label>
-                            <input type="text" class="form-control" id="discount_photos_url" name="discount_photos_url">
+                            <input type="text" class="form-control" style="display: none" id="discount_photos_url" name="discount_photos_url">
                             <br>
                             <img src="" alt="" id="discount_photo_preview" width="200px">
                             <button type="button" onclick="discount_photo.click()">上傳優惠圖片</button>

@@ -2,6 +2,18 @@
 require __DIR__ . '/parts/connect_db.php';
 $title = '新增商品圖';
 $pageName = 'sale_photo_add';
+$stmt = $pdo->query("SELECT * FROM products_sale ORDER BY product_id DESC");
+$raw_data = $stmt->fetchAll();
+
+$product_sale_id = [];
+
+foreach($raw_data as $r) {
+    if($r['product_id']!=''){
+        $product_sale_id[] = $r;
+    }
+}
+
+// echo json_encode($product_sale_id); exit;
 
 /*
 $perPage = 5; // 每一頁有幾筆
@@ -59,10 +71,16 @@ $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
                             <label for="sale_photo_name" class="form-label">圖片名稱</label>
                             <input type="text" class="form-control" id="sale_photo_name" name="sale_photo_name">
                             <br>
-                            <!-- <label for="sale_photo_url" class="form-label">圖片檔名</label> -->
                             <input type="text" class="form-control" style="display:none" id="sale_photo_url" name="sale_photo_url">
                             <img src="" alt="" id="sale_photo_preview" width="200px">
                             <button type="button" onclick="sale_photo.click()">上傳商品圖片</button>
+                            <br><br>
+                            <label for="product_sale_id" class="form-label" id="product_sale_id" name="product_sale_id">商品編號</label>
+                            <select name="product_sale_id" id="produt_sale_id">
+                                <?php foreach ($product_sale_id as $p) : ?>
+                                    <option value="<?= $p['product_id']?>"><?= $p['product_name']?></option>
+                                <?php endforeach; ?>
+                            </select>
                             <div class="form-text"></div>
                         </div>
                         <br>
