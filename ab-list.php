@@ -43,16 +43,16 @@ if ($totalRows) {
     // $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
 
     $sql = sprintf(
-    "SELECT activity.*,activity_guest.Activity_Guest_Name ,Activity_Organizers_Name,Activity_Tag_name  , ticket_name 
+    "SELECT activity.*,activity_guest.Activity_Guest_Name ,Activity_Organizers_Name,Activity_Organizers_id, ticket_name,Activity_Types_Name 
     FROM activity  
        left JOIN activity_guest
        ON activity_guest.fk_Activity_id = activity.Activity_id
        left join activity_organizers
        on activity.fk_Activity_Organizers_id =activity_organizers.Activity_Organizers_id
-       left join activity_tag
-       on activity_tag.Activity_Tag_id = activity.fk_Activity_Types_id
        left join activity_ticket
        on activity_ticket.fk_Activity_id =activity.Activity_id
+       left join activity_types
+       on activity.fk_Activity_Types_id =activity_types.Activity_Types_id
        ORDER BY Activity_id
     DESC LIMIT %s, %s", ($page - 1) * $perPage, $perPage);
     $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
@@ -128,7 +128,7 @@ if ($totalRows) {
                             </td>
                             <td><?= $r['Activity_id'] ?></td>
                             <td><?= $r['Activity_Name'] ?></td>
-                            <td><img src="/test/imgs/<?= $r['Activity_Img'] ?>" alt="" width="400px"></td>
+                            <td><img src="/Team2_museum/imgs/<?= $r['Activity_Img'] ?>" alt="" width="200px"></td>
                             <td><?= $r['Activity_Star_Time'] ?></td>
                             <td><?= $r['Activity_End_Time'] ?></td>
                             <td><?= $r['Activity_Place'] ?></td>
