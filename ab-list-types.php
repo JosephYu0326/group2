@@ -129,7 +129,7 @@ if ($totalRows) {
         function del_it(Activity_Types_id) {
             if (confirm(`確定要刪除編號為 ${Activity_Types_id} 的資料嗎?`)) {
 
-                location.href = 'ab-delete.php?Activity_Types_id=' + Activity_Types_id;
+                location.href = 'ab-delete-types.php?Activity_Types_id=' + Activity_Types_id;
             }
 
         }
