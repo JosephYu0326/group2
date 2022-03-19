@@ -72,12 +72,12 @@ foreach ($raw_data2 as $r) {
                             <input type="hidden" name="Activity_id" value="<?= $row['Activity_id'] ?>">
 
 
-                            <input type="text" id="pic" name="pic">
+                            <input type="hidden" id="pic" name="pic">
 
                             <br>
-                            <img src="" alt="" id="myimg" width="200px">
+                            <img src="" alt="" id="myimg" class="img-fluid" >
                             <br>
-                            <button type="button" onclick="avatar.click()">上傳圖片</button>
+                            <button type="button" onclick="avatar.click()" class="btn btn-primary">上傳圖片</button>
 
 
                             <div class="mb-3">

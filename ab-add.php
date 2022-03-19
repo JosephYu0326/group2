@@ -54,14 +54,15 @@ foreach ($raw_data2 as $r) {
                         <h5 class="card-title">新增活動</h5>
                         <br>
 
+                        
                         <form name="form1" method="post" novalidate onsubmit="checkForm(); return false;">
-                            <input type="text" id="pic" name="pic">
+                            <input type="hidden" id="pic" name="pic">
 
                             <br>
                             <img src="" alt="" id="myimg" width="200px">
                             <br>
-                            <button type="button" onclick="avatar.click()">上傳圖片</button>
-
+                            <button type="button" class="btn btn-primary" onclick="avatar.click()">上傳圖片</button>
+                  
 
                             <div class="mb-3">
                                 <label for="name" class="form-label">* 活動名稱</label>
