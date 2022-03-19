@@ -44,7 +44,7 @@ $stmt->execute([
     $_POST['Activity_Types_id'] ?? NULL,
     $_POST['fk_Activity_Organizers_id'] ?? NULL,
 ]);
-
+ 
 $output['insertId'] = $pdo->lastInsertId(); // 取得最近加入資料的 PK
 $output['rowCount'] = $stmt->rowCount(); // 新增資料的筆數
 if($stmt->rowCount()){

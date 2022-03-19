@@ -130,7 +130,7 @@ foreach ($raw_data2 as $r) {
                                     <?php foreach ($Activity_Organizers_id as $ai): ?>
                                         <option value="<?= $ai['Activity_Organizers_id'] ?>"><?= $ai['Activity_Organizers_Name'] ?></option>
                                     <?php endforeach; ?>
-                                </select>
+                                </select> 
                             </div>
 
                             
