@@ -53,8 +53,11 @@ $row = $pdo->query($sql1)->fetchAll();
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <input type="hidden" id="pic" name="pic">
-                                <img src="" alt="" id="myimg" style="width: 100%;">
+                                <div id="image_preview">
+                                    
+                                </div>
+                                <!-- <input type="hidden" id="pic" name="pic[]">
+                                <img src="" alt="" id="myimg" style="width: 100%;"> -->
                                 <button class="btn btn-dark" type="button" onclick="avatar.click()">上傳照片</button>
                             </div>
                             <div class="mb-3 d-grid gap-2">
@@ -62,7 +65,7 @@ $row = $pdo->query($sql1)->fetchAll();
                             </div>
                         </form>
                         <form name="image_form" onsubmit="return false;" style="display: none;">
-                            <input type="file" id="avatar" name="avatar" accept="image/*">
+                            <input type="file" id="avatar" name="avatar[]" multiple accept="image/*">
                         </form>
                     </div>
                 </div>
@@ -112,9 +115,18 @@ $row = $pdo->query($sql1)->fetchAll();
                 body: fd2
             }).then(r => r.json())
             .then(obj => {
-                if (obj.success && obj.filename) {
-                    myimg.src = './imgs/' + obj.filename;
-                    pic.value = obj.filename;
+                console.log(obj);
+                var total_file = document.getElementById("avatar").files.length;
+                for (var i=0; i<total_file; i++){
+                    
+                    if (obj[i].success && obj[i].filename) {
+                        $('#image_preview').append("<input type='hidden'id='pic"+[i]+"' value = '' name='pic[]'><img src='' alt='' id='myimg"+[i]+"' class = 'img-fluid mb-3 mx-auto d-block' > <br> <input type='hidden' name='Museum_id[]' value='<?= $c["Museum_id"]?>'>")
+
+                        $("#"+"myimg"+[i]+"").attr('src', './imgs/'+ obj[i].filename);
+                        $("#"+"pic"+[i]+"").attr('value', obj[i].filename);
+                        // myimg.src = './imgs/' + obj.filename;
+                        // pic.value = obj.filename;
+                    }
                 }
             })
     }
