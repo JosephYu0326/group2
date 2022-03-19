@@ -90,9 +90,13 @@ if ($totalRows) {
                                     <i class="fas fa-trash-alt"></i>
                                 </a>
                             </td>
+                            <!-- id -->
                             <td><?= $r['Activity_Organizers_id'] ?></td>
+                            <!-- 名稱 -->
                             <td><?= $r['Activity_Organizers_Name'] ?></td>
-                            <td><?= $r['Activity_Organizers_Img'] ?></td>
+                            <!-- 圖片 -->
+                            <td><img src="/Team2_museum/imgs/<?= $r['Activity_Organizers_Img'] ?>" alt="" width="200px"></td>
+                           
                            
                             <!--
                             <td><?= htmlentities($r['address']) ?></td>
