@@ -32,7 +32,7 @@ $output['filename'] = sha1(uniqid(). $_FILES['avatar']['name']). $ext;
 if(
     move_uploaded_file(
         $_FILES['avatar']['tmp_name'], 
-        __DIR__. '/imgs/'. $output['filename']
+        __DIR__. './imgs/'. $output['filename']
         )
 ){
     $output['success'] = true;
