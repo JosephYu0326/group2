@@ -3,17 +3,27 @@ require __DIR__ . '/parts/connect_db.php';
 
 $title = '修改活動';
 $pageName = 'ab-edit';
-//檢查id
+
+
 $sid = isset($_GET['Activity_id']) ? intval($_GET['Activity_id']) : 0;
 
 $sql = "SELECT * FROM activity WHERE Activity_id=$sid";
 $row = $pdo->query($sql)->fetch();
 
 if(empty($row)){
-    header('Location: ab-list.php'); // 找不到資炓轉向列表頁
+    header('Location: ab-list-guest.php'); // 找不到資炓轉向列表頁
     exit;
 }
+?>
+<?php include __DIR__ . '/parts/html-head.php'; ?>
+<?php include __DIR__ . '/parts/navbar.php'; ?>
+<style>
+    form .mb-3 .form-text {
+        color: red;
+    }
+</style>
 
+<?php
 //活動類型選擇
 $stmt = $pdo->query("SELECT * FROM activity_types ORDER BY Activity_Types_id");
 $raw_data = $stmt->fetchAll();
@@ -36,18 +46,10 @@ foreach ($raw_data2 as $r) {
         $Activity_Organizers_id[] = $r;
     }
 }
-
-// echo json_encode($Activity_Organizers_id);
-
-// echo json_encode($Activity_Types_id);
 ?>
-<?php include __DIR__ . '/parts/html-head.php'; ?>
-<?php include __DIR__ . '/parts/navbar.php'; ?>
-<style>
-    form .mb-3 .form-text {
-        color: red;
-    }
-</style>
+
+
+
 <div class="content-wrapper">
     <div class="container">
         <div class="row">
@@ -56,16 +58,20 @@ foreach ($raw_data2 as $r) {
                     <div class="card-body">
 
 
-                        <!-- 圖片 -->
+
                         <form name="avatar_form" onsubmit="return false;" style="display: none;">
                             <input type="file" id="avatar" name="avatar" accept="image/jpeg,image/png">
                         </form>
-                        <!-- 活動 -->
+
+
+
+
                         <h5 class="card-title">修改活動</h5>
-                        <input type="hidden" name="Activity_Types_id" value="<?= $row['Activity_Types_id'] ?>">
                         <br>
-                        <!-- 圖片 -->
                         <form name="form1" method="post" novalidate onsubmit="checkForm(); return false;">
+                            <input type="hidden" name="Activity_id" value="<?= $row['Activity_id'] ?>">
+
+
                             <input type="text" id="pic" name="pic">
 
                             <br>
@@ -73,38 +79,16 @@ foreach ($raw_data2 as $r) {
                             <br>
                             <button type="button" onclick="avatar.click()">上傳圖片</button>
 
-                        <!-- 名稱 -->
+
                             <div class="mb-3">
                                 <label for="name" class="form-label">* 活動名稱</label>
-                                <input type="text" class="form-control" id="name" name="name" required
-                                value="<?= htmlentities($row['Activity_Name']) ?>">
+                                <input type="text" class="form-control" id="name" name="name" required value="<?= htmlentities($row['Activity_Name']) ?>">
                                 <div class="form-text"></div>
                             </div>
-                            <!-- <div class="mb-3">
-                                <label for="img" class="form-label">* 活動圖片</label>
-                                <input type="text" class="form-control" id="img" name="img" required>
-                                <div class="form-text"></div>
-                            </div> -->
-                            <!-- 上傳圖片 -->
-                            <!-- <div class="mb-3">
-                                <input type="text" id="pic" name="img">
-                                <br>
-                                <img src="" class="img" id="img" alt="">
-                                <br>
-                                <button type="button" onclick="avatar.click()">上傳活動圖片</button>
-                                <br>
-                                <input type="text">
-                                <br>
-                                <input type="submit">
-                                <form name="form1" onsubmit="return false;" style="display: none;">
-                                    <input type="file" id="avatar" name="avatar" accept="image/jpeg,image/png">
-                                </form>
-                            </div> -->
-                            <!-- 上傳圖片 -->
+
                             <div class="mb-3">
                                 <label for="s-time" class="form-label">* 開始時間</label>
-                                <input type="datetime-local" class="form-control" id="s-time" name="s-time" required
-                                value="<?= htmlentities($row['Activity_Star_Time']) ?>">
+                                <input type="datetime-local" class="form-control" id="s-time" name="s-time" required value="<?= htmlentities($row['Activity_Star_Time']) ?>">
                                 <div class="form-text"></div>
                             </div>
                             <div class="mb-3">
@@ -115,27 +99,24 @@ foreach ($raw_data2 as $r) {
 
                             <div class="mb-3">
                                 <label for="a-url" class="form-label">* 參考網站</label>
-                                <input type="url" class="form-control" id="a-url" name="a-url" required
-                                value="<?= htmlentities($row['Activity_Links']) ?>">
+                                <input type="url" class="form-control" id="a-url" name="a-url" required value="<?= htmlentities($row['Activity_Links']) ?>">
                                 <div class="form-text"></div>
                             </div>
                             <div class="mb-3">
                                 <label for="intro" class="form-label">* 活動簡介</label>
-                                <input type="text" class="form-control" id="intro" name="intro" required
-                                value="<?= htmlentities($row['Activity_Introduction']) ?>">
+                                <input type="text" class="form-control" id="intro" name="intro" required value="<?= htmlentities($row['Activity_Introduction']) ?>">
                                 <div class="form-text"></div>
                             </div>
                             <div class="mb-3">
                                 <label for="text" class="form-label">詳細介紹</label>
-                                <textarea class="form-control" name="text" id="text" cols="30" rows="3"
-                                value="<?= htmlentities($row['Activity_Text']) ?>"></textarea>
+                                <textarea class="form-control" name="text" id="text" cols="30" rows="3"><?= htmlentities($row['Activity_Text']) ?></textarea>
 
                                 <div class="form-text"></div>
                             </div>
-
+                            <!-- bug 如何確定以選的選項-->
                             <div class="mb-3">活動類型
                                 <select class="form-select" name="Activity_Types_id" aria-label="Default select example">
-                                    <?php foreach ($Activity_Types_id as $ai): ?>
+                                    <?php foreach ($Activity_Types_id as $ai) : ?>
                                         <option value="<?= $ai['Activity_Types_id'] ?>"><?= $ai['Activity_Types_Name'] ?></option>
                                     <?php endforeach; ?>
                                 </select>
@@ -143,24 +124,25 @@ foreach ($raw_data2 as $r) {
 
                             <div class="mb-3">活動主辦單位
                                 <select class="form-select" name="fk_Activity_Organizers_id" aria-label="Default select example">
-                                    <?php foreach ($Activity_Organizers_id as $ai): ?>
+                                    <?php foreach ($Activity_Organizers_id as $ai) : ?>
                                         <option value="<?= $ai['Activity_Organizers_id'] ?>"><?= $ai['Activity_Organizers_Name'] ?></option>
                                     <?php endforeach; ?>
-                                </select> 
+                                </select>
                             </div>
 
-                            
-                           
+
+
                             <!-- 忘了縣市 -->
                             <div class="mb-3">
                                 <label for="place" class="form-label">* 活動地點</label>
                                 <input type="text" class="form-control" id="place" name="place" required value="<?= htmlentities($row['Activity_Place']) ?>">
-                                <div class="form-text"></div>
-                            </div>
+                                <div class="form-text">
+                                    <div class="form-text"></div>
+                                </div>
 
 
 
-                            <button type="submit" class="btn btn-primary">更新</button>
+                                <button type="submit" class="btn btn-primary">修改</button>
                         </form>
 
                     </div>
@@ -189,7 +171,7 @@ foreach ($raw_data2 as $r) {
 
         if (name.value.length < 2) {
             isPass = false;
-            name_msg.innerText = '請填寫兩個字以上的名稱'
+            name_msg.innerText = '請填寫正確的名稱'
         }
 
         if (isPass) {
@@ -202,12 +184,11 @@ foreach ($raw_data2 as $r) {
                 .then(obj => {
                     console.log(obj);
                     if (obj.success) {
-                        alert('新增成功');
-                        //成功轉跳 ab-list.php
-                        // location.href = 'ab-list.php';
+                        alert('修改成功');
+                        location.href = 'ab-list.php';
 
                     } else {
-                        alert('新增失敗');
+                        alert('修改失敗');
                     }
 
                 })
@@ -219,6 +200,7 @@ foreach ($raw_data2 as $r) {
     }
 </script>
 <script>
+    // 檢查圖片
     function sendData() {
         const fd = new FormData(document.avatar_form);
 
@@ -237,6 +219,6 @@ foreach ($raw_data2 as $r) {
 
     avatar.onchange = sendData;
 </script>
-<!-- 圖片上傳  -->
+
 
 <?php include __DIR__ . '/parts/html-foot.php'; ?>
