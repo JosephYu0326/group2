@@ -28,17 +28,32 @@ if ($totalRows) {
     }
 
     //試試看的
-    $sql2 = sprintf("SELECT * FROM activity  
-    JOIN activity_guest
-    ON activity_guest.fk_Activity_id = activity.Activity_id
-    ORDER BY Activity_id");
-    $rows2 = $pdo->query($sql2)->fetchAll();
+    // $sql2 = sprintf("SELECT * FROM activity  
+    // JOIN activity_guest
+    // ON activity_guest.fk_Activity_id = activity.Activity_id
+    // ORDER BY Activity_id");
+    // $rows2 = $pdo->query($sql2)->fetchAll();
 
 
-    $sql = sprintf("SELECT * FROM activity 
-    -- JOIN activity_organizers
-    -- ON activity.fk_Activity_Organizers_id = activity_organizers.Activity_Organizers_id;
-    ORDER BY Activity_id
+    // $sql = sprintf("SELECT * FROM activity 
+    // -- JOIN activity_organizers
+    // -- ON activity.fk_Activity_Organizers_id = activity_organizers.Activity_Organizers_id;
+    // ORDER BY Activity_id
+    // DESC LIMIT %s, %s", ($page - 1) * $perPage, $perPage);
+    // $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
+
+    $sql = sprintf(
+    "SELECT activity.*,activity_guest.Activity_Guest_Name ,Activity_Organizers_Name,Activity_Tag_name  , ticket_name 
+    FROM activity  
+       left JOIN activity_guest
+       ON activity_guest.fk_Activity_id = activity.Activity_id
+       left join activity_organizers
+       on activity.fk_Activity_Organizers_id =activity_organizers.Activity_Organizers_id
+       left join activity_tag
+       on activity_tag.Activity_Tag_id = activity.fk_Activity_Types_id
+       left join activity_ticket
+       on activity_ticket.fk_Activity_id =activity.Activity_id
+       ORDER BY Activity_id
     DESC LIMIT %s, %s", ($page - 1) * $perPage, $perPage);
     $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
 }
@@ -122,11 +137,13 @@ if ($totalRows) {
                             <td><?= $r['Activity_Text'] ?></td>
                             <td><?= $r['fk_Activity_Types_id'] ?></td>
                             <td><?= $r['fk_Activity_Organizers_id'] ?></td>
-                            
+                            <td><?= $r['fk_Activity_Types_id'] ?></td>
+                            <td><?= $r['fk_Activity_Organizers_id'] ?></td>
+                          
                             <!-- 後來加上的 -->
-                            <?php foreach ($rows2 as $w) : ?>
+                            <!-- <?php foreach ($rows2 as $w) : ?>
                             <td><?= $w['Activity_Guest_Name'] ?></td>
-                            <?php endforeach ?>
+                            <?php endforeach ?> -->
 
                             <!-- <?php foreach ($rows2 as $w) : ?>
                             <td><?= $w['fk_Activity_Organizers_id'] ?></td>
