@@ -149,14 +149,16 @@ if ($totalRows) {
                           
                             
 
-                            <!--把字符轉換為HTML 實體
+                            <!--
+                                    把字符轉換為HTML 實體
                             <td><?= htmlentities($r['address']) ?></td>
                             -->
                             <!-- 
-                                剝去字符串中的HTML 標籤
-                                <td><?= strip_tags($r['address']) ?></td> -->
+                                    剝去字符串中的HTML 標籤
+                                <td><?= strip_tags($r['address']) ?></td> 
+                            -->
                             <td>
-                                <a href="ab-edit.php?sid=<?= $r['Activity_id'] ?>">
+                                <a href="ab-edit.php?Activity_id=<?= $r['Activity_id'] ?>">
                                     <i class="fas fa-edit"></i>
                                 </a>
                             </td>
