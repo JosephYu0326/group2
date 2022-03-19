@@ -35,8 +35,8 @@ $stmt = $pdo->prepare($sql);
 
 $stmt->execute([
     $_POST['name'],
-    $_POST['img'] ?? NULL,
     $_POST['Profession'] ?? null,
+    $_POST['img'] ?? NULL,
     $_POST['company'] ?? null,
     $_POST['a-url'] ?? null,
     $_POST['text'] ?? null,
