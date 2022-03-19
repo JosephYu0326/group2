@@ -4,19 +4,19 @@ $title = '圖片列表';
 $pageName = 'Museum_image_list';
 
 $sid = isset($_GET['Museum_id']) ? intval($_GET['Museum_id']) : 0;
+$image_id = isset($_GET['image_id']) ? intval($_GET['image_id']) : 0;
 $sql = "SELECT * from museum_images where Museum_id=$sid";
 $sql1 = "SELECT Museum_name,Museum_id from museum_museum where Museum_id=$sid";
+$sql2 = "SELECT * from museum_images where image_id=$image_id";
 
 $row = $pdo->query($sql)->fetchAll();
 $row1 = $pdo->query($sql1)->fetch();
+$row2 = $pdo->query($sql2)->fetchAll();
 ?>
 <?php include __DIR__ . '/parts/html-head.php'; ?>
 <?php include __DIR__ . '/parts/navbar.php'; ?>
 <?php include __DIR__ . '/parts/nav.php'; ?>
 <style>
-    .myimg{
-        width: 100%;
-    }
 </style>
 
 <div class="content-wrapper">
@@ -54,9 +54,9 @@ $row1 = $pdo->query($sql1)->fetch();
 
                                         </td>
                                         <td>
-                                        <img class="myimg" src="./imgs/<?= $r['image_url']?>" alt="">
+                                        <img class="myimg img-thumbnail mx-auto d-block " src="./imgs/<?= $r['image_url']?>" alt="">
                                         </td>
-                                        <td><a href="edit_ticket.php?Museum_id=<?= $row1['Museum_id'] ?>&Museum_ticket_id=<?= $r['Museum_ticket_id'] ?>">
+                                        <td><a href="editimage.php?Museum_id=<?= $row1['Museum_id'] ?>&image_id=<?= $r['image_id'] ?>">
                                                 <i class="fas fa-edit"></i>
                                             </a>
                                         </td>
@@ -77,6 +77,11 @@ $row1 = $pdo->query($sql1)->fetch();
         var tableLine = document.getElementById("number");
         for (var i = 0; i < tableLine.rows.length; i++) {
             tableLine.rows[i].cells[1].innerHTML = (i + 1);
+        }
+    }
+    function del_it(image_id){
+        if(confirm(`確定要刪除票號為${image_id}的資料嗎?`)){
+            location.href = 'image_delete.php?image_id=' + image_id;
         }
     }
 
