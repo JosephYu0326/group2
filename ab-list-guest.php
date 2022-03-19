@@ -98,7 +98,9 @@ if ($totalRows) {
                             <td><?= $r['Activity_Guest_id'] ?></td>
                             <td><?= $r['Activity_Guest_Name'] ?></td>
                             <td><?= $r['Activity_Guest_Job_Title'] ?></td>
-                            <td><?= $r['Activity_Guest_Img'] ?></td>
+                            
+                            <td><img src="/Team2_museum/imgs/<?= $r['Activity_Guest_Img'] ?>" alt="" width="200px"></td>
+                            
                             <td><?= $r['Activity_Guest_Company_name'] ?></td>
                             <td><?= $r['Activity_Guest_URL'] ?></td>
                             <td><?= $r['Activity_Guest_Profiles'] ?></td>
