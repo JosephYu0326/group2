@@ -24,7 +24,7 @@ if ($totalRows) {
 
     $rows = $pdo->query($sql)->fetchAll();
 }
-
+$k=($page-1)*$perPage
 
 
 ?>
@@ -85,13 +85,14 @@ if ($totalRows) {
                             </thead>
                             <tbody>
                                 <?php foreach ($rows as $r) : ?>
+                                    <?php $k=$k+1 ?>
                                     <tr>
                                         <td>
                                             <a href="javascript: del_it(<?= $r['Museum_id']?>)">
                                                 <i class="fas fa-trash-alt"></i>
                                             </a>
                                         </td>
-                                        <td><?= $r['Museum_id'] ?></td>
+                                        <td><?= $k?></td>
                                         <td><?= $r['Museum_name'] ?></td>
                                         <td><?= $r['Museum_direction'] ?></td>
                                         <td><?= $r['Museum_city'] ?></td>
