@@ -1,0 +1,26 @@
+同一個 新增頁面 如何輸入不同 table 的資料
+如何 在同一個新增頁面輸入 不同表的外來建 api json  
+
+
+
+<div class="content-wrapper">
+
+你們內容放這裡面，內容就不會被重疊到
+
+</div>
+
+
+
+to do list 
+1.
+join table
+顯示join 列表
+2.
+在同一個頁面編輯不同的table
+3.
+在ADD
+選擇不同table的外來建 連接 table
+4.編輯器
+5.查詢資料
+6.檢查資料格式
+7.
