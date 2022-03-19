@@ -126,7 +126,7 @@ foreach ($raw_data2 as $r) {
                             </div>
 
                             <div class="mb-3">活動主辦單位
-                                <select class="form-select" name="Activity_Organizers_id" aria-label="Default select example">
+                                <select class="form-select" name="fk_Activity_Organizers_id" aria-label="Default select example">
                                     <?php foreach ($Activity_Organizers_id as $ai): ?>
                                         <option value="<?= $ai['Activity_Organizers_id'] ?>"><?= $ai['Activity_Organizers_Name'] ?></option>
                                     <?php endforeach; ?>

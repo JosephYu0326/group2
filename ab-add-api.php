@@ -42,7 +42,7 @@ $stmt->execute([
     $_POST['Activity_Introduction'] ?? null,
     $_POST['Activity_Text'] ?? NULL,
     $_POST['Activity_Types_id'] ?? NULL,
-    $_POST['Activity_Organizers_id'] ?? NULL,
+    $_POST['fk_Activity_Organizers_id'] ?? NULL,
 ]);
 
 $output['insertId'] = $pdo->lastInsertId(); // 取得最近加入資料的 PK
