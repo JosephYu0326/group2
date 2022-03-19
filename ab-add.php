@@ -187,7 +187,7 @@ foreach ($raw_data2 as $r) {
                     console.log(obj);
                     if (obj.success) {
                         alert('新增成功');
-
+                        location.href = 'ab-list.php';
 
                     } else {
                         alert('新增失敗');
