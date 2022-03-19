@@ -18,9 +18,6 @@ if (empty($_POST['discount_photo_id']) or empty($_POST['discount_photo_name'])) 
     exit;
 };
 
-
-// TODO: 欄位檢查
-
 $sql = "UPDATE `products_discount_photos` SET
         `discount_photo_name`=?, 
         `discount_photos_url`=?

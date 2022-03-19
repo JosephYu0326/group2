@@ -18,9 +18,6 @@ if (empty($_POST['product_id']) or empty($_POST['product_name'])) {
     exit;
 };
 
-
-// TODO: 欄位檢查
-
 $sql = "UPDATE `products_sale` SET
         `product_name`=?, 
         `product_intro`=?, 

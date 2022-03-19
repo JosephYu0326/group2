@@ -12,21 +12,18 @@ $output = [
     'rowCount' => 0,
 ];
 
-if (empty($_POST['sale_photo_name'])) {
+if (empty($_POST['sale_photo_url'])) {
     echo json_encode($output, JSON_UNESCAPED_UNICODE);
     exit;
 };
 
 $output['postData'] = $_POST; // 讓前端做資料查看, 資料是否一致
 
-// TODO: 欄位檢查
-
-$sql = "INSERT INTO `products_sale_photo`(`sale_photo_name`, `product_sale_id`, `sale_photo_url`) VALUES (?, ?, ?)";
+$sql = "INSERT INTO `products_sale_photo`(`product_sale_id`, `sale_photo_url`) VALUES (?, ?)";
 
 $stmt = $pdo->prepare($sql);
 
 $stmt->execute([
-    $_POST['sale_photo_name'] ?? '',
     $_POST['product_sale_id'] ?? '',
     $_POST['sale_photo_url'] ?? ''
 ]);

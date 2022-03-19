@@ -96,11 +96,6 @@ $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
                     <?php foreach ($rows as $r) :  ?>
                         <tr>
                             <td>
-                                <?php /*
-                                <a href="products_delete.php?sid=<?= $r['id'] ?>" onclick="return confirm(`確定要刪除編號為<?= $r['id'] ?>的資料嗎?`)">
-                                    <i class="fas fa-trash-alt"></i>
-                                </a>
-                               */ ?>
                                 <a href="javascript: del_it(<?= $r['discount_photo_id'] ?>)">
                                     <i class="fas fa-trash-alt"></i>
                                 </a>

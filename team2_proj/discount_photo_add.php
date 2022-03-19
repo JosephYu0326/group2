@@ -3,38 +3,6 @@ require __DIR__ . '/parts/connect_db.php';
 $title = '新增優惠圖';
 $pageName = 'discount_photo_add';
 
-/*
-$perPage = 5; // 每一頁有幾筆
-$page = isset($_GET['page']) ? intval($_GET['page']) : 1; //用戶要看的頁碼
-if ($page < 1) {
-    header('Location: ab_list.php?page=1');
-    exit;
-}
-*/
-
-/*
-$t_sql = "SELECT * FROM products_sale";
-
-// 取得總筆數
-$totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
-$rows = []; //預設沒有資料
-$totalPages = 0;
-
-if ($totalRows) {
-    // 總頁數
-    $totalPages = ceil($totalRows / $perPage);
-    if ($page > $totalPages) {
-        header("Location: ab_list.php?page=$totalPages");
-        exit;
-    }
-}
-*/
-
-/*
-$sql = sprintf("SELECT * FROM products_sale ORDER BY sid DESC LIMIT %s, %s", ($page - 1) * $perPage, $perPage);
-$rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
-*/
-
 ?>
 
 <?php include __DIR__ . '/parts/html_head.php'; ?>

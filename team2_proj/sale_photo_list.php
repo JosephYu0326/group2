@@ -85,7 +85,7 @@ $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
                             <i class="fas fa-trash-alt"></i>
                         </th>
                         <th scope="col">#</th>
-                        <th scope="col">商品照名稱</th>
+                        <th scope="col">商品編號</th>
                         <th scope="col">商品照預覽</th>
                         <th>
                             <i class="fas fa-pen-nib"></i>
@@ -96,18 +96,13 @@ $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
                     <?php foreach ($rows as $r) :  ?>
                         <tr>
                             <td>
-                                <?php /*
-                                <a href="products_delete.php?sid=<?= $r['id'] ?>" onclick="return confirm(`確定要刪除編號為<?= $r['id'] ?>的資料嗎?`)">
-                                    <i class="fas fa-trash-alt"></i>
-                                </a>
-                               */ ?>
                                 <a href="javascript: del_it(<?= $r['sale_photo_id'] ?>)">
                                     <i class="fas fa-trash-alt"></i>
                                 </a>
                             </td>
                             <td><?= $r['sale_photo_id'] ?></td>
-                            <td><?= $r['sale_photo_name'] ?></td>
-                            <td><img class="myimg" src="images/<?= $r['sale_photo_url'] ?>" class=""></td>
+                            <td><?= $r['product_sale_id'] ?></td>
+                            <td><img class="myimg" src="images/<?= $r['sale_photo_url'] ?>"></td>
                             <td>
                                 <a href="sale_photo_edit.php?sid=<?= $r['sale_photo_id'] ?>">
                                     <i class="fas fa-pen-nib"></i>

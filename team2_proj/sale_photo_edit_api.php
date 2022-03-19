@@ -13,23 +13,20 @@ $output = [
 
 $output['postData'] = $_POST; // 讓前端做資料查看, 資料是否一致
 
-if (empty($_POST['sale_photo_id']) or empty($_POST['sale_photo_name'])) {
+if (empty($_POST['sale_photo_id']) or empty($_POST['sale_photo_url'])) {
     echo json_encode($output, JSON_UNESCAPED_UNICODE);
     exit;
 };
 
-
-// TODO: 欄位檢查
-
 $sql = "UPDATE `products_sale_photo` SET
-        `sale_photo_name`=?, 
+        `product_sale_id`=?, 
         `sale_photo_url`=?
         WHERE `sale_photo_id`=?";
 
 $stmt = $pdo->prepare($sql);
 
 $stmt->execute([
-    $_POST['sale_photo_name'] ?? '',
+    $_POST['reload_id'] ?? '',
     $_POST['sale_photo_url'] ?? '',
     $_POST['sale_photo_id'],
 ]);

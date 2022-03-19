@@ -38,8 +38,7 @@ if (empty($row)) {
                             <div class="form-text"></div>
                         </div>
                         <div class="mb-3">
-                            <label for="discount_photos_url" class="form-label">*圖片檔名</label>
-                            <input type="text" class="form-control" id="discount_photos_url" name="discount_photos_url" required value="<?= htmlentities($row['discount_photos_url']) ?>">
+                            <input type="text" style="display: none" class="form-control" id="discount_photos_url" name="discount_photos_url" required value="<?= htmlentities($row['discount_photos_url']) ?>">
                             <br>
                             <img src="" alt="" id="discount_photo_preview" width="200px">
                             <button type="button" onclick="discount_photo_update.click()">重新上傳圖片</button>
@@ -76,33 +75,6 @@ if (empty($row)) {
     discount_photo_update.onchange = sendData;
 
     function checkForm() {
-        let isPass = true; // 有沒有通過檢查
-
-        /*
-
-        name_msg.innerText = ''; // 清空訊息
-        mobile_msg.innerText = ''; // 清空訊息
-
-        // TODO: 表單資料送出之前, 要做格式檢查
-
-        if (name.value.length < 2) {
-            isPass = false;
-            name_msg.innerText = '請填寫正確的姓名'
-        }
-
-        const mobile_re = /^09\d{2}-?\d{3}-?\d{3}$/; // new RegExp()
-
-        if (mobile.value) {
-            // 如果不是空字串就檢查格式
-            if (!mobile_re.test(mobile.value)) {
-                mobile_msg.innerText = '請輸入正確的手機號碼';
-                isPass = false;
-            }
-        }
-
-        */
-
-        if (isPass) {
             const fd = new FormData(document.discount_photo_edit_form);
 
             fetch('discount_photo_edit_api.php', {
@@ -119,6 +91,5 @@ if (empty($row)) {
                     }
                 })
         }
-    }
 </script>
 <?php include __DIR__ . '/parts/html_foot.php'; ?>

@@ -13,40 +13,6 @@ foreach($raw_data as $r) {
     }
 }
 
-// echo json_encode($product_sale_id); exit;
-
-/*
-$perPage = 5; // 每一頁有幾筆
-$page = isset($_GET['page']) ? intval($_GET['page']) : 1; //用戶要看的頁碼
-if ($page < 1) {
-    header('Location: ab_list.php?page=1');
-    exit;
-}
-*/
-
-/*
-$t_sql = "SELECT * FROM products_sale";
-
-// 取得總筆數
-$totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
-$rows = []; //預設沒有資料
-$totalPages = 0;
-
-if ($totalRows) {
-    // 總頁數
-    $totalPages = ceil($totalRows / $perPage);
-    if ($page > $totalPages) {
-        header("Location: ab_list.php?page=$totalPages");
-        exit;
-    }
-}
-*/
-
-/*
-$sql = sprintf("SELECT * FROM products_sale ORDER BY sid DESC LIMIT %s, %s", ($page - 1) * $perPage, $perPage);
-$rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
-*/
-
 ?>
 
 <?php include __DIR__ . '/parts/html_head.php'; ?>
@@ -68,15 +34,12 @@ $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
                     <form name="sale_photo_add_form" method="post" novalidate onsubmit="checkForm(); return false;">
 
                         <div class="mb-3">
-                            <label for="sale_photo_name" class="form-label">圖片名稱</label>
-                            <input type="text" class="form-control" id="sale_photo_name" name="sale_photo_name">
-                            <br>
                             <input type="text" class="form-control" style="display:none" id="sale_photo_url" name="sale_photo_url">
                             <img src="" alt="" id="sale_photo_preview" width="200px">
                             <button type="button" onclick="sale_photo.click()">上傳商品圖片</button>
                             <br><br>
                             <label for="product_sale_id" class="form-label" id="product_sale_id" name="product_sale_id">商品編號</label>
-                            <select name="product_sale_id" id="produt_sale_id">
+                            <select name="product_sale_id" id="product_sale_id">
                                 <?php foreach ($product_sale_id as $p) : ?>
                                     <option value="<?= $p['product_id']?>"><?= $p['product_name']?></option>
                                 <?php endforeach; ?>
@@ -116,30 +79,6 @@ $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
     sale_photo.onchange = sendData;
 
     function checkForm() {
-        let isPass = true; // 有沒有通過檢查
-
-        /*name_msg.innerText = ''; // 清空訊息
-        mobile_msg.innerText = ''; // 清空訊息
-
-        // TODO: 表單資料送出之前, 要做格式檢查
-
-        if (name.value.length < 2) {
-            isPass = false;
-            name_msg.innerText = '請填寫正確的姓名'
-        }
-
-        const mobile_re = /^09\d{2}-?\d{3}-?\d{3}$/; // new RegExp()
-
-        if (mobile.value) {
-            // 如果不是空字串就檢查格式
-            if (!mobile_re.test(mobile.value)) {
-                mobile_msg.innerText = '請輸入正確的手機號碼';
-                isPass = false;
-            }
-        }
-        */
-
-        if (isPass) {
             const fd = new FormData(document.sale_photo_add_form);
 
             fetch('sale_photo_add_api.php', {
@@ -155,7 +94,6 @@ $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
                         alert('新增失敗');
                     }
                 })
-        }
     }
 </script>
 <?php include __DIR__ . '/parts/html_foot.php'; ?>

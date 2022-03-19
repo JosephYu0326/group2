@@ -11,7 +11,7 @@ if ($page < 1) {
 }
 
 
-$t_sql = "SELECT * FROM products_sale";
+$t_sql = "SELECT * FROM products_sale LEFT JOIN products_sale_photo ON products_sale.product_id = products_sale_photo.product_sale_id ORDER BY product_id DESC";
 
 // 取得總筆數
 $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
@@ -29,7 +29,7 @@ if ($totalRows) {
 }
 
 
-$sql = sprintf("SELECT * FROM products_sale ORDER BY product_id DESC LIMIT %s, %s", ($page - 1) * $perPage, $perPage);
+$sql = sprintf("SELECT * FROM products_sale LEFT JOIN products_sale_photo ON products_sale.product_id = products_sale_photo.product_sale_id ORDER BY product_id DESC LIMIT %s, %s", ($page - 1) * $perPage, $perPage);
 $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
 
 
@@ -38,6 +38,12 @@ $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
 <?php include __DIR__ . '/parts/html_head.php'; ?>
 <?php include __DIR__ . '/parts/navbar.php'; ?>
 <?php include __DIR__ . '/parts/aside.php'; ?>
+
+<style>
+    .myimg{
+        width: 75%;
+    }
+</style>
 
 <div class="content-wrapper">
     <div class="row">
@@ -79,6 +85,7 @@ $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
                             <i class="fas fa-trash-alt"></i>
                         </th>
                         <th scope="col">#</th>
+                        <th scope="col">商品圖片</th>
                         <th scope="col">商品名稱</th>
                         <th scope="col">商品簡介</th>
                         <th scope="col">商品完整介紹</th>
@@ -98,16 +105,13 @@ $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
                     <?php foreach ($rows as $r) :  ?>
                         <tr>
                             <td>
-                                <?php /*
-                                <a href="products_delete.php?sid=<?= $r['id'] ?>" onclick="return confirm(`確定要刪除編號為<?= $r['id'] ?>的資料嗎?`)">
-                                    <i class="fas fa-trash-alt"></i>
-                                </a>
-                               */ ?>
                                 <a href="javascript: del_it(<?= $r['product_id'] ?>)">
                                     <i class="fas fa-trash-alt"></i>
                                 </a>
                             </td>
+
                             <td><?= $r['product_id'] ?></td>
+                            <td><img class="myimg" id="myImg" onerror='this.style.display = "none"' src="images/<?= $r['sale_photo_url'] ?>"></td>
                             <td><?= $r['product_name'] ?></td>
                             <td><?= $r['product_intro'] ?></td>
                             <td><?= $r['product_main'] ?></td>
@@ -118,8 +122,7 @@ $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
                             <td><?= $r['product_store_quantity'] ?></td>
                             <td><?= $r['product_category'] ?></td>
                             <td><?= $r['product_location'] ?></td>
-                            <!-- <td><?= htmlentities($r['address']) ?></td>
-                             <td><?= strip_tags($r['address']) ?></td> -->
+
                             <td>
                                 <a href="products_edit.php?sid=<?= $r['product_id'] ?>">
                                     <i class="fas fa-pen-nib"></i>

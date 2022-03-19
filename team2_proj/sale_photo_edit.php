@@ -22,7 +22,6 @@ foreach ($raw_data as $r) {
     }
 }
 
-// echo json_encode($reload_id); exit;
 ?>
 
 <?php include __DIR__ . '/parts/html_head.php'; ?>
@@ -45,19 +44,10 @@ foreach ($raw_data as $r) {
                     <form name="form_sale_photo_edit" method="post" novalidate onsubmit="checkForm(); return false;">
                         <input type="hidden" name="sale_photo_id" value="<?= $row['sale_photo_id'] ?>">
                         <div class="mb-3">
-                            <label for="sale_photo_name" class="form-label">*圖片名稱</label>
-                            <input type="text" class="form-control" id="sale_photo_name" name="sale_photo_name" required value="<?= htmlentities($row['sale_photo_name']) ?>">
-                            <div class="form-text"></div>
-                        </div>
-                        <div class="mb-3">
                             <input type="text" class="form-control" style="display: none" id="sale_photo_url" name="sale_photo_url" required value="<?= htmlentities($row['sale_photo_url']) ?>">
                             <br>
-                            <label for="reload_id" class="form-label" id="reload_id" name="reload_id">*商品編號</label>
-                            <select name="reload_id" id="reload_id" require value="<?= htmlentities($row['product_sale_id']) ?>>">
-                                <?php foreach ($reload_id as $re) : ?>
-                                    <option value="<?= $re['product_id'] ?>"><?= $re['product_name'] ?></option>
-                                <?php endforeach; ?>
-                            </select>
+                            <label for="reload" class="form-label" id="reload" name="reload">*商品編號</label>
+                            <select name="reload_id" id="reload_id" require value="<?= htmlentities($row['product_sale_id']) ?>"></select>
                             <br>
                             <img src="" alt="" id="sale_photo_preview" width="200px">
                             <button type="button" onclick="sale_photo_update.click()">重新上傳圖片</button>
@@ -83,9 +73,10 @@ foreach ($raw_data as $r) {
 
     let str = '';
     for(let pt of pt_data){
-        str += `<option value="${pt.product_id}">${pt.name}</option>`
+        str += `<option value="${pt.product_id}">${pt.product_name}</option>`
     }
     reload_id.html(str);
+    reload_id.val(<?= htmlentities($row['product_sale_id']) ?>);
     
 
     function sendData() {
@@ -107,30 +98,6 @@ foreach ($raw_data as $r) {
 
     function checkForm() {
         let isPass = true; // 有沒有通過檢查
-
-        /*
-
-        name_msg.innerText = ''; // 清空訊息
-        mobile_msg.innerText = ''; // 清空訊息
-
-        // TODO: 表單資料送出之前, 要做格式檢查
-
-        if (name.value.length < 2) {
-            isPass = false;
-            name_msg.innerText = '請填寫正確的姓名'
-        }
-
-        const mobile_re = /^09\d{2}-?\d{3}-?\d{3}$/; // new RegExp()
-
-        if (mobile.value) {
-            // 如果不是空字串就檢查格式
-            if (!mobile_re.test(mobile.value)) {
-                mobile_msg.innerText = '請輸入正確的手機號碼';
-                isPass = false;
-            }
-        }
-
-        */
 
         if (isPass) {
             const fd = new FormData(document.form_sale_photo_edit);

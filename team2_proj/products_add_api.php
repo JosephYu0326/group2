@@ -19,8 +19,6 @@ if (empty($_POST['product_name'])) {
 
 $output['postData'] = $_POST; // 讓前端做資料查看, 資料是否一致
 
-// TODO: 欄位檢查
-
 $sql = "INSERT INTO `products_sale`(`product_name`, `product_intro`, `product_main`, `product_more_info`, `product_size`, `product_orign_price`, `product_price`, `product_store_quantity`, `product_category`, `product_location`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 $stmt = $pdo->prepare($sql);
