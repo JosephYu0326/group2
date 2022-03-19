@@ -17,17 +17,17 @@ foreach ($raw_data as $r) {
 }
 //選擇主辦單位
 $stmt2 = $pdo->query("SELECT * FROM activity_organizers ORDER BY Activity_Organizers_id");
-$raw_data = $stmt2->fetchAll();
+$raw_data2 = $stmt2->fetchAll();
 
 $Activity_Organizers_id = [];
 
-foreach ($raw_data as $r) {
+foreach ($raw_data2 as $r) {
     if ($r['Activity_Organizers_id'] != '') {
         $Activity_Organizers_id[] = $r;
     }
 }
 
-
+// echo json_encode($Activity_Organizers_id);
 
 // echo json_encode($Activity_Types_id);
 ?>
