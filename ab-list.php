@@ -28,17 +28,34 @@ if ($totalRows) {
     }
 
     //試試看的
-    $sql2 = sprintf("SELECT * FROM activity  
-    JOIN activity_guest
-    ON activity_guest.fk_Activity_id = activity.Activity_id
-    ORDER BY Activity_id");
-    $rows2 = $pdo->query($sql2)->fetchAll();
+    // $sql2 = sprintf("SELECT * FROM activity  
+    // JOIN activity_guest
+    // ON activity_guest.fk_Activity_id = activity.Activity_id
+    // ORDER BY Activity_id");
+    // $rows2 = $pdo->query($sql2)->fetchAll();
 
 
-    $sql = sprintf("SELECT * FROM activity 
-    -- JOIN activity_organizers
-    -- ON activity.fk_Activity_Organizers_id = activity_organizers.Activity_Organizers_id;
-    ORDER BY Activity_id
+    // $sql = sprintf("SELECT * FROM activity 
+    // -- JOIN activity_organizers
+    // -- ON activity.fk_Activity_Organizers_id = activity_organizers.Activity_Organizers_id;
+    // ORDER BY Activity_id
+    // DESC LIMIT %s, %s", ($page - 1) * $perPage, $perPage);
+    // $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
+
+    $sql = sprintf(
+    "SELECT activity.*,activity_guest.Activity_Guest_Name ,Activity_Organizers_Name,Activity_Organizers_id, ticket_name,Activity_Types_Name ,Activity_Tag_name
+    FROM activity  
+       left JOIN activity_guest
+       ON activity_guest.fk_Activity_id = activity.Activity_id
+       left join activity_organizers
+       on activity.fk_Activity_Organizers_id =activity_organizers.Activity_Organizers_id
+       left join activity_ticket
+       on activity_ticket.fk_Activity_id =activity.Activity_id
+       left join activity_types
+       on activity.fk_Activity_Types_id =activity_types.Activity_Types_id
+       left join activity_tag
+       on activity_tag.Activity_Tag_id = activity.fk_Activity_Types_id
+       ORDER BY Activity_id
     DESC LIMIT %s, %s", ($page - 1) * $perPage, $perPage);
     $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
 }
@@ -94,7 +111,7 @@ if ($totalRows) {
                         <th scope="col">活動類型</th>
                         <th scope="col">主辦單位</th>
                         <th scope="col">嘉賓</th>
-                        <th scope="col">票價&類型</th> 
+                        <th scope="col">票價類型名稱</th> 
                         <th scope="col">
                             <i class="fas fa-edit"></i>
                         </th>
@@ -111,31 +128,33 @@ if ($totalRows) {
                                     <i class="fas fa-trash-alt"></i>
                                 </a>
                             </td>
+                            <!-- 活動主表 -->
                             <td><?= $r['Activity_id'] ?></td>
                             <td><?= $r['Activity_Name'] ?></td>
-                            <td><img src="/test/imgs/<?= $r['Activity_Img'] ?>" alt="" width="400px"></td>
+                            <td><img src="/Team2_museum/imgs/<?= $r['Activity_Img'] ?>" alt="" width="200px"></td>
                             <td><?= $r['Activity_Star_Time'] ?></td>
                             <td><?= $r['Activity_End_Time'] ?></td>
                             <td><?= $r['Activity_Place'] ?></td>
                             <td><?= $r['Activity_Links'] ?></td>
                             <td><?= strip_tags($r['Activity_Introduction']) ?></td>
                             <td><?= $r['Activity_Text'] ?></td>
-                            <td><?= $r['fk_Activity_Types_id'] ?></td>
-                            <td><?= $r['fk_Activity_Organizers_id'] ?></td>
+                            <!-- 活動類型 -->
+                            <td><?= $r['Activity_Types_Name'] ?></td>
+                            <!-- 主辦單位 -->
+                            <td><?= $r['Activity_Organizers_Name'] ?></td>
+                            <!-- 嘉賓 -->
+                            <td><?= $r['Activity_Guest_Name'] ?></td>
+                            <!-- 票券 -->
+                            <td><?= $r['ticket_name'] ?></td>
+                          
                             
-                            <!-- 後來加上的 -->
-                            <?php foreach ($rows2 as $w) : ?>
-                            <td><?= $w['Activity_Guest_Name'] ?></td>
-                            <?php endforeach ?>
 
-                            <!-- <?php foreach ($rows2 as $w) : ?>
-                            <td><?= $w['fk_Activity_Organizers_id'] ?></td>
-                            <?php endforeach ?> -->
-
-                            <!--
+                            <!--把字符轉換為HTML 實體
                             <td><?= htmlentities($r['address']) ?></td>
                             -->
-                            <!-- <td><?= strip_tags($r['address']) ?></td> -->
+                            <!-- 
+                                剝去字符串中的HTML 標籤
+                                <td><?= strip_tags($r['address']) ?></td> -->
                             <td>
                                 <a href="ab-edit.php?sid=<?= $r['Activity_id'] ?>">
                                     <i class="fas fa-edit"></i>
