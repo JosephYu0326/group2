@@ -89,7 +89,7 @@ $pageName = 'ab-add-org';
                     console.log(obj);
                     if (obj.success) {
                         alert('新增成功');
-                        // location.href = 'ab-list.php';
+                        location.href = 'ab-list-org.php';
                     } else {
                         alert('新增失敗');
                     }
