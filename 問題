@@ -39,6 +39,29 @@ join table
 
 票的 修改 刪除
 
+嘉賓 選擇活動
+
+修改不了的bug 
+活動-新增 主辦單位  資料庫沒有出來
+
+
+
+
+
+
+
+
+
+
+   <!-- 後來加上的 -->
+                            <!-- <?php foreach ($rows2 as $w) : ?>
+                            <td><?= $w['Activity_Guest_Name'] ?></td>
+                            <?php endforeach ?> -->
+
+                            <!-- <?php foreach ($rows2 as $w) : ?>
+                            <td><?= $w['fk_Activity_Organizers_id'] ?></td>
+                            <?php endforeach ?> -->
+
 
 
 
