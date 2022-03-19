@@ -43,7 +43,7 @@ if ($totalRows) {
     // $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
 
     $sql = sprintf(
-    "SELECT activity.*,activity_guest.Activity_Guest_Name ,Activity_Organizers_Name,Activity_Organizers_id, ticket_name,Activity_Types_Name 
+    "SELECT activity.*,activity_guest.Activity_Guest_Name ,Activity_Organizers_Name,Activity_Organizers_id, ticket_name,Activity_Types_Name ,Activity_Tag_name
     FROM activity  
        left JOIN activity_guest
        ON activity_guest.fk_Activity_id = activity.Activity_id
@@ -53,6 +53,8 @@ if ($totalRows) {
        on activity_ticket.fk_Activity_id =activity.Activity_id
        left join activity_types
        on activity.fk_Activity_Types_id =activity_types.Activity_Types_id
+       left join activity_tag
+       on activity_tag.Activity_Tag_id = activity.fk_Activity_Types_id
        ORDER BY Activity_id
     DESC LIMIT %s, %s", ($page - 1) * $perPage, $perPage);
     $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
@@ -126,6 +128,7 @@ if ($totalRows) {
                                     <i class="fas fa-trash-alt"></i>
                                 </a>
                             </td>
+                            <!-- 活動主表 -->
                             <td><?= $r['Activity_id'] ?></td>
                             <td><?= $r['Activity_Name'] ?></td>
                             <td><img src="/Team2_museum/imgs/<?= $r['Activity_Img'] ?>" alt="" width="200px"></td>
@@ -135,9 +138,13 @@ if ($totalRows) {
                             <td><?= $r['Activity_Links'] ?></td>
                             <td><?= strip_tags($r['Activity_Introduction']) ?></td>
                             <td><?= $r['Activity_Text'] ?></td>
-                            <td><?= $r['Activity_Tag_name'] ?></td>
+                            <!-- 活動類型 -->
+                            <td><?= $r['Activity_Types_Name'] ?></td>
+                            <!-- 主辦單位 -->
                             <td><?= $r['Activity_Organizers_Name'] ?></td>
+                            <!-- 嘉賓 -->
                             <td><?= $r['Activity_Guest_Name'] ?></td>
+                            <!-- 票券 -->
                             <td><?= $r['ticket_name'] ?></td>
                           
                             
