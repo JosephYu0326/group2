@@ -23,8 +23,9 @@ if(empty($row)){
     }
 
 </style>
+<div class="content-wrapper">
 <div class="container">
-    <div class="row">
+    <div class="row justify-content-center">
         <div class="col-lg-6">
             <div class="card">
                 <div class="card-body">

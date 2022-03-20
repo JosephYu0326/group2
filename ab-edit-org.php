@@ -22,36 +22,37 @@ if (empty($row)) {
         color: red;
     }
 </style>
-<div class="container">
-    <div class="row">
-        <div class="col-lg-6">
-            <div class="card">
-                <div class="card-body">
+<div class="content-wrapper">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
 
-                    <form name="avatar_form" onsubmit="return false;" style="display: none;">
-                        <input type="file" id="avatar" name="avatar" accept="image/jpeg,image/png">
-                    </form>
+                        <form name="avatar_form" onsubmit="return false;" style="display: none;">
+                            <input type="file" id="avatar" name="avatar" accept="image/jpeg,image/png">
+                        </form>
 
-                    <h5 class="card-title">修改資料</h5>
-                    <form name="form1" method="post" novalidate onsubmit="checkForm(); return false;">
-                        <input type="hidden" name="Activity_Organizers_id" value="<?= $row['Activity_Organizers_id'] ?>">
+                        <h5 class="card-title">修改資料</h5>
+                        <form name="form1" method="post" novalidate onsubmit="checkForm(); return false;">
+                            <input type="hidden" name="Activity_Organizers_id" value="<?= $row['Activity_Organizers_id'] ?>">
 
 
 
-                        <div class="mb-3">
-                            <label for="name" class="form-label">* 嘉賓名稱</label>
-                            <input type="text" class="form-control" id="name" name="name" required value="<?= htmlentities($row['Activity_Organizers_Name']) ?>">
-                            <div class="form-text"></div>
-                        </div>
+                            <div class="mb-3">
+                                <label for="name" class="form-label">* 嘉賓名稱</label>
+                                <input type="text" class="form-control" id="name" name="name" required value="<?= htmlentities($row['Activity_Organizers_Name']) ?>">
+                                <div class="form-text"></div>
+                            </div>
 
-                        <input type="hidden" id="img" name="img">
+                            <input type="hidden" id="img" name="img">
 
-                        <br>
-                        <img src="" alt="" id="myimg" width="200px">
-                        <br>
-                        <button type="button" class="btn btn-primary" onclick="avatar.click()">上傳嘉賓圖片</button>
+                            <br>
+                            <img src="" alt="" id="myimg" width="200px">
+                            <br>
+                            <button type="button" class="btn btn-primary" onclick="avatar.click()">上傳嘉賓圖片</button>
 
-                        <!-- <div class="mb-3">
+                            <!-- <div class="mb-3">
                             <label for="img" class="form-label">* 嘉賓圖片</label>
                             <input type="text" class="form-control" id="img" name="img" required value="<?= htmlentities($row['Activity_Organizers_Img']) ?>">
                             <div class="form-text"></div>
@@ -59,15 +60,15 @@ if (empty($row)) {
 
 
 
-                        <button type="submit" class="btn btn-primary">修改</button>
-                    </form>
+                            <button type="submit" class="btn btn-primary">修改</button>
+                        </form>
 
+                    </div>
                 </div>
             </div>
         </div>
+
     </div>
-
-
 
 
 
@@ -103,7 +104,7 @@ if (empty($row)) {
                     console.log(obj);
                     if (obj.success) {
                         alert('修改成功');
-                         location.href = 'ab-list-org.php';
+                        location.href = 'ab-list-org.php';
                     } else {
                         alert('沒有修改');
                     }
@@ -116,8 +117,8 @@ if (empty($row)) {
 
     }
 
-     // 檢查圖片
-     function sendData() {
+    // 檢查圖片
+    function sendData() {
         const fd = new FormData(document.avatar_form);
 
         fetch('upload-avatar.php', {
@@ -135,8 +136,6 @@ if (empty($row)) {
 
     avatar.onchange = sendData;
     // ---
-
-
 </script>
 <?php include __DIR__ . '/parts/html-foot.php'; ?>
 

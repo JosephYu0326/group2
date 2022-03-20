@@ -37,8 +37,9 @@ foreach ($raw_data as $r) {
         color: red;
     }
 </style>
+<div class="content-wrapper">
 <div class="container">
-    <div class="row">
+    <div class="row justify-content-center">
         <div class="col-lg-6">
             <div class="card">
                 <div class="card-body">
@@ -52,7 +53,7 @@ foreach ($raw_data as $r) {
                     <form name="form1" method="post" novalidate onsubmit="checkForm(); return false;">
                         <input type="hidden" name="Activity_Guest_id" value="<?= $row['Activity_Guest_id'] ?>">
 
-
+                    <br>
 
                         <div class="mb-3">
                             <label for="name" class="form-label">* 嘉賓名稱</label>

@@ -39,6 +39,7 @@ foreach ($raw_data as $r) {
 
                         <h5 class="card-title">新增嘉賓資料</h5>
                         <form name="form1" method="post" novalidate onsubmit="checkForm(); return false;">
+                        <br>
                             <div class="mb-3">
                                 <label for="name" class="form-label">* 嘉賓名稱</label>
                                 <input type="text" class="form-control" id="name" name="name" required>
