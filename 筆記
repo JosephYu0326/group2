@@ -14,3 +14,4 @@ RESTRICT - 與 NO ACTION 相同。
 
 isset 的 get 不能有空白建['']
 $Activity_ticket_id = isset($_GET['Activity_ticket_id']) ? intval($_GET['Activity_ticket_id']) : 0;
+
