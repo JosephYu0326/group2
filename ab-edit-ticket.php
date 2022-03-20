@@ -98,6 +98,9 @@ if (empty($row)) {
 <script>
     const name = document.form1.name; // DOM element
     const name_msg = name.closest('.mb-3').querySelector('.form-text');
+   
+    // const email = document.querySelector('#start');
+    // const name_msg = name.closest('.mb-3').querySelector('.form-text');
 
     function checkForm() {
         let isPass = true; // 有沒有通過檢查
@@ -111,6 +114,12 @@ if (empty($row)) {
             isPass = false;
             name_msg.innerText = '請填寫正確的名稱'
         }
+
+        // if (name.value.length < 2) {
+        //     isPass = false;
+        //     name_msg.innerText = '請填寫'
+        // }
+
 
         if (isPass) {
             const fd = new FormData(document.form1);
