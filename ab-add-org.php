@@ -9,36 +9,37 @@ $pageName = 'ab-add-org';
         color: red;
     }
 </style>
-<div class="container">
-    <div class="row">
-        <div class="col-lg-6">
-            <div class="card">
-                <div class="card-body">
+<div class="content-wrapper">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
 
-                    <form name="avatar_form" onsubmit="return false;" style="display: none;">
-                        <input type="file" id="avatar" name="avatar" accept="image/jpeg,image/png">
-                    </form>
-
-                    
-                    <h5 class="card-title">新增主辦單位資料</h5>
-                    <form name="form1" method="post" novalidate onsubmit="checkForm(); return false;">
-                    <br>
-                        <div class="mb-3">
-                            <label for="name" class="form-label">主辦單位名稱</label>
-                            <input type="text" class="form-control" id="name" name="name" required>
-                            <div class="form-text"></div>
-                        </div>
+                        <form name="avatar_form" onsubmit="return false;" style="display: none;">
+                            <input type="file" id="avatar" name="avatar" accept="image/jpeg,image/png">
+                        </form>
 
 
+                        <h5 class="card-title">新增主辦單位資料</h5>
+                        <form name="form1" method="post" novalidate onsubmit="checkForm(); return false;">
+                            <br>
+                            <div class="mb-3">
+                                <label for="name" class="form-label">主辦單位名稱</label>
+                                <input type="text" class="form-control" id="name" name="name" required>
+                                <div class="form-text"></div>
+                            </div>
 
 
-                        <input type="hidden" id="img" name="img">
 
-                        <br>
-                        <img src="" alt="" id="myimg" width="200px">
-                        <br>
-                        <button type="button" class="btn btn-primary" onclick="avatar.click()">上傳嘉賓圖片</button>
-                        <!-- <div class="mb-3">
+
+                            <input type="hidden" id="img" name="img">
+
+                            <br>
+                            <img src="" alt="" id="myimg" width="200px">
+                            <br>
+                            <button type="button" class="btn btn-primary" onclick="avatar.click()">上傳嘉賓圖片</button>
+                            <!-- <div class="mb-3">
                             <label for="img" class="form-label">主辦單位圖片</label>
                             <input type="text" class="form-control" id="img" name="img" required>
                             <div class="form-text"></div>
@@ -47,18 +48,18 @@ $pageName = 'ab-add-org';
 
 
 
-                        <button type="submit" class="btn btn-primary">新增資料</button>
-                    </form>
+                            <button type="submit" class="btn btn-primary">新增資料</button>
+                        </form>
 
+                    </div>
                 </div>
             </div>
         </div>
+
+
+
+
     </div>
-
-
-
-
-
 </div>
 <?php include __DIR__ . '/parts/scripts.php'; ?>
 <script>
@@ -102,8 +103,8 @@ $pageName = 'ab-add-org';
 
     }
 
-     // 檢查圖片
-     function sendData() {
+    // 檢查圖片
+    function sendData() {
         const fd = new FormData(document.avatar_form);
 
         fetch('upload-avatar.php', {
@@ -121,7 +122,5 @@ $pageName = 'ab-add-org';
 
     avatar.onchange = sendData;
     // ---
-
-
 </script>
 <?php include __DIR__ . '/parts/html-foot.php'; ?>

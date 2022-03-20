@@ -3,7 +3,7 @@ require __DIR__ . '/parts/connect_db.php';
 
 $sid = isset($_GET['Activity_Types_id']) ? intval($_GET['Activity_Types_id']) : 0;
 
-$sql = "DELETE FROM `activity_types` WHERE Activity_Types_id=$sid";
+$sql = "DELETE FROM `activity_types` WHERE Activity_Types_id = $sid";
 
 $stmt = $pdo->query($sql);
 

@@ -10,9 +10,10 @@ $pageName = 'ab-add-types';
     }
 
 </style>
+<div class="content-wrapper">
 <div class="container">
-    <div class="row">
-        <div class="col-lg-6">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 ">
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">新增活動類型</h5>

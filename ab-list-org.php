@@ -34,97 +34,99 @@ if ($totalRows) {
 ?>
 <?php include __DIR__ . '/parts/html-head.php'; ?>
 <?php include __DIR__ . '/parts/navbar.php'; ?>
+
+<div class="content-wrapper">
 <div class="container">
-    <div class="row">
-        <div class="col">
-            <nav aria-label="Page navigation example">
-                <ul class="pagination">
-                    <li class="page-item <?= $page==1 ? 'disabled' : '' ?>">
-                        <a class="page-link" href="?page=<?= $page-1 ?>">
-                            <i class="fas fa-arrow-alt-circle-left"></i>
-                        </a>
-                    </li>
-                    <?php for($i=$page-5; $i<=$page+5; $i++): 
-                        if($i>=1 and $i<=$totalPages):
+        <div class="row">
+            <div class="col">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <li class="page-item <?= $page == 1 ? 'disabled' : '' ?>">
+                            <a class="page-link" href="?page=<?= $page - 1 ?>">
+                                <i class="fas fa-arrow-alt-circle-left"></i>
+                            </a>
+                        </li>
+                        <?php for ($i = $page - 5; $i <= $page + 5; $i++) :
+                            if ($i >= 1 and $i <= $totalPages) :
                         ?>
-                    <li class="page-item <?= $page==$i ? 'active' : '' ?>">
-                        <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
-                    </li>
-                    <?php endif; endfor; ?>
-                    <li class="page-item <?= $page==$totalPages ? 'disabled' : '' ?>">
-                        <a class="page-link" href="?page=<?= $page+1 ?>">
-                        <i class="fas fa-arrow-alt-circle-right"></i>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
+                                <li class="page-item <?= $page == $i ? 'active' : '' ?>">
+                                    <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
+                                </li>
+                        <?php endif;
+                        endfor; ?>
+                        <li class="page-item <?= $page == $totalPages ? 'disabled' : '' ?>">
+                            <a class="page-link" href="?page=<?= $page + 1 ?>">
+                                <i class="fas fa-arrow-alt-circle-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
         </div>
-    </div>
 
 
-    <div class="row">
-        <div class="col">
-            <table class="table table-striped table-bordered">
-                <thead>
-                    <tr>
-                        <th scope="col">
-                            <i class="fas fa-trash-alt"></i>
-                        </th>
-                        <th scope="col">#</th>
-                        <th scope="col">主辦單位名稱</th>
-                        <th scope="col">主辦單位圖片</th>
-                      
-                        <th scope="col">
-                            <i class="fas fa-edit"></i>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($rows as $r) : ?>
+        <div class="row">
+            <div class="col">
+                <table class="table table-striped table-bordered">
+                    <thead>
                         <tr>
-                            <td>
-                                <?php /*
+                            <th scope="col">
+                                <i class="fas fa-trash-alt"></i>
+                            </th>
+                            <th scope="col">#</th>
+                            <th scope="col">主辦單位名稱</th>
+                            <th scope="col">主辦單位圖片</th>
+
+                            <th scope="col">
+                                <i class="fas fa-edit"></i>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($rows as $r) : ?>
+                            <tr>
+                                <td>
+                                    <?php /*
                                 <a href="ab-delete.php?sid=<?= $r['sid'] ?>" onclick="return confirm(`確定要刪除編號為 <?= $r['sid'] ?> 的資料嗎?`)">
                                 */ ?>
-                                <a href="javascript: del_it(<?= $r['Activity_Organizers_id'] ?>)">
-                                    <i class="fas fa-trash-alt"></i>
-                                </a>
-                            </td>
-                            <!-- id -->
-                            <td><?= $r['Activity_Organizers_id'] ?></td>
-                            <!-- 名稱 -->
-                            <td><?= $r['Activity_Organizers_Name'] ?></td>
-                            <!-- 圖片 -->
-                            <td><img src="/Team2_museum/imgs/<?= $r['Activity_Organizers_Img'] ?>" alt="" width="200px"></td>
-                           
-                           
-                            <!--
+                                    <a href="javascript: del_it(<?= $r['Activity_Organizers_id'] ?>)">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </a>
+                                </td>
+                                <!-- id -->
+                                <td><?= $r['Activity_Organizers_id'] ?></td>
+                                <!-- 名稱 -->
+                                <td><?= $r['Activity_Organizers_Name'] ?></td>
+                                <!-- 圖片 -->
+                                <td><img src="/Team2_museum/imgs/<?= $r['Activity_Organizers_Img'] ?>" alt="" width="200px"></td>
+
+
+                                <!--
                             <td><?= htmlentities($r['address']) ?></td>
                             -->
-                            <!-- <td><?= strip_tags($r['address']) ?></td> -->
-                            <td>
-                                <a href="ab-edit-org.php?Activity_Organizers_id=<?= $r['Activity_Organizers_id'] ?>">
-                                    <i class="fas fa-edit"></i>
-                                </a>
-                            </td>
-                        </tr>
-                    <?php endforeach ?>
-                </tbody>
+                                <!-- <td><?= strip_tags($r['address']) ?></td> -->
+                                <td>
+                                    <a href="ab-edit-org.php?Activity_Organizers_id=<?= $r['Activity_Organizers_id'] ?>">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        <?php endforeach ?>
+                    </tbody>
 
-            </table>
+                </table>
+            </div>
         </div>
     </div>
 </div>
 <?php include __DIR__ . '/parts/scripts.php'; ?>
 <script>
-    function del_it(Activity_Organizers_id){
-        if(confirm(`確定要刪除編號為 ${Activity_Organizers_id} 的資料嗎?`)){
+    function del_it(Activity_Organizers_id) {
+        if (confirm(`確定要刪除編號為 ${Activity_Organizers_id} 的資料嗎?`)) {
 
             location.href = 'ab-delete-org.php?Activity_Organizers_id=' + Activity_Organizers_id;
         }
 
     }
-
-
 </script>
 <?php include __DIR__ . '/parts/html-foot.php'; ?>

@@ -25,75 +25,76 @@ foreach ($raw_data as $r) {
         color: red;
     }
 </style>
+
 <div class="content-wrapper">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
 
-    <div class="row">
-        <div class="col-lg-6">
-            <div class="card">
-                <div class="card-body">
+                        <form name="avatar_form" onsubmit="return false;" style="display: none;">
+                            <input type="file" id="avatar" name="avatar" accept="image/jpeg,image/png">
+                        </form>
 
-                    <form name="avatar_form" onsubmit="return false;" style="display: none;">
-                        <input type="file" id="avatar" name="avatar" accept="image/jpeg,image/png">
-                    </form>
+                        <h5 class="card-title">新增嘉賓資料</h5>
+                        <form name="form1" method="post" novalidate onsubmit="checkForm(); return false;">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">* 嘉賓名稱</label>
+                                <input type="text" class="form-control" id="name" name="name" required>
+                                <div class="form-text"></div>
+                            </div>
 
-                    <h5 class="card-title">新增嘉賓資料</h5>
-                    <form name="form1" method="post" novalidate onsubmit="checkForm(); return false;">
-                        <div class="mb-3">
-                            <label for="name" class="form-label">* 嘉賓名稱</label>
-                            <input type="text" class="form-control" id="name" name="name" required>
-                            <div class="form-text"></div>
-                        </div>
+                            <input type="hidden" id="img" name="img">
 
-                        <input type="hidden" id="img" name="img">
+                            <br>
+                            <img src="" alt="" id="myimg" width="200px">
+                            <br>
+                            <button type="button" class="btn btn-primary" onclick="avatar.click()">上傳嘉賓圖片</button>
 
-                        <br>
-                        <img src="" alt="" id="myimg" width="200px">
-                        <br>
-                        <button type="button" class="btn btn-primary" onclick="avatar.click()">上傳嘉賓圖片</button>
-
-                        <!-- <div class="mb-3">
+                            <!-- <div class="mb-3">
                             <label for="img" class="form-label">* 嘉賓圖片</label>
                             <input type="text" class="form-control" id="img" name="img" required>
                             <div class="form-text"></div>
                         </div> -->
-                        <div class="mb-3">
-                            <label for="Profession" class="form-label">* 嘉賓職業</label>
-                            <input type="text" class="form-control" id="Profession" name="Profession" required>
-                            <div class="form-text"></div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="company" class="form-label">* 嘉賓公司</label>
-                            <input type="text" class="form-control" id="company" name="company" required>
-                            <div class="form-text"></div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="a-url" class="form-label">* 嘉賓網址</label>
-                            <input type="url" class="form-control" id="a-url" name="a-url" required>
-                            <div class="form-text"></div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="text" class="form-label">嘉賓介紹</label>
-                            <textarea class="form-control" name="text" id="text" cols="30" rows="3"></textarea>
+                            <div class="mb-3">
+                                <label for="Profession" class="form-label">* 嘉賓職業</label>
+                                <input type="text" class="form-control" id="Profession" name="Profession" required>
+                                <div class="form-text"></div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="company" class="form-label">* 嘉賓公司</label>
+                                <input type="text" class="form-control" id="company" name="company" required>
+                                <div class="form-text"></div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="a-url" class="form-label">* 嘉賓網址</label>
+                                <input type="url" class="form-control" id="a-url" name="a-url" required>
+                                <div class="form-text"></div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="text" class="form-label">嘉賓介紹</label>
+                                <textarea class="form-control" name="text" id="text" cols="30" rows="3"></textarea>
 
-                            <div class="form-text"></div>
-                        </div>
+                                <div class="form-text"></div>
+                            </div>
 
-                        <div class="mb-3">嘉賓要參加的活動
-                            <select class="form-select" name="Activity_id" aria-label="Default select example">
-                                <?php foreach ($Activity_id as $ai) : ?>
-                                    <option value="<?= $ai['Activity_id'] ?>"><?= $ai['Activity_Name'] ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
+                            <div class="mb-3">嘉賓要參加的活動
+                                <select class="form-select" name="Activity_id" aria-label="Default select example">
+                                    <?php foreach ($Activity_id as $ai) : ?>
+                                        <option value="<?= $ai['Activity_id'] ?>"><?= $ai['Activity_Name'] ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
 
-                        <button type="submit" class="btn btn-primary">新增</button>
-                    </form>
+                            <button type="submit" class="btn btn-primary">新增</button>
+                        </form>
 
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
 
 
 
