@@ -1,11 +1,13 @@
 <?php
-$title = '新增資料';
-$pageName = 'ab-add-ticket';
+require __DIR__ . '/parts/connect_db.php';
+
+$title = '修改資料';
+$pageName = 'ab-edit-ticket';
 
 
-$Activity_Organizers_id = isset($_GET['Activity_ticket_id ']) ? intval($_GET['Activity_ticket_id ']) : 0;
+$Activity_ticket_id = isset($_GET['Activity_ticket_id']) ? intval($_GET['Activity_ticket_id']) : 0;
 
-$sql = "SELECT * FROM activity_ticket WHERE Activity_ticket_id =$Activity_Organizers_id";
+$sql = "SELECT * FROM activity_ticket WHERE Activity_ticket_id =$Activity_ticket_id";
 $row = $pdo->query($sql)->fetch();
 
 
@@ -30,8 +32,10 @@ if (empty($row)) {
             <div class="col-lg-6">
                 <div class="card">
                     <div class="card-body">
+
                         <h5 class="card-title">修改票券</h5>
                         <form name="form1" method="post" novalidate onsubmit="checkForm(); return false;">
+
                         <input type="hidden" name="Activity_ticket_id " value="<?= $row['Activity_ticket_id '] ?>">
 
                             <div class="mb-3">
