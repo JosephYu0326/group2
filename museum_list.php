@@ -20,7 +20,7 @@ if ($totalRows) {
         exit;
     }
 
-    $sql = sprintf("SELECT Museum_id,Museum_name,Museum_direction,Museum_city,Museum_kind,Museum_features,Museum_introduce,Museum_booking_notice,Museum_more_information from museum_museum join museum_location on museum_location.museum_location_id = museum_museum.museum_location_id join museum_kind on museum_kind.museum_kind_id = museum_museum.museum_kind_id join museum_direction on museum_direction.museum_direction_id = museum_location.museum_direction_id join museum_city on museum_city.museum_city_id = museum_location.museum_city_id order by Museum_id Limit %u,%u", ($page - 1) * $perPage, $perPage);
+    $sql = sprintf("SELECT Museum_id,Museum_name,Museum_direction,Museum_city,Museum_kind,Museum_features,Museum_introduce,Museum_booking_notice,Museum_more_information from museum_museum join museum_location on museum_location.museum_location_id = museum_museum.museum_location_id join museum_kind on museum_kind.museum_kind_id = museum_museum.museum_kind_id join museum_direction on museum_direction.museum_direction_id = museum_location.museum_direction_id join museum_city on museum_city.museum_city_id = museum_location.museum_city_id order by Museum_id desc Limit %u,%u", ($page - 1) * $perPage, $perPage);
 
     $rows = $pdo->query($sql)->fetchAll();
 }
@@ -36,10 +36,9 @@ $k=($page-1)*$perPage
         <div class="row">
             <div class="col-xs-12">
                 <div class="box">
-                    <div class="box-header">
-                        <h3 class="box-title">美術館</h3>
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination">
+                    <div class="box-header d-flex">
+                        <h3 class="box-title mt-3 me-auto ">美術館</h3>
+                            <ul class="pagination mt-3">
                                 <li class="page-item <?= $page == 1 ? 'disabled' : '' ?>">
                                     <a href="?page=<?= $page - 1 ?>" class="page-link">
                                         <i class="fas fa-arrow-alt-circle-left"></i>

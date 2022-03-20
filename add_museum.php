@@ -1,5 +1,5 @@
 <?php
-$title = 'Add Museum';
+$title = '新增美術館';
 $pageName = 'Add Museum';
 require_once 'parts/connect_db.php';
 
@@ -40,7 +40,7 @@ try {
             <div class="col-xs-12  mt-3 ">
                 <div class="box ">
                     <div class="box-header">
-                        <h5 class="card-title">Add Museum</h5>
+                        <h3 class="box-title">新增美術館</h3>
                     </div><br>
                     <div class="box-body">
                         <form name="form1" method="post" novalidate onsubmit="checkForm(); return false;">
@@ -98,20 +98,12 @@ try {
                                     <textarea class="form-control" name="Museum_more_information" id="Museum_more_information" cols="30" rows="30"></textarea>
                                     <div class="form-text"></div>
                                 </div>
-                                <div class="mb-3">
-                                    <input type="hidden" id="pic" name="pic">
-                                    <img src="" alt="" id="myimg" style="width: 100%;">
-                                    <button class="btn btn-dark" type="button" onclick="avatar.click()">上傳照片</button>
-                                </div>
                                 <div class="mb-3 d-grid gap-2">
                                     <button type="submit" class="btn btn-dark">新增</button>
                                 </div>
                         </form>
                     </div>
 
-                    <form name="image_form" onsubmit="return false;" style="display: none;">
-                        <input type="file" id="avatar" name="avatar" accept="image/*">
-                    </form>
                 </div>
 
             </div>
@@ -125,16 +117,31 @@ try {
     const name = document.form1.museum_name;
     const name_msg = museum_name.closest('.mb-3').querySelector('.form-text');
     const features_msg = Museum_features.closest('.mb-3').querySelector('.form-text');
+    const introduce_msg = Museum_introduce.closest('.mb-3').querySelector('.form-text');
+    const notice_msg = Museum_booking_notice.closest('.mb-3').querySelector('.form-text');
+    const information_msg = Museum_more_information.closest('.mb-3').querySelector('.form-text');
 
     function checkForm() {
         let isPass = true;
-        if (museum_name.revalue.length < 2) {
+        if (museum_name.value.length < 2) {
             isPass = false;
-            name_msg.innerText = '請填寫正確的姓名'
+            name_msg.innerText = '請填寫正確的館名'
         }
-        if (Museum_features.value.length > 50) {
+        if (Museum_features.value.length > 500) {
             isPass = false;
             features_msg.innerText = '字數不得超過50字'
+        }
+        if (Museum_introduce.value.length > 5000) {
+            isPass = false;
+            introduce_msg.innerText = '字數不得超過5000字'
+        }
+        if (Museum_booking_notice.value.length > 5000) {
+            isPass = false;
+            notice_msg.innerText = '字數不得超過5000字'
+        }
+        if (Museum_more_information.value.length > 5000) {
+            isPass = false;
+            information_msg.innerText = '字數不得超過5000字'
         }
 
         //TODO: 表單資料送出之前，要做格式檢查
@@ -163,25 +170,6 @@ try {
 
         }
     }
-</script>
-<script>
-    const avatar = document.querySelector('#avatar');
-
-    function sendData() {
-        const fd2 = new FormData(document.image_form);
-
-        fetch('upload.php', {
-                method: 'POST',
-                body: fd2
-            }).then(r => r.json())
-            .then(obj => {
-                if (obj.success && obj.filename) {
-                    myimg.src = './imgs/' + obj.filename;
-                    pic.value = obj.filename;
-                }
-            })
-    }
-    avatar.onchange = sendData;
 </script>
 
 <?php include __DIR__ . '/parts/html-foot.php'; ?>

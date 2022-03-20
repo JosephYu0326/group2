@@ -43,7 +43,6 @@ $row2 = $pdo->query($sql2)->fetchAll();
                                         <i class="fas fa-trash-alt"></i>
                                     </th>
                                     <th scope="sol">#</th>
-                                    <th scope="sol">票號</th>
                                     <th scope="sol">票種</th>
                                     <th scope="sol">票價</th>
                                     <th scope="col">
@@ -60,9 +59,6 @@ $row2 = $pdo->query($sql2)->fetchAll();
                                         </td>
                                         <td>
 
-                                        </td>
-                                        <td>
-                                            <?= $r['Museum_ticket_id'] ?>
                                         </td>
                                         <td>
                                             <?= $r['museum_price_kind'] ?>

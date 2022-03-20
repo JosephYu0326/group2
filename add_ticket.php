@@ -15,7 +15,7 @@ try{
 } catch(Exception $ex){
     echo ($ex->getMessage());
 }
-$row = $pdo->query($sql1)->fetchAll();
+$row = $pdo->query($sql1)->fetch();
 ?>
 
 
@@ -36,19 +36,7 @@ $row = $pdo->query($sql1)->fetchAll();
                             <div class="main-form">
                                 <div class="col-lg-6 mt-3 ">
                                     <div class="form-group">
-                                        <label for="museum_name" class="form-label">館名</label>
-                                        <select name="Museum_id[]" id="Museum_id" class="form-select">
-                                        <?php foreach($row as $output) {?>
-                                        <option selected value="<?= $output["Museum_id"] ?>"><?= $output["Museum_name"] ?></option>
-                                        <?php } ?>
-                                        <option >-- select Museum --</option>
-                                        <?php foreach ($results as $output){ ?>
-                                        <option value="<?= $output["Museum_id"] ?>"><?= $output["Museum_name"] ?>
-                                        </option>
-                                        <?php } ?>
-                                        </select>
-                                        <div class="form-text"></div>
-                                    </div>
+                                        <input type="hidden" name="Museum_id[]" value="<?= $row["Museum_id"]?>">
                                 </div>
                                 <div class="col-lg-6 mt-3">
                                     <div class="form-group">
@@ -94,18 +82,7 @@ $row = $pdo->query($sql1)->fetchAll();
             $('.paste-new-forms').append('<div class="main-form">\
                                 <div class="col-lg-6 mt-3 ">\
                                     <div class="form-group">\
-                                        <label for="museum_name" class="form-label">館名</label>\
-                                        <select name="Museum_id[]" id="Museum_id" class="form-select">\
-                                        <?php foreach($row as $output) {?>\
-                                        <option selected value="<?= $output["Museum_id"] ?>"><?= $output["Museum_name"] ?></option>\
-                                        <?php } ?>\
-                                        <option >-- select Museum --</option>\
-                                        <?php foreach ($results as $output){ ?>\
-                                        <option value="<?= $output["Museum_id"] ?>"><?= $output["Museum_name"] ?>\
-                                        </option>\
-                                        <?php } ?>\
-                                        </select>\
-                                        <div class="form-text"></div>\
+                                    <input type="hidden" name="Museum_id[]" value="<?= $row["Museum_id"]?>">\
                                     </div>\
                                 </div>\
                                 <div class="col-lg-6 mt-3">\

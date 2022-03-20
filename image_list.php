@@ -27,7 +27,7 @@ if ($totalRows) {
     $sql3 = sprintf(" SELECT * from museum_images where Museum_id=$sid order by image_id Limit %u,%u", ($page - 1) * $perPage, $perPage);
     $rows = $pdo->query($sql3)->fetchAll();
 }
-$k=($page-1)*$perPage
+$k = ($page - 1) * $perPage
 
 ?>
 <?php include __DIR__ . '/parts/html-head.php'; ?>
@@ -41,31 +41,32 @@ $k=($page-1)*$perPage
         <div class="row">
             <div class="col-xs-12">
                 <div class="box">
-                    <div class="box-header">
-                        <h3 class="box-title mt-3"><?= $row1['Museum_name'] ?>圖片
-                            <button type="button" class=" float-end me-3 btn btn-dark" onclick="location.href='addimage.php?Museum_id=<?= $row1['Museum_id'] ?>'">新增圖片</button>
+                    <div class="box-header d-flex">
+                        <h3 class="box-title mt-3 me-auto"><?= $row1['Museum_name'] ?>圖片
                         </h3>
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination">
-                                <li class="page-item <?= $page == 1 ? 'disabled' : '' ?>">
-                                    <a href="?Museum_id=<?= $sid?>&page=<?= $page - 1 ?>" class="page-link">
-                                        <i class="fas fa-arrow-alt-circle-left"></i>
-                                    </a>
-                                </li>
-                                <?php for ($i = $page - 5; $i <= $page + 5; $i++) :
-                                    if ($i >= 1 and $i <= $totalPages) :
-                                ?>
-                                        <li class="page-item <?= $page == $i ? 'active' : '' ?>">
-                                            <a class="page-link" href="?Museum_id=<?= $sid?>&page=<?= $i ?>"><?= $i ?></a>
-                                        </li>
-                                <?php endif;
-                                endfor; ?>
-                                <li class="page-item <?= $page == $totalPages ? 'disabled' : '' ?>">
-                                    <a href="?Museum_id=<?= $sid?>&page=<?= $page + 1 ?>" class="page-link">
-                                        <i class="fas fa-arrow-alt-circle-right"></i>
-                                    </a>
-                                </li>
-                            </ul>
+                        <ul class="pagination mt-3 me-3">
+                            <li class="page-item <?= $page == 1 ? 'disabled' : '' ?>">
+                                <a href="?Museum_id=<?= $sid ?>&page=<?= $page - 1 ?>" class="page-link">
+                                    <i class="fas fa-arrow-alt-circle-left"></i>
+                                </a>
+                            </li>
+                            <?php for ($i = $page - 5; $i <= $page + 5; $i++) :
+                                if ($i >= 1 and $i <= $totalPages) :
+                            ?>
+                                    <li class="page-item <?= $page == $i ? 'active' : '' ?>">
+                                        <a class="page-link" href="?Museum_id=<?= $sid ?>&page=<?= $i ?>"><?= $i ?></a>
+                                    </li>
+                            <?php endif;
+                            endfor; ?>
+                            <li class="page-item <?= $page == $totalPages ? 'disabled' : '' ?>">
+                                <a href="?Museum_id=<?= $sid ?>&page=<?= $page + 1 ?>" class="page-link">
+                                    <i class="fas fa-arrow-alt-circle-right"></i>
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="mt-3">
+                            <button type="button" class=" float-end  btn btn-dark" onclick="location.href='addimage.php?Museum_id=<?= $row1['Museum_id'] ?>'">新增圖片</button>
+                        </div>
                     </div>
 
                     <div class="box-body">
@@ -84,14 +85,14 @@ $k=($page-1)*$perPage
                             </thead>
                             <tbody id="number">
                                 <?php foreach ($rows as $r) : ?>
-                                    <?php $k=$k+1 ?>
+                                    <?php $k = $k + 1 ?>
                                     <tr>
                                         <td>
                                             <a href="javascript: del_it(<?= $r['image_id'] ?>)">
                                                 <i class="fas fa-trash-alt"></i>
                                         </td>
                                         <td>
-                                            <?= $k?>
+                                            <?= $k ?>
                                         </td>
                                         <td>
                                             <img class="myimg img-thumbnail mx-auto d-block " src="./imgs/<?= $r['image_url'] ?>" alt="">
