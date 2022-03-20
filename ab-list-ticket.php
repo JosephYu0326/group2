@@ -94,7 +94,7 @@ if ($totalRows) {
                                     <?php /*
                                 <a href="ab-delete.php?sid=<?= $r['sid'] ?>" onclick="return confirm(`確定要刪除編號為 <?= $r['sid'] ?> 的資料嗎?`)">
                                 */ ?>
-                                    <a href="javascript: del_it(<?= $r['Activity_id'] ?>)">
+                                    <a href="javascript: del_it(<?= $r['Activity_ticket_id'] ?>)">
                                         <i class="fas fa-trash-alt"></i>
                                     </a>
                                 </td>
