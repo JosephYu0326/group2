@@ -5,6 +5,9 @@
         border-radius: 5px;
         font-weight: 800;
     }
+    .navbar{
+        border-bottom: 1px solid rgba(102, 102, 102,0.5);
+    }
 </style>
 
 <div class="content-wrapper">

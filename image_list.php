@@ -15,11 +15,11 @@ if ($page < 1) {
     header("Location: image_list.php?Museum_id=$sid&page=1");
     exit;
 }
-$t_sql = "SELECT COUNT(1) FROM museum_images";
+$t_sql = "SELECT COUNT(1) FROM museum_images where Museum_id=$sid";
 $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
 $rows = [];
+$totalPages = (floor($totalRows / $perPage))+1;
 if ($totalRows) {
-    $totalPages = ceil($totalRows / $perPage);
     if ($page > $totalPages) {
         header("Location: image_list.php?Museum_id=$sid&page = $totalPages");
         exit;
@@ -122,7 +122,7 @@ $k = ($page - 1) * $perPage
     // }
 
     function del_it(image_id) {
-        if (confirm(`確定要刪除票號為${image_id}的資料嗎?`)) {
+        if (confirm(`確定要刪除此圖片嗎?`)) {
             location.href = 'image_delete.php?image_id=' + image_id;
         }
     }

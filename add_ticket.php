@@ -58,10 +58,10 @@ $row = $pdo->query($sql1)->fetch();
                                     </div>
                                 </div>
                             </div>
-                            <div class="paste-new-forms">
+                            <div class="paste-new-forms col-lg-6 mt-3">
 
                             </div>
-                            <div class="col-lg-6 mt-3">
+                            <div class="d-grid gap-2 mt-3">
                                 <button type="submit" class="btn btn-dark mb-3">新增</button>
 
                             </div>
