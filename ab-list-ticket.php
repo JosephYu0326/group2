@@ -113,7 +113,7 @@ if ($totalRows) {
                             -->
                                 <!-- <td><?= strip_tags($r['address']) ?></td> -->
                                 <td>
-                                    <a href="ab-edit.php?sid=<?= $r['Activity_ticket_id'] ?>">
+                                    <a href="ab-edit-ticket.php?Activity_ticket_id=<?= $r['Activity_ticket_id'] ?>">
                                         <i class="fas fa-edit"></i>
                                     </a>
                                 </td>
@@ -131,7 +131,7 @@ if ($totalRows) {
     function del_it(Activity_ticket_id) {
         if (confirm(`確定要刪除編號為 ${Activity_ticket_id} 的資料嗎?`)) {
 
-            location.href = 'ab-delete.php?sid=' + Activity_ticket_id;
+            location.href = 'ab-delete-ticket.php?Activity_ticket_id=' + Activity_ticket_id;
         }
 
     }
