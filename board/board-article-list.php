@@ -3,9 +3,11 @@ require __DIR__ . '/parts/connect_db.php';
 $title = '文章列表';
 $pageName = 'board-article-list';
 
-$orderby = isset($_GET['order']) ? intval($_GET['order']) : 0;
-$queryArticle = isset($_GET['query']) ? intval($_GET['query']) : 0;
-$board_aidNum = isset($_GET['board_aidNum']) ? intval($_GET['board_aidNum']) : -1;
+$orderby = isset($_GET['order']) ? intval($_GET['order']) : 0; //  排序
+$queryArticle = isset($_GET['query']) ? intval($_GET['query']) : 0; // 是否從留言板過來
+$board_aidNum = isset($_GET['board_aidNum']) ? intval($_GET['board_aidNum']) : 0; // 留言找文章編號
+$search = isset($_GET['search']) ? strval($_GET['search']) : 0; // 搜尋關鍵字
+
 
 $perPage = 5; // 每一頁最多5筆資料
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1; // 用戶要看的頁碼
@@ -15,11 +17,18 @@ if ($page < 1) {
 }
 
 
-$t_sql = "SELECT COUNT(1) FROM board_articles";
-// 取得總筆數
+$t_sql = "SELECT COUNT(1) FROM board_articles"; // 取得總筆數
+if($board_aidNum){
+    $t_sql = "SELECT COUNT(1) FROM board_articles WHERE board_aid = $board_aidNum";
+}
+if($search){
+    $t_sql = "SELECT COUNT(1) FROM board_articles WHERE content LIKE '%$search%'";
+}
+
 $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
 $rows = []; // 預設沒有資料
 $AtotalPages = 0;
+
 
 
 if ($totalRows) {
@@ -30,30 +39,36 @@ if ($totalRows) {
         exit;
     }
 
-    if($orderby){
-        $sql='';
+    if($orderby){ //升冪
         $sql = sprintf("SELECT * FROM board_articles
         LEFT JOIN users ON users.id = board_articles.user_id
         LEFT JOIN board_photos ON board_articles.board_aid = board_photos.board_article_id
         ORDER BY board_aid LIMIT %s, %s", ($page - 1) * $perPage, $perPage);
-    } else {
-        $sql='';
+    } else { //降冪(預設)
         $sql = sprintf("SELECT * FROM board_articles
         LEFT JOIN users ON users.id = board_articles.user_id
         LEFT JOIN board_photos ON board_articles.board_aid = board_photos.board_article_id
         ORDER BY board_aid DESC LIMIT %s, %s", ($page - 1) * $perPage, $perPage);
     }
 
-
-
-    if ($queryArticle) {
-        $sql='';
+    if($search){ // 搜尋
+        $pagevar=($page - 1) * $perPage; // 每頁變數(搜尋用)
+        $sql = "SELECT * FROM board_articles
+        LEFT JOIN users ON users.id = board_articles.user_id
+        LEFT JOIN board_photos ON board_articles.board_aid = board_photos.board_article_id
+        WHERE (`content` like '%$search%')
+        ORDER BY board_aid DESC LIMIT $pagevar, $perPage";
+        
+    }
+    if ($queryArticle) { //是否從留言板過來
         $sql = "SELECT * FROM board_articles
         LEFT JOIN users ON users.id = board_articles.user_id
         LEFT JOIN board_photos ON board_articles.board_aid = board_photos.board_article_id
         WHERE board_aid = $board_aidNum";
     }
+
     $rows = $pdo->query($sql)->fetchAll();
+
 }
 
 $eachpage = 10; // 一次有幾頁
@@ -105,7 +120,7 @@ $k = $totalRows - ($page - 1) * 5;
 
                         ?>
                                 <li class="page-item <?= $page == $i ? 'active' : '' ?>">
-                                    <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
+                                    <a class="page-link" href="?page=<?= $i?>&search=<?=$search?>"><?= $i ?></a>
                                 </li>
                         <?php endif;
                         endfor; ?>
@@ -118,7 +133,7 @@ $k = $totalRows - ($page - 1) * 5;
 
 
         <div class="d-flex justify-content-between">
-            <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+            <form action="board-article-list.php" method="GET">
                 <input id="search" type="text" placeholder="Type here" name="search">
                 <input id="submit" type="submit" value="Search">
             </form>
