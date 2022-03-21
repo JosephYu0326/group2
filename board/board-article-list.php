@@ -3,7 +3,8 @@ require __DIR__ . '/parts/connect_db.php';
 $title = '文章列表';
 $pageName = 'board-article-list';
 
-$queryNum = isset($_GET['query']) ? intval($_GET['query']) : 0;
+$orderby = isset($_GET['order']) ? intval($_GET['order']) : 0;
+$queryArticle = isset($_GET['query']) ? intval($_GET['query']) : 0;
 $board_aidNum = isset($_GET['board_aidNum']) ? intval($_GET['board_aidNum']) : -1;
 
 $perPage = 5; // 每一頁最多5筆資料
@@ -20,6 +21,7 @@ $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
 $rows = []; // 預設沒有資料
 $AtotalPages = 0;
 
+
 if ($totalRows) {
     // 總頁數
     $AtotalPages = ceil($totalRows / $perPage);
@@ -27,20 +29,31 @@ if ($totalRows) {
         header("Location: board-article-list.php?page=$AtotalPages");
         exit;
     }
-    if ($queryNum) {
-        $sql = "SELECT * FROM board_articles
+
+    if($orderby){
+        $sql='';
+        $sql = sprintf("SELECT * FROM board_articles
         LEFT JOIN users ON users.id = board_articles.user_id
         LEFT JOIN board_photos ON board_articles.board_aid = board_photos.board_article_id
-
-        WHERE board_aid = $board_aidNum";
-        $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
+        ORDER BY board_aid LIMIT %s, %s", ($page - 1) * $perPage, $perPage);
     } else {
+        $sql='';
         $sql = sprintf("SELECT * FROM board_articles
         LEFT JOIN users ON users.id = board_articles.user_id
         LEFT JOIN board_photos ON board_articles.board_aid = board_photos.board_article_id
         ORDER BY board_aid DESC LIMIT %s, %s", ($page - 1) * $perPage, $perPage);
-        $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
     }
+
+
+
+    if ($queryArticle) {
+        $sql='';
+        $sql = "SELECT * FROM board_articles
+        LEFT JOIN users ON users.id = board_articles.user_id
+        LEFT JOIN board_photos ON board_articles.board_aid = board_photos.board_article_id
+        WHERE board_aid = $board_aidNum";
+    }
+    $rows = $pdo->query($sql)->fetchAll();
 }
 
 $eachpage = 10; // 一次有幾頁
@@ -102,11 +115,26 @@ $k = $totalRows - ($page - 1) * 5;
             </div>
         </div>
 
-        <form action="board-article-list-search.php" method="POST">
-            <input id="search" type="text" placeholder="Type here" name="search">
-            <input id="submit" type="submit" value="Search">
-        </form>
-        
+
+
+        <div class="d-flex justify-content-between">
+            <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+                <input id="search" type="text" placeholder="Type here" name="search">
+                <input id="submit" type="submit" value="Search">
+            </form>
+            
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                    Order
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    <li><a class="dropdown-item" href="board-article-list.php?order=1">Ascending</a></li>
+                    <li><a class="dropdown-item" href="board-article-list.php?order=0">Descending</a></li>
+                </ul>
+            </div>
+        </div>
+
+
 
         <div class="row py-2">
             <div class="col">
