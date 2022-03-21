@@ -3,6 +3,13 @@ require __DIR__ . '/parts/connect_db.php';
 $title = '文章列表';
 $pageName = 'board-article-list';
 
+$search = $_POST['search'];
+// print_r($search);
+// exit;
+
+
+// $sql_query = "SELECT * FROM `board_articles` WHERE `content` LIKE '%".$search."%'";
+
 $queryNum = isset($_GET['query']) ? intval($_GET['query']) : 0;
 $board_aidNum = isset($_GET['board_aidNum']) ? intval($_GET['board_aidNum']) : -1;
 
@@ -12,6 +19,8 @@ if ($page < 1) {
     header('Location: board-article-list.php?page=1');
     exit;
 }
+
+$pageA=($page - 1) * $perPage;
 
 
 $t_sql = "SELECT COUNT(1) FROM board_articles";
@@ -27,20 +36,15 @@ if ($totalRows) {
         header("Location: board-article-list.php?page=$AtotalPages");
         exit;
     }
-    if ($queryNum) {
-        $sql = "SELECT * FROM board_articles
-        LEFT JOIN users ON users.id = board_articles.user_id
-        LEFT JOIN board_photos ON board_articles.board_aid = board_photos.board_article_id
 
-        WHERE board_aid = $board_aidNum";
-        $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
-    } else {
-        $sql = sprintf("SELECT * FROM board_articles
-        LEFT JOIN users ON users.id = board_articles.user_id
-        LEFT JOIN board_photos ON board_articles.board_aid = board_photos.board_article_id
-        ORDER BY board_aid DESC LIMIT %s, %s", ($page - 1) * $perPage, $perPage);
-        $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
-    }
+
+    $sql = "SELECT * FROM board_articles
+    LEFT JOIN users ON users.id = board_articles.user_id
+    LEFT JOIN board_photos ON board_articles.board_aid = board_photos.board_article_id
+    WHERE (`content` like '%$search%')
+    ORDER BY board_aid DESC LIMIT $pageA, $perPage";
+    $rows = $pdo->query($sql)->fetchAll(); // 拿到分頁資料
+
 }
 
 $eachpage = 10; // 一次有幾頁
@@ -103,7 +107,7 @@ $k = $totalRows - ($page - 1) * 5;
         </div>
 
         <form action="board-article-list-search.php" method="POST">
-            <input id="search" type="text" placeholder="Type here" name="search">
+            <input id="search" type="text" placeholder="Type here">
             <input id="submit" type="submit" value="Search">
         </form>
         
