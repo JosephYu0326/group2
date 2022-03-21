@@ -15,19 +15,19 @@ $stmt->bind_result($article_id, $title, $created_time, $content, $visible, $cate
 $stmt->fetch();
 
 // 留言
-// $query_RecComment = "SELECT `Blog_comment_content`, `COMMENT_time`, `nickname`, `username` FROM `blog_comment`
-// JOIN `users` 
-// ON blog_comment.user_id = users.id
-// JOIN `blog_article` 
-// ON blog_comment.article_id = blog_article.article_id
-// WHERE id =?";
+$query_RecComment = "SELECT `blog_comment_id`, `Blog_comment_content`, `COMMENT_time`, `nickname`, `username` FROM `blog_comment`
+JOIN `users` 
+ON blog_comment.user_id = users.id
+JOIN `blog_article` 
+ON blog_comment.article_id = blog_article.article_id
+WHERE blog_article.article_id =?";
 
-// $stmt = $db_link->prepare($query_RecComment);
-//  $stmt->bind_param(
-//    "i",  $_GET["sid"]);
-// $stmt->execute();
-// $stmt->bind_result($Blog_comment_content, $COMMENT_time, $nickname, $username);
-// $stmt->fetch();
+$stmt = $pdo->prepare($query_RecComment);
+ //$stmt->bind_param( "i",  $_GET["sid"]);
+$stmt->execute([
+  $_GET["sid"]
+]);
+$comments = $stmt->fetchAll();
 
 ?>
 
@@ -51,10 +51,10 @@ $stmt->fetch();
   </section>
   <!-- 文章顯示卡片 -->
   <div class="card" style="width: 80vw; margin:30px;">
-    <svg class="bd-placeholder-img card-img-top" width="100%" height="180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Image cap" preserveAspectRatio="xMidYMid slice" focusable="false">
+    <!-- <svg class="bd-placeholder-img card-img-top" width="100%" height="180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Image cap" preserveAspectRatio="xMidYMid slice" focusable="false">
       <title>Placeholder</title>
       <rect width="100%" height="100%" fill="#868e96"></rect><text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image cap</text>
-    </svg>
+    </svg> -->
 
     <div class="card-header p-4">
       <h1><?php echo $title; ?></h1>
@@ -90,14 +90,17 @@ $stmt->fetch();
       </div>
     </div>
     <div class="card">
+      <?php foreach ($comments as $r) : ?>
       <div class="card-header">
-        Featured
+      <?= $r['blog_comment_id'] ?>樓
+      <a href="Blog_comment-delete.php?blog_comment_id=<?= $r['blog_comment_id'] ?>
+                            " onclick="return confirm (`確定刪除留言「<?= $r['blog_comment_id'] ?>」?`)" class="btn btn-sm btn-danger">刪除</a>
       </div>
       <div class="card-body">
-        <h5 class="content-title">Special title treatment</h5>
-        <p class="content-text"><?php echo $Blog_comment_content; ?></p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+        <h5 class="content-title"><?= $r['nickname'] ?>：</h5>
+        <p class="content-text"><?= $r['Blog_comment_content'] ?></p>
       </div>
+      <?php endforeach ?>
     </div>
   </div>
 </div>
