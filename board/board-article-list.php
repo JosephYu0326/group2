@@ -29,7 +29,11 @@ $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
 $rows = []; // 預設沒有資料
 $AtotalPages = 0;
 
-
+if($orderby){
+    $ordervar = 'ASC';
+} else {
+    $ordervar = 'DESC';
+}
 
 if ($totalRows) {
     // 總頁數
@@ -39,26 +43,20 @@ if ($totalRows) {
         exit;
     }
 
-    if($orderby){ //升冪
-        $sql = sprintf("SELECT * FROM board_articles
-        LEFT JOIN users ON users.id = board_articles.user_id
-        LEFT JOIN board_photos ON board_articles.board_aid = board_photos.board_article_id
-        ORDER BY board_aid LIMIT %s, %s", ($page - 1) * $perPage, $perPage);
-    } else { //降冪(預設)
-        $sql = sprintf("SELECT * FROM board_articles
-        LEFT JOIN users ON users.id = board_articles.user_id
-        LEFT JOIN board_photos ON board_articles.board_aid = board_photos.board_article_id
-        ORDER BY board_aid DESC LIMIT %s, %s", ($page - 1) * $perPage, $perPage);
-    }
 
-    if($search){ // 搜尋
+    $sql = sprintf("SELECT * FROM board_articles
+    LEFT JOIN users ON users.id = board_articles.user_id
+    LEFT JOIN board_photos ON board_articles.board_aid = board_photos.board_article_id
+    ORDER BY board_aid $ordervar LIMIT %s, %s", ($page - 1) * $perPage, $perPage);
+
+
+    if($search){ // 搜尋     
         $pagevar=($page - 1) * $perPage; // 每頁變數(搜尋用)
         $sql = "SELECT * FROM board_articles
         LEFT JOIN users ON users.id = board_articles.user_id
         LEFT JOIN board_photos ON board_articles.board_aid = board_photos.board_article_id
         WHERE (`content` like '%$search%')
-        ORDER BY board_aid DESC LIMIT $pagevar, $perPage";
-        
+        ORDER BY board_aid $ordervar LIMIT $pagevar, $perPage";
     }
     if ($queryArticle) { //是否從留言板過來
         $sql = "SELECT * FROM board_articles
@@ -97,7 +95,7 @@ $k = $totalRows - ($page - 1) * 5;
                 <nav aria-label="Page navigation example">
                     <ul class="pagination">
                         <li class="page-item <?= $page == 1 ? 'disabled' : '' ?>">
-                            <a class="page-link" href="?page=<?= $page - 1 ?>"><i class="fas fa-arrow-alt-circle-left"></i></a>
+                            <a class="page-link" href="?page=<?= $page - 1 ?>&search=<?=$search?>&order=<?=$orderby?>"><i class="fas fa-arrow-alt-circle-left"></i></a>
                         </li>
 
                         <?php
@@ -120,11 +118,11 @@ $k = $totalRows - ($page - 1) * 5;
 
                         ?>
                                 <li class="page-item <?= $page == $i ? 'active' : '' ?>">
-                                    <a class="page-link" href="?page=<?= $i?>&search=<?=$search?>"><?= $i ?></a>
+                                    <a class="page-link" href="?page=<?= $i?>&search=<?=$search?>&order=<?=$orderby?>"><?= $i ?></a>
                                 </li>
                         <?php endif;
                         endfor; ?>
-                        <li class="page-item <?= $page == $AtotalPages ? 'disabled' : '' ?>"><a class="page-link" href="?page=<?= $page + 1 ?>"><i class="fas fa-arrow-alt-circle-right"></i></a></li>
+                        <li class="page-item <?= $page == $AtotalPages ? 'disabled' : '' ?>"><a class="page-link" href="?page=<?= $page + 1 ?>&search=<?=$search?>&order=<?=$orderby?>"><i class="fas fa-arrow-alt-circle-right"></i></a></li>
                     </ul>
                 </nav>
             </div>
@@ -143,8 +141,8 @@ $k = $totalRows - ($page - 1) * 5;
                     Order
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    <li><a class="dropdown-item" href="board-article-list.php?order=1">Ascending</a></li>
-                    <li><a class="dropdown-item" href="board-article-list.php?order=0">Descending</a></li>
+                    <li><a class="dropdown-item" href="board-article-list.php?order=1&search=<?=$search?>">Ascending</a></li>
+                    <li><a class="dropdown-item" href="board-article-list.php?order=0&search=<?=$search?>">Descending</a></li>
                 </ul>
             </div>
         </div>
