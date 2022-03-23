@@ -1,7 +1,7 @@
 <?php
 $title = 'Add image';
 $pageName = 'Add image';
-require_once '/xampp/htdocs/group2/parts/connect_db.php';
+require_once 'parts/connect_db.php';
 $sid = isset($_GET['Museum_id']) ? intval($_GET['Museum_id']) : 0;
 
 
@@ -19,9 +19,9 @@ $row = $pdo->query($sql1)->fetchAll();
 ?>
 
 
-<?php include __DIR__ . '../../parts/html-head.php'; ?>
+<?php include __DIR__ . '/parts/html-head.php'; ?>
 <?php include __DIR__ . '/parts/navbar.php'; ?>
-<?php include __DIR__ . '../../parts/nav.php'; ?>
+<?php include __DIR__ . '/parts/nav.php'; ?>
 
 <div class="content-wrapper">
     <div class="content">
@@ -74,7 +74,7 @@ $row = $pdo->query($sql1)->fetchAll();
     </div>
 </div>
 
-<?php include __DIR__ . '../../parts/scripts.php'; ?>
+<?php include __DIR__ . '/parts/scripts.php'; ?>
 <script>
     function checkForm() {
 
@@ -120,10 +120,13 @@ $row = $pdo->query($sql1)->fetchAll();
                 for (var i=0; i<total_file; i++){
                     
                     if (obj[i].success && obj[i].filename) {
-                        $('#image_preview').append("<input type='hidden'id='pic"+[i]+"' value = '' name='pic[]'><img src='' alt='' id='myimg"+[i]+"' class = 'img-fluid mb-3 mx-auto d-block' > <br> <input type='hidden' name='Museum_id[]' value='<?= $c["Museum_id"]?>'>")
+                        $('#image_preview').append("<div class='main'><input type='hidden'id='pic"+[i]+"' value = '' name='pic[]'><img src='' alt='' id='myimg"+[i]+"' class = 'img-fluid mb-3 mx-auto d-block' ><button type='button' class ='btn btn-danger delete-image'>刪除圖片</button> <hr><br> <input type='hidden' name='Museum_id[]' value='<?= $c["Museum_id"]?>'></div>")
 
                         $("#"+"myimg"+[i]+"").attr('src', './imgs/'+ obj[i].filename);
                         $("#"+"pic"+[i]+"").attr('value', obj[i].filename);
+                        $(document).on('click', '.delete-image',function(){
+                            $(this).closest('.main').remove();
+                        })
                         // myimg.src = './imgs/' + obj.filename;
                         // pic.value = obj.filename;
                     }
@@ -132,4 +135,4 @@ $row = $pdo->query($sql1)->fetchAll();
     }
     avatar.onchange = sendData;
 </script>
-<?php include __DIR__ . '../../parts/html-foot.php'; ?>
+<?php include __DIR__ . '/parts/html-foot.php'; ?>

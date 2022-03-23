@@ -90,7 +90,7 @@ $row2 = $pdo->query($sql2)->fetchAll();
         }
     }
     function del_it(Museum_ticket_id){
-        if(confirm(`確定要刪除票號為${Museum_ticket_id}的資料嗎?`)){
+        if(confirm(`確定要刪除此資料嗎?`)){
             location.href = 'ticket_delete.php?Museum_ticket_id=' + Museum_ticket_id;
         }
     }

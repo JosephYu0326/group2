@@ -50,7 +50,7 @@ if (empty($row)) {
                             </div>
                             <div class="mb-3">
                                 <label for="password" class="form-label addredstar">Password</label>
-                                <input type="text" class="form-control" id="password" name="password" placeholder="6位數以上(需含大寫字母、小寫字母、數字、符號至少各1)" pattern="^(?=.*[^a-zA-Z0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{6,}$" value="<?php echo strip_tags($row['password']) ?>">
+                                <input type="password" class="form-control" id="password" name="password" placeholder="6位數以上(需含大寫字母、小寫字母、數字、符號至少各1)" pattern="^(?=.*[^a-zA-Z0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{6,}$" value="<?php echo strip_tags($row['password']) ?>">
                                 <div class="form-text"></div>
                             </div>
                             <div class="mb-3">
