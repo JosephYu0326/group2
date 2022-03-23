@@ -1,0 +1,33 @@
+{
+    "name": "ganlvtech/faker-chinese-lorem",
+    "description": "Provide chinese (simplified) lorem to fzaninotto/Faker",
+    "type": "library",
+    "keywords": ["faker", "fixtures", "data", "chinese", "zh_CN", "lorem"],
+    "require": {
+        "php": "^5.3.3 || ^7.0",
+        "ext-mbstring": "*",
+        "fzaninotto/faker": "^1.9"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^4.8.35 || ^5.7",
+        "squizlabs/php_codesniffer": "^1.5",
+        "ext-intl": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "FakerChineseLorem\\": "src/Faker/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "FakerChineseLorem\\Test\\": "test/Faker/"
+        }
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ganlv",
+            "email": "ganlvtech@qq.com"
+        }
+    ]
+}
