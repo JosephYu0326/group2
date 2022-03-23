@@ -1,0 +1,17 @@
+[ON DELETE {CASCADE | SET NULL | NO ACTION | RESTRICT}]
+[ON UPDATE {CASCADE | SET NULL | NO ACTION | RESTRICT}]
+
+參數解釋：
+
+CASCADE - 會將有所關聯的紀錄行也會進行刪除或修改。
+
+SET NULL - 會將有所關聯的紀錄行設定成 NULL。
+
+NO ACTION - 有存在的關聯紀錄行時，會禁止父資料表的刪除或修改動作。
+
+RESTRICT - 與 NO ACTION 相同。
+
+
+isset 的 get 不能有空白建['']
+$Activity_ticket_id = isset($_GET['Activity_ticket_id']) ? intval($_GET['Activity_ticket_id']) : 0;
+
