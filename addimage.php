@@ -120,10 +120,13 @@ $row = $pdo->query($sql1)->fetchAll();
                 for (var i=0; i<total_file; i++){
                     
                     if (obj[i].success && obj[i].filename) {
-                        $('#image_preview').append("<input type='hidden'id='pic"+[i]+"' value = '' name='pic[]'><img src='' alt='' id='myimg"+[i]+"' class = 'img-fluid mb-3 mx-auto d-block' > <br> <input type='hidden' name='Museum_id[]' value='<?= $c["Museum_id"]?>'>")
+                        $('#image_preview').append("<div class='main'><input type='hidden'id='pic"+[i]+"' value = '' name='pic[]'><img src='' alt='' id='myimg"+[i]+"' class = 'img-fluid mb-3 mx-auto d-block' ><button type='button' class ='btn btn-danger delete-image'>刪除圖片</button> <hr><br> <input type='hidden' name='Museum_id[]' value='<?= $c["Museum_id"]?>'></div>")
 
                         $("#"+"myimg"+[i]+"").attr('src', './imgs/'+ obj[i].filename);
                         $("#"+"pic"+[i]+"").attr('value', obj[i].filename);
+                        $(document).on('click', '.delete-image',function(){
+                            $(this).closest('.main').remove();
+                        })
                         // myimg.src = './imgs/' + obj.filename;
                         // pic.value = obj.filename;
                     }

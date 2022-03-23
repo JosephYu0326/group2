@@ -194,7 +194,7 @@ $k=($page-1)*$perPage
 <?php include __DIR__ . '/parts/scripts.php'; ?>
 <script>
     function del_it(Museum_id){
-        if(confirm(`確定要刪除編號為${Museum_id}的資料嗎?`)){
+        if(confirm(`確定要刪除此資料嗎?`)){
             location.href = 'museum_delete.php?Museum_id=' + Museum_id;
         }
     }
