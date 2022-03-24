@@ -118,12 +118,11 @@ $row = $pdo->query($sql1)->fetchAll();
                 console.log(obj);
                 var total_file = document.getElementById("avatar").files.length;
                 for (var i=0; i<total_file; i++){
-                    
                     if (obj[i].success && obj[i].filename) {
-                        $('#image_preview').append("<div class='main'><input type='hidden'id='pic"+[i]+"' value = '' name='pic[]'><img src='' alt='' id='myimg"+[i]+"' class = 'img-fluid mb-3 mx-auto d-block' ><button type='button' class ='btn btn-danger delete-image'>刪除圖片</button> <hr><br> <input type='hidden' name='Museum_id[]' value='<?= $c["Museum_id"]?>'></div>")
+                        $('#image_preview').append("<div class='main'><input type='hidden'id='pic"+[i]+"' value = '"+obj[i].filename+"' name='pic[]'><img src='./imgs/"+ obj[i].filename+"' alt='' id='myimg"+[i]+"' class = 'img-fluid mb-3 mx-auto d-block' ><button type='button' class ='btn btn-danger delete-image'>刪除圖片</button> <hr><br> <input type='hidden' name='Museum_id[]' value='<?= $c["Museum_id"]?>'></div>")
 
-                        $("#"+"myimg"+[i]+"").attr('src', './imgs/'+ obj[i].filename);
-                        $("#"+"pic"+[i]+"").attr('value', obj[i].filename);
+                        // $("#"+"myimg"+[i]+"").attr('src', './imgs/'+ obj[i].filename);
+                        // $("#"+"pic"+[i]+"").attr('value', obj[i].filename);
                         $(document).on('click', '.delete-image',function(){
                             $(this).closest('.main').remove();
                         })
