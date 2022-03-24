@@ -1,7 +1,7 @@
 <?php
 $title = 'Add image';
 $pageName = 'Add image';
-require_once 'parts/connect_db.php';
+require_once '/xampp/htdocs/group2/parts/connect_db.php';
 $sid = isset($_GET['Museum_id']) ? intval($_GET['Museum_id']) : 0;
 
 
@@ -19,9 +19,9 @@ $row = $pdo->query($sql1)->fetchAll();
 ?>
 
 
-<?php include __DIR__ . '/parts/html-head.php'; ?>
+<?php include __DIR__ . '../../parts/html-head.php'; ?>
 <?php include __DIR__ . '/parts/navbar.php'; ?>
-<?php include __DIR__ . '/parts/nav.php'; ?>
+<?php include __DIR__ . '../../parts/nav.php'; ?>
 
 <div class="content-wrapper">
     <div class="content">
@@ -74,7 +74,7 @@ $row = $pdo->query($sql1)->fetchAll();
     </div>
 </div>
 
-<?php include __DIR__ . '/parts/scripts.php'; ?>
+<?php include __DIR__ . '../../parts/scripts.php'; ?>
 <script>
     function checkForm() {
 
@@ -135,4 +135,4 @@ $row = $pdo->query($sql1)->fetchAll();
     }
     avatar.onchange = sendData;
 </script>
-<?php include __DIR__ . '/parts/html-foot.php'; ?>
+<?php include __DIR__ . '../../parts/html-foot.php'; ?>
