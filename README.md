@@ -4,7 +4,7 @@
 
 ## Installation
 #### 1.在xampp/htdocs下git clone
-#### 2.使用phpmyadming匯入team2_0321.sql (資料庫名稱:team2)
+#### 2.使用phpmyadmin匯入team2_0321.sql (資料庫名稱:team2)
 #### 3.網址輸入localhost
 #### 4.點選group2即可運行此專案
 
